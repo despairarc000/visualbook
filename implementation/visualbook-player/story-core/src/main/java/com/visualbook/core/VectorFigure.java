@@ -19,11 +19,11 @@ public final class VectorFigure {
 
     public static final class Part {
         public final String kind;
-        public final float[] coords;
-        // An RGBA color encoded as Android-compatible ARGB int; null = no paint.
+        private final float[] coords;
+        // An ARGB color encoded as Android-compatible int; null = no paint.
         public final Integer fill, stroke;
         public final float strokeWidth;
-        public final String[] operations; // path only: M/L/Q/C/Z, absolute
+        private final String[] operations; // path only: M/L/Q/C/Z, absolute
         private Part(String kind, float[] coords, String[] operations,
                      Integer fill, Integer stroke, float strokeWidth) {
             this.kind = kind;
@@ -33,6 +33,10 @@ public final class VectorFigure {
             this.stroke = stroke;
             this.strokeWidth = strokeWidth;
         }
+        public int coordCount() { return coords.length; }
+        public float coord(int i) { return coords[i]; }
+        public int operationCount() { return operations.length; }
+        public String operation(int i) { return operations[i]; }
     }
 
     public static final class Placement {

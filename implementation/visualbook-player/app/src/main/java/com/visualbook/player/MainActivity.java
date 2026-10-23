@@ -219,6 +219,13 @@ public final class MainActivity extends Activity {
         subtitles.setChecked(true);
         subtitles.setOnCheckedChangeListener((v,checked)->caption.setVisibility(checked?View.VISIBLE:View.GONE));
         voicePane.addView(subtitles);
+        CheckBox gridToggle = new CheckBox(this);
+        gridToggle.setText("Show 0..100 coordinate grid");
+        gridToggle.setChecked(false);
+        gridToggle.setOnCheckedChangeListener((view,checked)-> {
+            if(stage!=null)stage.setCoordinateGridVisible(checked);
+        });
+        voicePane.addView(gridToggle);
         root.addView(voicePane);
 
         stage = new StoryStageView(this);

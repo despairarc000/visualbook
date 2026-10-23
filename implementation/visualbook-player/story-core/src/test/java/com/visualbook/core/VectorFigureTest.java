@@ -33,10 +33,13 @@ public final class VectorFigureTest {
         ok("triangle".equals(f.parts.get(1).kind),"triangle support");
         ok("polygon".equals(f.parts.get(2).kind),"arbitrary polygons supported");
         ok("path".equals(f.parts.get(3).kind),"curved paths supported");
-        ok(f.parts.get(3).operations.length==2,"M and C stored as commands");
+        ok(f.parts.get(3).operationCount()==2,"M and C stored as commands");
         ok(f.parts.get(0).fill.intValue()==0xFFFFE277,"RGB alpha normalized");
         ok(f.parts.get(0).stroke.intValue()==0xFF664489,"stroke normalized");
         ok(f.parts.get(0).strokeWidth==2f,"stroke width as virtual units");
+        ok(f.parts.get(0).coord(0)==77f && f.parts.get(0).coord(1)==56f,
+                "circle controls retain exact local coordinates");
+        ok(f.parts.get(3).operation(1).equals("C"),"cubic segment preserved");
         ok(Math.abs(VectorFigure.fitScale(100,100,360,720)-3.6f)<.0001f,
                 "portrait view fits without distortion");
         ok(Math.abs(VectorFigure.fitScale(100,100,1920,1080)-10.8f)<.0001f,

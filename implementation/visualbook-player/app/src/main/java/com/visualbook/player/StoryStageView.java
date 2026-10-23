@@ -30,6 +30,7 @@ public final class StoryStageView extends View {
     private String background = "classroom", active = "n", visualStyle = "normal";
     private String name1 = "C1", name2 = "C2";
     private boolean speaking = false;
+    private boolean showCoordinateGrid = false;
     private boolean reducedMotion = false;
 
     public StoryStageView(Context context) { super(context); setLayerType(View.LAYER_TYPE_SOFTWARE, null); }
@@ -37,9 +38,10 @@ public final class StoryStageView extends View {
     /** Called only with immutable compiled figure geometry and per-segment visibility snapshots. */
     public void setVectors(Map<String,VectorFigure> definitions,
                            List<VectorFigure.Placement> visible) {
-        vectorDefinitions = definitions==null ? Collections.emptyMap() : definitions;
+        Map<String,VectorFigure> next=definitions==null ? Collections.emptyMap() : definitions;
+        if(vectorDefinitions!=next)pathCache.clear();
+        vectorDefinitions=next;
         visibleVectors = visible==null ? Collections.emptyList() : visible;
-        pathCache.clear();
         invalidate();
     }
     public void setStoryBackground(String id) {
@@ -57,6 +59,10 @@ public final class StoryStageView extends View {
         if (!normalized.equals(visualStyle)) { visualStyle = normalized; invalidate(); }
     }
     public void reduceMotion(boolean reduce) { reducedMotion = reduce; invalidate(); }
+    public void setCoordinateGridVisible(boolean visible) {
+        showCoordinateGrid=visible;
+        invalidate();
+    }
     public void setActorLabels(String c1, String c2) {
         name1 = c1 == null ? "C1" : c1;
         name2 = c2 == null ? "C2" : c2;
@@ -74,6 +80,7 @@ public final class StoryStageView extends View {
         if ("classroom".equals(background)) classroom(canvas, w, h);
         else neutral(canvas, w, h);
         if ("chibi".equals(visualStyle)) chibiAccent(canvas, w, h);
+        if(showCoordinateGrid)drawCoordinateGrid(canvas,w,h);
         drawCustomFigures(canvas, w, h);
 
         float size = Math.min(w * .115f, h * .18f);
@@ -294,6 +301,26 @@ public final class StoryStageView extends View {
     }
 
 
+
+    private void drawCoordinateGrid(Canvas canvas,float w,float h){
+        vectorPaint.setStyle(Paint.Style.STROKE);
+        vectorPaint.setColor(0x50657687);
+        vectorPaint.setStrokeWidth(Math.max(.6f,w/600f));
+        for(int i=0;i<=100;i+=10) {
+            float x=w*i/100f,y=h*i/100f;
+            canvas.drawLine(x,0,x,h,vectorPaint);
+            canvas.drawLine(0,y,w,y,vectorPaint);
+        }
+        vectorPaint.setStyle(Paint.Style.FILL);
+        vectorPaint.setColor(0xEE223344);
+        vectorPaint.setTextSize(Math.max(11f,Math.min(w,h)*.038f));
+        for(int i=0;i<=100;i+=25){
+            float x=w*i/100f,y=h*i/100f;
+            canvas.drawText(Integer.toString(i),Math.min(w-20f,x+2f),
+                    Math.min(h-3f,y+vectorPaint.getTextSize()),vectorPaint);
+        }
+    }
+
     /**
      * Each figure has independent 0..W / 0..H coordinates. Stage transforms map
      * it to left/center/right without reshaping the artwork. No arbitrary code
@@ -322,22 +349,25 @@ public final class StoryStageView extends View {
         Path existing=pathCache.get(part);
         if(existing!=null)return existing;
         Path path=new Path();
-        float[] data=part.coords;
         if("triangle".equals(part.kind)||"polygon".equals(part.kind)){
-            path.moveTo(data[0],data[1]);
-            for(int i=2;i<data.length;i+=2)path.lineTo(data[i],data[i+1]);
+            path.moveTo(part.coord(0),part.coord(1));
+            for(int i=2;i<part.coordCount();i+=2)
+                path.lineTo(part.coord(i),part.coord(i+1));
             path.close();
         } else if("path".equals(part.kind)){
             int at=0;
-            for(String command:part.operations){
+            for(int opIndex=0;opIndex<part.operationCount();opIndex++){
+                String command=part.operation(opIndex);
                 switch(command){
-                    case "M": path.moveTo(data[at++],data[at++]);break;
-                    case "L": path.lineTo(data[at++],data[at++]);break;
+                    case "M": path.moveTo(part.coord(at++),part.coord(at++));break;
+                    case "L": path.lineTo(part.coord(at++),part.coord(at++));break;
                     case "Q":
-                        path.quadTo(data[at],data[at+1],data[at+2],data[at+3]);at+=4;break;
+                        path.quadTo(part.coord(at),part.coord(at+1),
+                                part.coord(at+2),part.coord(at+3));at+=4;break;
                     case "C":
-                        path.cubicTo(data[at],data[at+1],data[at+2],data[at+3],
-                                data[at+4],data[at+5]);at+=6;break;
+                        path.cubicTo(part.coord(at),part.coord(at+1),
+                                part.coord(at+2),part.coord(at+3),
+                                part.coord(at+4),part.coord(at+5));at+=6;break;
                     case "Z":path.close();break;
                     default:break;
                 }
@@ -352,8 +382,8 @@ public final class StoryStageView extends View {
             vectorPaint.setColor(part.fill);
             vectorPaint.setStyle(Paint.Style.FILL);
             vectorPaint.setStrokeWidth(0);
-            if("circle".equals(part.kind))c.drawCircle(part.coords[0],part.coords[1],
-                    part.coords[2],vectorPaint);
+            if("circle".equals(part.kind))c.drawCircle(part.coord(0),part.coord(1),
+                    part.coord(2),vectorPaint);
             else c.drawPath(geometryPath(part),vectorPaint);
         }
         if(part.stroke!=null) {
@@ -362,8 +392,8 @@ public final class StoryStageView extends View {
             vectorPaint.setStrokeWidth(part.strokeWidth);
             vectorPaint.setStrokeJoin(Paint.Join.ROUND);
             vectorPaint.setStrokeCap(Paint.Cap.ROUND);
-            if("circle".equals(part.kind))c.drawCircle(part.coords[0],part.coords[1],
-                    part.coords[2],vectorPaint);
+            if("circle".equals(part.kind))c.drawCircle(part.coord(0),part.coord(1),
+                    part.coord(2),vectorPaint);
             else c.drawPath(geometryPath(part),vectorPaint);
         }
         vectorPaint.setStyle(Paint.Style.FILL);
