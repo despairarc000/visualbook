@@ -1,0 +1,36 @@
+# VisualBook Navigation — repository knowledge map
+
+**Read this after [AGENTS.md](AGENTS.md); the links below are entrypoints, not priority overrides.**
+
+## Quick routes
+
+| Goal | Read these in order |
+|---|---|
+| Understand project | [Idea plan](IDEA_PLAN.md) → [Requirements](knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md) → [Current checkpoint](knowledge-system/vault/checkpoints/CURRENT.md) |
+| Plan next implementation step | [Implementation plan](IMPLEMENTATION_PLAN.md) → [Decision register](knowledge-system/vault/decisions/DECISION_REGISTER.md) → [Phase gates](knowledge-system/vault/plans/PHASE_GATES.md) |
+| Understand authoring | [Authoring design](knowledge-system/vault/design/SCRIPT_AND_COMPILER.md) → [historical v0.3 grammar](knowledge-system/vault/history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md) |
+| Fix timing or playback | [Narration model](knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md) → [historical event contract](knowledge-system/vault/history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md) |
+| Plan art and effects | [Content design](knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md) → [101-ID seed](knowledge-system/vault/history/v0.2/builtin_asset_catalog_seed.json) |
+| Evaluate Tagalog voice | [TTS research](knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md) → [old benchmark plan](knowledge-system/vault/history/v0.3/contracts/06_VOICES_AND_PERFORMANCE.md) |
+| Inspect dependencies | [Graphify index](knowledge-system/graphify/README.md) → [Graph data](knowledge-system/graphify/graph.json) |
+| Agent task context | [ICM router](knowledge-system/icm/README.md) → [routes](knowledge-system/icm/routes.json) → [checkpoint](knowledge-system/vault/checkpoints/CURRENT.md) |
+| Provenance / historical claims | [Evidence register](knowledge-system/vault/evidence/EVIDENCE_REGISTER.md) → [v0.3 research](knowledge-system/vault/history/v0.3/research/01_FINDINGS_AND_SOURCES.md) |
+| New session handoff | [AGENTS.md](AGENTS.md) → [current checkpoint](knowledge-system/vault/checkpoints/CURRENT.md) → [handoff template](knowledge-system/vault/templates/HANDOFF.md) |
+
+## Canonical / historical boundary
+
+- **Canonical live**: `IDEA_PLAN.md`, `IMPLEMENTATION_PLAN.md`, `knowledge-system/vault/{requirements,design,decisions,plans,checkpoints}`.
+- **Historical evidence**: `knowledge-system/vault/history/v0.2` and `v0.3` are *snapshots*; they are not silently promoted to current contracts.
+- **Implementation**: future Android code belongs on a dedicated implementation branch; do not confuse planning prototypes with production-ready functionality.
+
+## Commands
+
+```bash
+python3 knowledge-system/icm/icm.py route authoring
+python3 knowledge-system/icm/icm.py route narration
+python3 knowledge-system/icm/icm.py doctor
+python3 knowledge-system/graphify/graphify.py validate
+python3 tools/doctor.py
+```
+
+If a command is not available in a partial checkout, record that as an environmental limitation.
