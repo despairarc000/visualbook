@@ -39,9 +39,14 @@
         "@c1",
         "@c2m",
         "story.md",
-        "anthology"
+        "anthology",
+        "canonical IR",
+        "v0.4",
+        "intermediate representation"
       ],
       "read": [
+        "schemas/story-ir-v0.4-draft.schema.json",
+        "knowledge-system/vault/design/CANONICAL_IR_V04.md",
         "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md",
         "knowledge-system/vault/history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md",
         "knowledge-system/vault/decisions/DECISION_REGISTER.md",
@@ -64,6 +69,7 @@
         "playback"
       ],
       "read": [
+        "knowledge-system/vault/design/CANONICAL_IR_V04.md",
         "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md",
         "knowledge-system/vault/history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md",
         "knowledge-system/vault/design/MODULE_CONTRACTS.md"
@@ -84,6 +90,7 @@
         "android audio"
       ],
       "read": [
+        "research/experiments/android-audio/EXPERIMENT.md",
         "knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md",
         "knowledge-system/vault/history/v0.3/contracts/06_VOICES_AND_PERFORMANCE.md",
         "knowledge-system/vault/research/OPEN_QUESTIONS.md"
@@ -163,6 +170,7 @@
         "memory"
       ],
       "read": [
+        "research/prototypes/v04/tests/test_story_ir.py",
         "knowledge-system/vault/plans/PHASE_GATES.md",
         "knowledge-system/vault/evidence/EVIDENCE_REGISTER.md",
         "IMPLEMENTATION_PLAN.md",

@@ -39,3 +39,10 @@
 - [ ] Real device tests with logs and exact commit/version.
 
 Never mark an Android feature complete from a Python-only simulation or documentation.
+
+## v0.4 prototype research branch (not Phase 1 completion)
+
+- [ ] Verify v0.4 canonical IR bridge tests in PR CI; draft schema is provisional.
+- [ ] Independently validate v0.4 JSON Schema against generated IR.
+- [ ] Define editing-stable IDs and real source-span behavior.
+- [ ] Implement and test real Android audible progress; current event plan is simulated.

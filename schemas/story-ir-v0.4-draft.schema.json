@@ -1,0 +1,460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/despairarc000/visualbook/blob/main/schemas/story-ir-v0.4-draft.schema.json",
+  "title": "VisualBook canonical IR v0.4 draft (prototype only)",
+  "description": "Structural validation; cross-reference/semantic checks must also run. This is not a finalized production schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "ir_version",
+    "story",
+    "source",
+    "capabilities",
+    "defaults",
+    "characters",
+    "chapters"
+  ],
+  "properties": {
+    "format": {
+      "enum": [
+        "visualbook.story-ir"
+      ]
+    },
+    "ir_version": {
+      "enum": [
+        "0.4-draft"
+      ]
+    },
+    "story": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256",
+        "input_mode",
+        "encoding",
+        "compiler"
+      ],
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "input_mode": {
+          "enum": [
+            "txt",
+            "script"
+          ]
+        },
+        "encoding": {
+          "enum": [
+            "UTF-8"
+          ]
+        },
+        "compiler": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "optional"
+      ],
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "optional": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visual_style",
+        "background_id",
+        "music_policy",
+        "ambience_policy",
+        "subtitles"
+      ],
+      "properties": {
+        "visual_style": {
+          "type": "string",
+          "minLength": 1
+        },
+        "background_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "music_policy": {
+          "enum": [
+            "silent"
+          ]
+        },
+        "ambience_policy": {
+          "enum": [
+            "silent"
+          ]
+        },
+        "subtitles": {
+          "enum": [
+            "available"
+          ]
+        }
+      }
+    },
+    "characters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/character"
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/chapter"
+      }
+    }
+  },
+  "$defs": {
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "display_name",
+        "sex_hint",
+        "implicit",
+        "appearance",
+        "voice_intent"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(n|c[1-9][0-9]*)$"
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sex_hint": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "m",
+            "f",
+            null
+          ]
+        },
+        "implicit": {
+          "type": "boolean"
+        },
+        "appearance": {
+          "$ref": "#/$defs/appearance"
+        },
+        "voice_intent": {
+          "$ref": "#/$defs/voiceIntent"
+        }
+      }
+    },
+    "appearance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logical_id",
+        "accent",
+        "fallback"
+      ],
+      "properties": {
+        "logical_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fallback": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "voiceIntent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "profile",
+        "required_for_visual_playback"
+      ],
+      "properties": {
+        "language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile": {
+          "enum": [
+            "narrator",
+            "character"
+          ]
+        },
+        "required_for_visual_playback": {
+          "type": "boolean"
+        }
+      }
+    },
+    "background": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "logical_id",
+        "fallback_id",
+        "missing_policy"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "background"
+          ]
+        },
+        "logical_id": {
+          "type": "string",
+          "pattern": "^bg\\."
+        },
+        "fallback_id": {
+          "type": "string",
+          "pattern": "^bg\\."
+        },
+        "missing_policy": {
+          "enum": [
+            "procedural-neutral"
+          ]
+        }
+      }
+    },
+    "utterance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "speaker_id",
+        "source_text",
+        "spoken_text",
+        "source_line",
+        "utterances"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speaker_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "spoken_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "utterances": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/utterance"
+          }
+        }
+      }
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "block_id",
+        "edge"
+      ],
+      "properties": {
+        "block_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "edge": {
+          "enum": [
+            "start",
+            "end"
+          ]
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "character_id",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "expression"
+          ]
+        },
+        "character_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "enum": [
+            "neutral",
+            "happy",
+            "sad",
+            "confused",
+            "surprised",
+            "angry",
+            "sleepy",
+            "laughing",
+            "worried"
+          ]
+        }
+      }
+    },
+    "cue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "anchor",
+        "action"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchor": {
+          "$ref": "#/$defs/anchor"
+        },
+        "action": {
+          "$ref": "#/$defs/action"
+        }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visit_id",
+        "logical_id",
+        "background",
+        "blocks",
+        "cues"
+      ],
+      "properties": {
+        "visit_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "logical_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "background": {
+          "$ref": "#/$defs/background"
+        },
+        "blocks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/block"
+          }
+        },
+        "cues": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/cue"
+          }
+        }
+      }
+    },
+    "chapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "scenes"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scenes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/scene"
+          }
+        }
+      }
+    }
+  }
+}

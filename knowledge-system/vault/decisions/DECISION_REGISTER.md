@@ -20,3 +20,6 @@
 | ADR-014 | All missing creative detail has neutral fallback, not invented plot | ACCEPTED | User requirement interpreted conservatively |
 
 **Disagreement protocol:** propose new ADR, cite current authority/evidence, list migration and behavior impact; do not erase old decision without historical trail.
+
+| ADR-015 | Introduce a versioned, strict canonical IR boundary; validate schema and cross-references, but keep 0.4-draft provisional | PROVISIONAL | [IR research](../design/CANONICAL_IR_V04.md); pure Python test evidence is not Android evidence |
+| ADR-016 | IDs reproducible for unchanged source but not stable across edits; bookmarks must invalidate or migrate explicitly | PROVISIONAL | Provisional ordinal IDs; stable content identity and edit migration are open |
