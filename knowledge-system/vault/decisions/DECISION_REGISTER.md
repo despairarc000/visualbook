@@ -28,3 +28,5 @@
 | ADR-018 | Implement a narrow portable script model and sentence-clock state machine before full canonical IR Kotlin port | PROVISIONAL | Distinguish explicit prototype grammar from production 0.4 schema; future migration tests required |
 
 | ADR-019 | Allow authored visual presentation styles to switch mid-story through scoped start/end markers (`@chibi`/`@end`), independent of speaker identity and audible narration cursor | ACCEPTED (PROTOTYPE) | [Scoped style contract](../design/SCOPED_ART_STYLES_V02.md); only normal and chibi implemented |
+
+| ADR-020 | Use independent local vector artboards and normalized stage coordinates, validated data-only figure grammar and uniform meet scaling for AI-authored unusual shapes | ACCEPTED (PROTOTYPE) | [Virtual Canvas Geometry v0.3](../design/VIRTUAL_CANVAS_GEOMETRY_V03.md); phone tests still required |

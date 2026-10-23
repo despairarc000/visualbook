@@ -71,3 +71,35 @@ App ID: `com.visualbook.player.styles.v02`, installed side-by-side with v0.1 to 
 ## v0.2 verified build
 
 [Verified scoped art style build record](BUILD_EVIDENCE_STYLES_V02_2026-10-24.md): PR #11 merged, 42 pure Java assertions passed, Android APK compiled and archive inspected; separate v0.2 app. On-device chibi rendering remains to be tested.
+
+## v0.3: Virtual vector artboards — experimental
+
+The story can now supply a custom self-contained figure with a virtual coordinate system independent of physical screen pixels. Sample included in the built-in Juan/Pedro demo:
+
+```text
+@figure spirit 100x100
+triangle 11,84 49,8 88,84 fill:#8465B9 stroke:#5A357B width:2
+circle 77 56 11 fill:#F6D16B stroke:#714A95 width:2
+path M 15 64 C 20 14 59 26 74 18 stroke:#F7E2B3 width:3
+@endfigure
+@show spirit center
+@n
+Isang mahiwagang nilalang ang lumitaw.
+@hide spirit
+```
+
+The shape definition is built once at compile time and `@show`/`@hide` persist across speaker turns. Each immutable utterance records the visible figure IDs and slots (left/center/right), and Android Canvas displays each figure using uniform aspect ratio-preserving scaling. Geometry is sandboxed, non-executable data: **circle**, **triangle**, **polygon** (3..32 points), **path** with absolute M/L/Q/C/Z, 6/8-hex colors, stroke width, bounded artboards (16..1024), up to 64 primitives per figure, at most 8 definitions and 4 simultaneously visible. No network or files needed. Shapes are validated and clipped to their own artboard.
+
+`@figure` blocks and show/hide cues are NOT narration. Their effects are applied to the next speech segment at an actual TTS audible start; a future silent-cue timeline needs a separate clock. Existing `@chibi` and `@end` remain style-only and unchanged. Import remains UTF-8 text/annotated markdown, and untagged plain TXT is literal.
+
+**Limitations:** global figure placement slot only, no nested groups/transforms/rigged animation, image assets, 3D, external SVG import, anti-overlap scene layout or per-figure style transformation yet. Source is not a general unconstrained natural-language-to-image model. Figure content must be explicitly authored in geometric instructions by a human or AI. New app ID `com.visualbook.player.canvas.v03`, installed alongside prior apps.
+
+### Precise stage coordinates
+
+Figures have TWO independent coordinate systems. The figure itself can be drawn on its local `100x100` artboard. To place that entire figure on the story stage, the stage also exposes a normalized `100x100` coordinate space, independent of phone resolution:
+
+```text
+@show spirit at:77,56 width:27
+```
+
+This places the *center* of the figure at stage (77,56), reserving 27% of the stage width, preserving its own aspect ratio. Preset `left/center/right` remains the easy mode. Geometry must be authored as data, not Java or executable code. No arbitrary pixel assumptions, no unnatural stretching. Some placement can clip at stage edges deliberately; automatic occlusion avoidance is still future work.

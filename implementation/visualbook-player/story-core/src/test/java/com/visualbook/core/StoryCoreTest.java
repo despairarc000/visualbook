@@ -67,6 +67,46 @@ public final class StoryCoreTest {
         for(int i=0;i<9;i++)deeply.append("@chibi\n");
         deeply.append("Hi.");
         error(deeply.toString());
+        String figureScript =
+              "@figure wyrm 100x100\n" +
+              "triangle 10,80 45,10 88,80 fill:#7657A2\n" +
+              "circle 77 56 10 fill:#FFE277 stroke:#664489 width:2\n" +
+              "path M 10 40 C 25 0 65 100 90 40 stroke:#663399 width:2\n" +
+              "@endfigure\n" +
+              "@show wyrm right\n" +
+              "@n A creature appeared.\n" +
+              "@chibi\n@c3 Maganda!\n@end\n" +
+              "@hide wyrm\n@c1 Nawala na.";
+        StoryCore.Story drawn = parse(figureScript,true);
+        ok(drawn.figures.size()==1, "figure definition compiled as data");
+        ok(drawn.figures.get("wyrm").parts.size()==3, "three real geometry primitives");
+        ok(drawn.segments.size()==3, "art directives are silent");
+        ok(drawn.segments.get(0).visibleFigures.size()==1 &&
+                "right".equals(drawn.segments.get(0).visibleFigures.get(0).slot),
+                "show persists into next audible unit");
+        ok(drawn.segments.get(1).visibleFigures.size()==1 &&
+                "chibi".equals(drawn.segments.get(1).artStyle),
+                "styles and figures coexist with c3 speaker");
+        ok(drawn.segments.get(2).visibleFigures.isEmpty(), "hide removes later visibility");
+        ok(drawn.cast.contains("c3"), "geometry doesn't restrict implicit speakers");
+        StoryCore.Story precise = parse(figureScript.replace("@show wyrm right",
+            "@show wyrm at:77,56 width:27"),true);
+        VectorFigure.Placement located=precise.segments.get(0).visibleFigures.get(0);
+        ok("at".equals(located.slot) && located.stageX==77f &&
+           located.stageY==56f && located.widthPercent==27f,
+           "custom 100x100 stage coordinates preserve exact AI placement");
+        error(figureScript.replace("@show wyrm right","@show wyrm at:NaN,56 width:27"));
+        error(figureScript.replace("@show wyrm right","@show wyrm at:77,120 width:27"));
+        error(figureScript.replace("@show wyrm right","@show wyrm at:77,56 width:0"));
+        error(figureScript.replace("@show wyrm right","@show wyrm at:77 width:20"));
+        StoryCore.Story textOnly = parse(figureScript,false);
+        ok(textOnly.figures.isEmpty(), "plain TXT never executes figure directives");
+        error("@show unknown\n@n Test.");
+        error("@figure x 100x100\ncircle 20 20 6 fill:#ffffff\n@n Hello.");
+        error("@figure x 100x100\ncircle 20 20 6 fill:#ffffff\n@endfigure\n@show x away\n@n Hi");
+        error("@figure x 100x100\ncircle 140 20 6 fill:#ffffff\n@endfigure\n@n Hi");
+        error("@figure x 100x100\nunknown 20 20 fill:#ffffff\n@endfigure\n@n Hi");
+        error("@figure x 100x100\ntriangle 2,20 5,10 70,70 fill:#ffffff\n@endfigure\n@figure x 100x100\ncircle 10 10 4 fill:#fffccc\n@endfigure\n@n Hi");
         PlaybackState state = new PlaybackState(cast.segments);
         String first = state.begin();
         ok(state.index() == 0 && !state.isSpeaking(), "queued is not audible");

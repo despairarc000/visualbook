@@ -352,6 +352,27 @@
       "kind": "design",
       "status": "PROVISIONAL",
       "path": "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md"
+    },
+    {
+      "id": "vector-geometry-core",
+      "label": "Immutable validated vector artboard and path commands",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/VectorFigure.java"
+    },
+    {
+      "id": "vector-geometry-tests",
+      "label": "Virtual coordinate and malicious input regression",
+      "kind": "evidence",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/VectorFigureTest.java"
+    },
+    {
+      "id": "vector-geometry-contract",
+      "label": "Two coordinate systems and AI authored figure grammar v0.3",
+      "kind": "design",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md"
     }
   ],
   "edges": [
@@ -719,6 +740,31 @@
       "from": "android-first-player",
       "to": "scoped-art-styles-v02",
       "type": "depends_on"
+    },
+    {
+      "from": "android-first-player",
+      "to": "vector-geometry-core",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-procedural-stage",
+      "to": "vector-geometry-core",
+      "type": "depends_on"
+    },
+    {
+      "from": "vector-geometry-tests",
+      "to": "vector-geometry-core",
+      "type": "tests"
+    },
+    {
+      "from": "vector-geometry-contract",
+      "to": "vector-geometry-core",
+      "type": "documents"
+    },
+    {
+      "from": "vector-geometry-contract",
+      "to": "android-procedural-stage",
+      "type": "documents"
     }
   ]
 }

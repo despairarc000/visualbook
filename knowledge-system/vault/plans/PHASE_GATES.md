@@ -149,3 +149,13 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] [APK SHA-256 and side-by-side app ID](../../../implementation/visualbook-player/BUILD_EVIDENCE_STYLES_V02_2026-10-24.md) recorded.
 - [ ] Real SM-A066B confirms chibi style visibly starts/ends where intended.
 - [ ] Scale up style registry for per-character changes and consistent facing/pose/rig support.
+
+## Virtual coordinate render control — v0.3 (2026-10-24)
+
+- [x] Define figure-local `100x100` virtual artboard and normalized 100×100 stage placement, independent of real screen pixels. [Design contract](../design/VIRTUAL_CANVAS_GEOMETRY_V03.md).
+- [x] Implement bounded circle, triangle, polygon, M/L/Q/C/Z vector primitives and deterministic fill/stroke geometry.
+- [x] Implement `@figure`/`@endfigure`, `@show`/`@hide` as silent instructions; snapshot visibility per upcoming spoken utterance; stage toggle grid for visual coordinate inspection.
+- [ ] Confirm pure Java regression tests, Android Gradle build, knowledge doctor and APK hash on latest branch.
+- [ ] User verifies precise at:77,56 placement on SM-A066B, style coexistence and valid error reporting.
+- [ ] Add transform hierarchy and reusable shape part pivots for detailed AI-authored creatures.
+- [ ] Generalize automatic staging, imported image fallback and non-audible cue timeline in later architecture.

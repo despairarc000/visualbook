@@ -10,6 +10,11 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.SystemClock;
 import android.view.View;
+import com.visualbook.core.VectorFigure;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.IdentityHashMap;
 
 /**
  * Deliberately procedural first content kit:
@@ -18,13 +23,27 @@ import android.view.View;
  */
 public final class StoryStageView extends View {
     private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint vectorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Map<VectorFigure.Part, Path> pathCache = new IdentityHashMap<>();
+    private Map<String,VectorFigure> vectorDefinitions=Collections.emptyMap();
+    private List<VectorFigure.Placement> visibleVectors=Collections.emptyList();
     private String background = "classroom", active = "n", visualStyle = "normal";
     private String name1 = "C1", name2 = "C2";
     private boolean speaking = false;
+    private boolean showCoordinateGrid = false;
     private boolean reducedMotion = false;
 
     public StoryStageView(Context context) { super(context); setLayerType(View.LAYER_TYPE_SOFTWARE, null); }
 
+    /** Called only with immutable compiled figure geometry and per-segment visibility snapshots. */
+    public void setVectors(Map<String,VectorFigure> definitions,
+                           List<VectorFigure.Placement> visible) {
+        Map<String,VectorFigure> next=definitions==null ? Collections.emptyMap() : definitions;
+        if(vectorDefinitions!=next)pathCache.clear();
+        vectorDefinitions=next;
+        visibleVectors = visible==null ? Collections.emptyList() : visible;
+        invalidate();
+    }
     public void setStoryBackground(String id) {
         background = "neutral".equals(id) ? "neutral" : "classroom";
         invalidate();
@@ -40,6 +59,10 @@ public final class StoryStageView extends View {
         if (!normalized.equals(visualStyle)) { visualStyle = normalized; invalidate(); }
     }
     public void reduceMotion(boolean reduce) { reducedMotion = reduce; invalidate(); }
+    public void setCoordinateGridVisible(boolean visible) {
+        showCoordinateGrid=visible;
+        invalidate();
+    }
     public void setActorLabels(String c1, String c2) {
         name1 = c1 == null ? "C1" : c1;
         name2 = c2 == null ? "C2" : c2;
@@ -57,6 +80,8 @@ public final class StoryStageView extends View {
         if ("classroom".equals(background)) classroom(canvas, w, h);
         else neutral(canvas, w, h);
         if ("chibi".equals(visualStyle)) chibiAccent(canvas, w, h);
+        if(showCoordinateGrid)drawCoordinateGrid(canvas,w,h);
+        drawCustomFigures(canvas, w, h);
 
         float size = Math.min(w * .115f, h * .18f);
         size = Math.max(16f, size);
@@ -273,6 +298,105 @@ public final class StoryStageView extends View {
         c.drawCircle(w*.82f,h*.43f,w*.13f,p);
         p.setColor(0x22ECA9BE);
         c.drawCircle(w*.52f,h*.17f,w*.10f,p);
+    }
+
+
+
+    private void drawCoordinateGrid(Canvas canvas,float w,float h){
+        vectorPaint.setStyle(Paint.Style.STROKE);
+        vectorPaint.setColor(0x50657687);
+        vectorPaint.setStrokeWidth(Math.max(.6f,w/600f));
+        for(int i=0;i<=100;i+=10) {
+            float x=w*i/100f,y=h*i/100f;
+            canvas.drawLine(x,0,x,h,vectorPaint);
+            canvas.drawLine(0,y,w,y,vectorPaint);
+        }
+        vectorPaint.setStyle(Paint.Style.FILL);
+        vectorPaint.setColor(0xEE223344);
+        vectorPaint.setTextSize(Math.max(11f,Math.min(w,h)*.038f));
+        for(int i=0;i<=100;i+=25){
+            float x=w*i/100f,y=h*i/100f;
+            canvas.drawText(Integer.toString(i),Math.min(w-20f,x+2f),
+                    Math.min(h-3f,y+vectorPaint.getTextSize()),vectorPaint);
+        }
+    }
+
+    /**
+     * Each figure has independent 0..W / 0..H coordinates. Stage transforms map
+     * it to left/center/right without reshaping the artwork. No arbitrary code
+     * or SVG/XML parser executes in the Android drawing pipeline.
+     */
+    private void drawCustomFigures(Canvas canvas, float width, float height) {
+        for (VectorFigure.Placement placement : visibleVectors) {
+            VectorFigure fig=vectorDefinitions.get(placement.figureId);
+            if(fig==null)continue;
+            float centerX=width*placement.stageX/100f;
+            float centerY=height*placement.stageY/100f;
+            float allottedWidth=width*placement.widthPercent/100f;
+            float allottedHeight=height*.43f;
+            float scale=VectorFigure.fitScale(fig.width,fig.height,allottedWidth,allottedHeight);
+            float drawWidth=fig.width*scale,drawHeight=fig.height*scale;
+            canvas.save();
+            canvas.translate(centerX-drawWidth*.5f,centerY-drawHeight*.5f);
+            canvas.scale(scale,scale);
+            canvas.clipRect(0,0,fig.width,fig.height);
+            for(VectorFigure.Part part:fig.parts)drawPart(canvas,part);
+            canvas.restore();
+        }
+    }
+
+    private Path geometryPath(VectorFigure.Part part) {
+        Path existing=pathCache.get(part);
+        if(existing!=null)return existing;
+        Path path=new Path();
+        if("triangle".equals(part.kind)||"polygon".equals(part.kind)){
+            path.moveTo(part.coord(0),part.coord(1));
+            for(int i=2;i<part.coordCount();i+=2)
+                path.lineTo(part.coord(i),part.coord(i+1));
+            path.close();
+        } else if("path".equals(part.kind)){
+            int at=0;
+            for(int opIndex=0;opIndex<part.operationCount();opIndex++){
+                String command=part.operation(opIndex);
+                switch(command){
+                    case "M": path.moveTo(part.coord(at++),part.coord(at++));break;
+                    case "L": path.lineTo(part.coord(at++),part.coord(at++));break;
+                    case "Q":
+                        path.quadTo(part.coord(at),part.coord(at+1),
+                                part.coord(at+2),part.coord(at+3));at+=4;break;
+                    case "C":
+                        path.cubicTo(part.coord(at),part.coord(at+1),
+                                part.coord(at+2),part.coord(at+3),
+                                part.coord(at+4),part.coord(at+5));at+=6;break;
+                    case "Z":path.close();break;
+                    default:break;
+                }
+            }
+        }
+        pathCache.put(part,path);
+        return path;
+    }
+
+    private void drawPart(Canvas c,VectorFigure.Part part) {
+        if(part.fill!=null) {
+            vectorPaint.setColor(part.fill);
+            vectorPaint.setStyle(Paint.Style.FILL);
+            vectorPaint.setStrokeWidth(0);
+            if("circle".equals(part.kind))c.drawCircle(part.coord(0),part.coord(1),
+                    part.coord(2),vectorPaint);
+            else c.drawPath(geometryPath(part),vectorPaint);
+        }
+        if(part.stroke!=null) {
+            vectorPaint.setColor(part.stroke);
+            vectorPaint.setStyle(Paint.Style.STROKE);
+            vectorPaint.setStrokeWidth(part.strokeWidth);
+            vectorPaint.setStrokeJoin(Paint.Join.ROUND);
+            vectorPaint.setStrokeCap(Paint.Cap.ROUND);
+            if("circle".equals(part.kind))c.drawCircle(part.coord(0),part.coord(1),
+                    part.coord(2),vectorPaint);
+            else c.drawPath(geometryPath(part),vectorPaint);
+        }
+        vectorPaint.setStyle(Paint.Style.FILL);
     }
 
     private void rect(Canvas c, float l, float t, float r, float b, int color) {

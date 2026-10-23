@@ -46,6 +46,7 @@
         "intermediate representation"
       ],
       "read": [
+        "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
         "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/StoryCore.java",
         "schemas/story-ir-v0.4-draft.schema.json",
@@ -161,9 +162,18 @@
         "art style",
         "style scope",
         "@end",
-        "style block"
+        "style block",
+        "artboard",
+        "100x100",
+        "vector geometry",
+        "Bézier",
+        "shape canvas",
+        "render control",
+        "@figure",
+        "coordinates"
       ],
       "read": [
+        "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
         "implementation/visualbook-player/app/src/main/java/com/visualbook/player/StoryStageView.java",
         "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md",
@@ -203,6 +213,7 @@
         "memory"
       ],
       "read": [
+        "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
         "implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/StoryCoreTest.java",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md",
