@@ -90,6 +90,8 @@
         "android audio"
       ],
       "read": [
+        "research/experiments/android-audio/probe/README.md",
+        "research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md",
         "research/experiments/android-audio/EXPERIMENT.md",
         "knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md",
         "knowledge-system/vault/history/v0.3/contracts/06_VOICES_AND_PERFORMANCE.md",

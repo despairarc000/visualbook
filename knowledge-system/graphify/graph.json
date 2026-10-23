@@ -261,6 +261,20 @@
       "kind": "document",
       "status": "PROVISIONAL",
       "path": "research/experiments/android-audio/EXPERIMENT.md"
+    },
+    {
+      "id": "android-tts-probe",
+      "label": "Android TTS callback and media-file diagnostic app (CI build verified, device not tested)",
+      "kind": "module",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/probe/README.md"
+    },
+    {
+      "id": "android-probe-evidence",
+      "label": "Build-only verified evidence (no device results)",
+      "kind": "evidence",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md"
     }
   ],
   "edges": [
@@ -503,6 +517,21 @@
       "from": "canonical-ir-draft",
       "to": "event-reducer",
       "type": "feeds"
+    },
+    {
+      "from": "android-tts-probe",
+      "to": "tts-backend",
+      "type": "tests"
+    },
+    {
+      "from": "android-tts-probe",
+      "to": "narration-player",
+      "type": "tests"
+    },
+    {
+      "from": "android-probe-evidence",
+      "to": "android-tts-probe",
+      "type": "documents"
     }
   ]
 }

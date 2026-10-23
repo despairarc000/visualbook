@@ -42,7 +42,17 @@ Never mark an Android feature complete from a Python-only simulation or document
 
 ## v0.4 prototype research branch (not Phase 1 completion)
 
-- [ ] Verify v0.4 canonical IR bridge tests in PR CI; draft schema is provisional.
-- [ ] Independently validate v0.4 JSON Schema against generated IR.
+- [x] v0.4 canonical IR bridge tests pass in PR/main CI; draft schema still provisional.
+- [x] Independently validate v0.4 JSON Schema against generated IR (Python jsonschema in CI).
 - [ ] Define editing-stable IDs and real source-span behavior.
 - [ ] Implement and test real Android audible progress; current event plan is simulated.
+
+## Android TTS probe subgate (2026-10-24)
+
+- [x] Research Android Java TTS diagnostic compiles; GitHub Action run [40019414406](https://github.com/despairarc000/visualbook/actions/runs/40019414406).
+- [x] A debug APK was published as a temporary CI artifact; [build evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md).
+- [ ] Install on actual low-memory device and obtain offline voice inventory, logs and human listenability results.
+- [ ] Compare live and prepared audio segment gaps with reproducible recordings/timing, not only callback printouts.
+- [ ] Validate Media3 service/audio focus and concurrent visual renderer memory budget.
+
+**Important:** this build does not satisfy the Phase 2 audio feasibility gate.
