@@ -95,3 +95,9 @@ The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15.
 ## Samsung voice settings screenshots (2026-10-24)
 
 The user supplied Samsung TTS settings screenshots: v`3.5.02.16` marked latest, visible voices **English (India), English (US; selected), Hindi (India)**. No Filipino and no Install voice data control visible on that page. Separate Settings search routes Text-to-speech through TalkBack settings. [Documented observations and next safe path](../../../research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md). These visuals strengthen the missing-ready-data hypothesis but **do not** establish the cause of Android `-7 ERROR_NETWORK_TIMEOUT`. Next compare Google Speech Recognition & Synthesis via system-wide Preferred engine selection and validate actual `fil-PH` offline playback. Do not reset app data or enable TalkBack unnecessarily.
+
+## Selected Filipino voices now synthesize successfully on SM-A066B (2026-10-24)
+
+[Fresh five-voice device report](../../../research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md) supersedes the earlier impression that Filipino TTS never works: 3 named local `fil-PH` variants completed full 3-sentence LIVE runs, a 4th generated/played a complete prepared clip, and generic `fil-PH-language` produced audible-start/range callbacks before user cancellation. All 5 `setVoice` results match `getVoice`. Prior `-7` failure remains historical true evidence; *cause of improvement unknown*.
+
+**Important:** user says they used Google's offline settings, but probe still reports `default_engine=com.samsung.SMT`; `getDefaultEngine()` is a default-preference report and not a direct bound-engine attestation. Do not claim the 5 variants belong to Google. Next: explicit-provider A/B audition, offline airplane-mode proof, user ratings of voice timbre/prosody, then cast voice profiles. Generic visual asset kit can proceed independently.

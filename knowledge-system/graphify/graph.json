@@ -303,6 +303,13 @@
       "kind": "evidence",
       "status": "VERIFIED-TEST",
       "path": "research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md"
+    },
+    {
+      "id": "five-filipino-voice-success",
+      "label": "SM-A066B five Filipino profiles synthesized; engine identity open",
+      "kind": "evidence",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md"
     }
   ],
   "edges": [
@@ -599,6 +606,16 @@
     {
       "from": "samsung-tts-settings-screenshot",
       "to": "samsung-filipino-synthesis-timeout",
+      "type": "documents"
+    },
+    {
+      "from": "five-filipino-voice-success",
+      "to": "voice-resolver",
+      "type": "tests"
+    },
+    {
+      "from": "five-filipino-voice-success",
+      "to": "voice-open",
       "type": "documents"
     }
   ]
