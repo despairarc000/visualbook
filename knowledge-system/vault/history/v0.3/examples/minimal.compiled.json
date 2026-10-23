@@ -1,0 +1,85 @@
+{
+  "format": "story-ir-prototype/0.3",
+  "characters": [
+    {
+      "id": "n",
+      "name": "Narrator",
+      "sex": null,
+      "implicit": true
+    },
+    {
+      "id": "c1",
+      "name": "c1",
+      "sex": "m",
+      "implicit": true
+    },
+    {
+      "id": "c2",
+      "name": "c2",
+      "sex": "m",
+      "implicit": true
+    }
+  ],
+  "scenes": [
+    {
+      "id": "default",
+      "instance": 1,
+      "background": "bg.neutral",
+      "blocks": [
+        {
+          "id": "b00001",
+          "speaker": "n",
+          "text": "Isang araw, nagkita sina Juan at Pedro.",
+          "spoken_text": "Isang araw, nagkita sina Juan at Pedro.",
+          "line": 2,
+          "segments": [
+            {
+              "id": "b00001.u1",
+              "text": "Isang araw, nagkita sina Juan at Pedro."
+            }
+          ]
+        },
+        {
+          "id": "b00002",
+          "speaker": "c1",
+          "text": "Pedro, kumusta ka?",
+          "spoken_text": "Pedro, kumusta ka?",
+          "line": 5,
+          "segments": [
+            {
+              "id": "b00002.u1",
+              "text": "Pedro, kumusta ka?"
+            }
+          ]
+        },
+        {
+          "id": "b00003",
+          "speaker": "c2",
+          "text": "Ayos lang, Juan!",
+          "spoken_text": "Ayos lang, Juan!",
+          "line": 8,
+          "segments": [
+            {
+              "id": "b00003.u1",
+              "text": "Ayos lang, Juan!"
+            }
+          ]
+        }
+      ],
+      "cues": [
+        {
+          "id": "cue.l10",
+          "action": "expression",
+          "character": "c1",
+          "value": "happy",
+          "line": 10,
+          "anchor": {
+            "block": "b00003",
+            "edge": "end"
+          }
+        }
+      ]
+    }
+  ],
+  "diagnostics": []
+}

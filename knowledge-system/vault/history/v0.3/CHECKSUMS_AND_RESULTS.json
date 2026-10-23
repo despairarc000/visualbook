@@ -1,0 +1,22 @@
+{
+  "version": "0.3",
+  "date": "2026-10-23",
+  "source": "Original research archive manifest, retained as provenance; some source files manually transferred to GitHub and byte-identical hashes not yet verified against manifest",
+  "fileCount": 25,
+  "verification": {
+    "testsPassed": 29,
+    "assetCatalogIds": 101,
+    "fallbackUnknown": 0,
+    "fallbackCycles": 0,
+    "mediaBinariesIncluded": 0
+  },
+  "originalSourceSha256": {
+    "prototype/storytool.py": "1ed5e52843a1569ec0e72ecad8fe6fb24ebc50cceb321ae93da11dee1e2f5624",
+    "prototype/fake_playback.py": "5018935687b157979dc8634c045b25271328b01d13bd6f462ffdfa9221b48a0f",
+    "tests/test_storytool.py": "fa4883be4005c7e49ae519573fbd6a50f5476e6709b23a1397c4f08ab930e201",
+    "tests/test_fake_playback.py": "34d4bb60596b91607ee819aff057455ef462d0aff96babfaa465f1af1a2d7d50",
+    "research/TAGALOG_TTS_TEST_CORPUS.tsv": "14295e22633c2c0d6a58bd7d35b1566371bedb3cac7ed85a5c17eb555a9446bb",
+    "examples/minimal.compiled.json": "5da2b7ff62a381521b0f1e9eac4c2454fbbddaeeb4e1c474569211df5d5d6fe8",
+    "examples/juan_pedro.compiled.json": "14dd68cc21650e3a97169f84e9b4fe0b2a95d8fa0108a74729fa6d15a0b73c1e"
+  }
+}

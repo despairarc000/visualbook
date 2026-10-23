@@ -1,0 +1,119 @@
+{
+  "format": "story-ir-prototype/0.3",
+  "characters": [
+    {
+      "id": "n",
+      "name": "Narrator",
+      "sex": null,
+      "implicit": true
+    },
+    {
+      "id": "c1",
+      "name": "Juan",
+      "sex": "m",
+      "implicit": false
+    },
+    {
+      "id": "c2",
+      "name": "Pedro",
+      "sex": "m",
+      "implicit": false
+    }
+  ],
+  "scenes": [
+    {
+      "id": "classroom",
+      "instance": 1,
+      "background": "bg.school.classroom",
+      "blocks": [
+        {
+          "id": "b00001",
+          "speaker": "n",
+          "text": "Isang umaga, pumasok si Juan sa silid-aralan. Nakita niyang natutulog si Pedro.",
+          "spoken_text": "Isang umaga, pumasok si Juan sa silid-aralan. Nakita niyang natutulog si Pedro.",
+          "line": 7,
+          "segments": [
+            {
+              "id": "b00001.u1",
+              "text": "Isang umaga, pumasok si Juan sa silid-aralan."
+            },
+            {
+              "id": "b00001.u2",
+              "text": "Nakita niyang natutulog si Pedro."
+            }
+          ]
+        },
+        {
+          "id": "b00002",
+          "speaker": "c1",
+          "text": "Pedro, bakit hindi ka pumasok kahapon?",
+          "spoken_text": "Pedro, bakit hindi ka pumasok kahapon?",
+          "line": 10,
+          "segments": [
+            {
+              "id": "b00002.u1",
+              "text": "Pedro, bakit hindi ka pumasok kahapon?"
+            }
+          ]
+        },
+        {
+          "id": "b00003",
+          "speaker": "c2",
+          "text": "Kasi Linggo kahapon!",
+          "spoken_text": "Kasi Linggo kahapon!",
+          "line": 13,
+          "segments": [
+            {
+              "id": "b00003.u1",
+              "text": "Kasi Linggo kahapon!"
+            }
+          ]
+        },
+        {
+          "id": "b00004",
+          "speaker": "c1",
+          "text": "Ah, oo nga pala!",
+          "spoken_text": "Ah, oo nga pala!",
+          "line": 18,
+          "segments": [
+            {
+              "id": "b00004.u1",
+              "text": "Ah, oo nga pala!"
+            }
+          ]
+        },
+        {
+          "id": "b00005",
+          "speaker": "n",
+          "text": "Napakamot si Juan sa ulo. Napatawa si Pedro nang malakas.",
+          "spoken_text": "Napakamot si Juan sa ulo. Napatawa si Pedro nang malakas.",
+          "line": 21,
+          "segments": [
+            {
+              "id": "b00005.u1",
+              "text": "Napakamot si Juan sa ulo."
+            },
+            {
+              "id": "b00005.u2",
+              "text": "Napatawa si Pedro nang malakas."
+            }
+          ]
+        }
+      ],
+      "cues": [
+        {
+          "id": "cue.l15",
+          "action": "expression",
+          "character": "c1",
+          "value": "confused",
+          "line": 15,
+          "anchor": {
+            "block": "b00003",
+            "edge": "end"
+          }
+        }
+      ]
+    }
+  ],
+  "diagnostics": []
+}
