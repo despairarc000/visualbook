@@ -282,6 +282,13 @@
       "kind": "evidence",
       "status": "VERIFIED-TEST",
       "path": "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md"
+    },
+    {
+      "id": "tts-v02-samsung-stress",
+      "label": "Samsung v0.2 stress test successful report, Filipino voice still English",
+      "kind": "evidence",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md"
     }
   ],
   "edges": [
@@ -549,6 +556,16 @@
       "from": "tts-device-freeze-report",
       "to": "narration-player",
       "type": "tests"
+    },
+    {
+      "from": "tts-v02-samsung-stress",
+      "to": "android-tts-probe",
+      "type": "tests"
+    },
+    {
+      "from": "tts-v02-samsung-stress",
+      "to": "voice-open",
+      "type": "documents"
     }
   ]
 }

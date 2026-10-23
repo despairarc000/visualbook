@@ -63,3 +63,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] Build v0.2 independent Android APK + record exact binary checksum in [evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_V02_2026-10-24.md).
 - [ ] Re-test rapid Stop → Live / Stop → Prep switching on SM-A066B Android 15.
 - [ ] If UI freeze persists, capture a main-thread/IPC stack or Perfetto trace to isolate cause.
+
+## Latest v0.2 device evidence and next voice gate
+
+- [x] Samsung SM-A066B (Android 15) rapid live/prepared/stop switching retested with v0.2; user reported "Smooth" and operation log showed no new stress-interval UI stalls. [Evidence](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md).
+- [ ] Root cause of v0.1 freeze isolated via ANR/Perfetto or controlled A/B tests; successful v0.2 mitigation alone cannot prove individual culprit.
+- [ ] Explicitly select each compatible non-network `fil-PH` voice and test in airplane mode; record best and failures.
+- [ ] Audition segmentation prosody and measure actual gaps with synthesized audio/recordings, not callback differences alone.

@@ -69,3 +69,11 @@ The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15.
 - PR [#3](https://github.com/despairarc000/visualbook/pull/3) **merged** at `ac19c138f6f2e81d823cdad83dbccb3bdbf05cea`; build [40025942636](https://github.com/despairarc000/visualbook/actions/runs/40025942636) and knowledge [40025942618](https://github.com/despairarc000/visualbook/actions/runs/40025942618) both successful.
 - Fix under test: serial HandlerThread TTS/MediaPlayer cleanup/commands, safe generation tokens, throttled log UI, heartbeat/operation timings, invalid range rejection. New application ID `com.visualbook.ttsprobe.v2` for side-by-side v0.1 comparison.
 - **OPEN:** user has not run v0.2 on Samsung phone; freeze fix is a candidate, not a proven solution. No selected offline Tagalog voice or fully rendered VisualBook app yet.
+
+## v0.2 real-device regression PASSED in reported scenario (2026-10-24)
+
+- User tested v0.2 on Samsung SM-A066B (Android 15) under repeated LIVE/PREP/STOP switching; reported **"Smooth"**, with continued audio command completion and no new UI heartbeat-gap warnings during stress sequence.
+- [Detailed verified-observation report](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md) captures timings, voice inventory and limits. This is device evidence, not a controlled multi-device/ANR root-cause study.
+- Critical discovery: engine reported `fil-PH=1`, `tl-PH=-2` and 4+ advertised non-network Filipino voice variants, yet **active voice remained `en-US-language`**. Offline Tagalog speech quality was never tested by selecting local `fil-PH` voice.
+- New research branch `research/tagalog-offline-voice-comparison` adds separate v0.3 Android APK experiment. It explicitly selects and confirms Filipino voices, cycles each through live or prepared audio and logs actual selected/observed IDs. On-device v0.3 tests OPEN.
+- Next: real airplane-mode Tagalog pronunciation audition of local voices, then determine if system TTS suffices or external licensed offline neural models are needed. In parallel define initial generic character/background/prop/effect package contract.

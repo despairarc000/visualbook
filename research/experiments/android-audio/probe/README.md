@@ -26,7 +26,7 @@ Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android pac
 ## Device protocol
 
 1. Open the app on a real Android device (preferably Android 15 + low-memory phone).
-2. Enable airplane mode, then test all five controls: list voices, live sequence, prepared sequence, stop during speech, share report.
+2. Enable airplane mode, then test the available controls: list voices, live sequence, prepared sequence, stop during speech, share report.
 3. Do not take successful initialization as confirmation of Tagalog voice quality. A default English voice can synthesize Tagalog text poorly.
 4. Listen for audible discontinuities, record approximate audible differences, and report actual installed voice name / locale / network-required flag.
 5. Repeat on a second available device, then repeat with airplane mode off only if consented.
@@ -34,7 +34,7 @@ Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android pac
 
 ## Known limitations
 
-The live callback is close to audio playback but not guaranteed sample-accurate. Prepared-file TTS callbacks are about file writes, not audible sound. Voice selection is opportunistic: first advertised offline \`fil\`/\`tl\` voice if available; if none, the chosen default remains and may not be Tagalog-capable.
+The live callback is close to audio playback but not guaranteed sample-accurate. Prepared-file TTS callbacks are about file writes, not audible sound. Voice selection is explicit via the two Filipino comparison buttons; if no offline candidates are advertised, the original active voice is retained. Advertised offline voices can still fail if local voice data is missing.
 
 The experiment currently probes *one* prepared utterance and *three* live utterances; it is not a full 30-phrase or p95 latency benchmark. It also does not test Media3 background service, audio focus, process recovery or rendered visuals. Those remain future experiments.
 
