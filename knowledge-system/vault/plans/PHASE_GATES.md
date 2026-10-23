@@ -77,3 +77,11 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Test actual selected offline `fil-PH` voice on Samsung phone with airplane mode enabled, listen and rank.
 - [ ] Decide whether native local TTS meets first-release minimum, or a separately licensed packaged offline neural voice is required.
 - [ ] Freeze first generic asset-kit contract and resume implementation vertical slice after testing audio on the intended device.
+
+## Samsung Filipino voice selection outcome (v0.3)
+
+- [x] Actual `fil-PH` voice selected (two candidate names) and effective voice verified on SM-A066B.
+- [x] Observe error codes from live and file synthesis with a selected Filipino voice: repeated `ERROR_NETWORK_TIMEOUT=-7`, even for voices advertising `requiresNetwork=false`. [Evidence](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md).
+- [ ] Determine whether missing/unfinished local voice-pack download is involved; record actual installation state.
+- [ ] Reproduce/resolve Filipino synthesis with Samsung voice data installed, or compare Google TTS engine using same corpus.
+- [ ] Prove usable speech **in airplane mode** and rank Tagalog prosody before selecting a production default.

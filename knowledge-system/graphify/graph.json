@@ -289,6 +289,13 @@
       "kind": "evidence",
       "status": "VERIFIED-TEST",
       "path": "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md"
+    },
+    {
+      "id": "samsung-filipino-synthesis-timeout",
+      "label": "Selected Samsung Filipino local voices fail with ERROR_NETWORK_TIMEOUT -7",
+      "kind": "evidence",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md"
     }
   ],
   "edges": [
@@ -564,6 +571,16 @@
     },
     {
       "from": "tts-v02-samsung-stress",
+      "to": "voice-open",
+      "type": "documents"
+    },
+    {
+      "from": "samsung-filipino-synthesis-timeout",
+      "to": "tts-backend",
+      "type": "tests"
+    },
+    {
+      "from": "samsung-filipino-synthesis-timeout",
       "to": "voice-open",
       "type": "documents"
     }
