@@ -48,3 +48,9 @@ For a definitive provider A/B test, enumerate installed engines via `tts.getEngi
 5. Only then define default VisualBook voice profile and per-character presets. Visual system work can proceed in parallel.
 
 Prior report: [v0.3 timeout trace](DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md). This is a **new real-device success**, not proof of distributable voices or final narration quality.
+
+## Human listening feedback (additional user report, 2026-10-24)
+
+After hearing the candidate voices, the user answered **"Kinda different, no same"** when asked whether `cfc`, `fic`, `fid`, and `fie` sound like different people or mostly the same voice. Interpret conservatively: **the voice outputs are perceptibly different to the listener, though the degree of difference was not rated**. Do not claim any particular male/female presentation, identity, age, expressive range, or naturalness score from this qualitative report.
+
+This provides initial user validation of **audible variety for a multi-character cast**, stronger than merely distinct API voice IDs. It does NOT establish stable differences across phones, actual engine identity, quality of pronunciation, rights to redistribute voices, or offline operation when disconnected. Future audition: play equal sample texts at matched rate/pitch without switching mid-utterance, rank clarity/naturalness, and assign voices to narrator/characters through an independent VoiceProfile table instead of hardcoded `@c1` genders.

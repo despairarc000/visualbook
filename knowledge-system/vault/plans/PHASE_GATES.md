@@ -99,3 +99,9 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Identify actual bound TTS engine; current log only reports `getDefaultEngine=com.samsung.SMT`, despite user's statement about Google offline TTS.
 - [ ] Complete offline airplane-mode playback (document connectivity) and human audition for each voice candidate.
 - [ ] Decide voice defaults and stable cast `characterId→voiceProfile` contract from acoustic evidence, not just voice IDs.
+
+## First subjective voice diversity signal
+
+- [x] Listener reports voices are **somewhat different** rather than identical on SM-A066B in current probe.
+- [ ] Score equal-text samples for actual voice distinction, Filipino pronunciation and character suitability; no automatic male/female assignment.
+- [ ] Verify stable selected provider and true airplane-mode playback before marking production voice gate completed.

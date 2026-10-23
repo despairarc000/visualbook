@@ -45,3 +45,5 @@
 - **EV-019:** [SM-A066B Samsung TTS Settings screenshots distilled](../../../research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md). Visible installed/configurable voice list only English (India), English (US), Hindi (India), Samsung TTS v3.5.02.16; no Filipino entry or Install voice data on that screenshot. No original screenshot binary committed to avoid unrelated app-name disclosure.
 
 - **EV-020:** [SM-A066B Filipino 5-profile synthesis success](../../../research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md). Three full LIVE runs across `fic/fid/fie`, one PREP clip `cfc`, generic `fil-PH-language` partial callbacks; earlier failures `-7` now absent from this excerpt. Unknown actual TTS provider, offline mode, human-perceived voice differences/quality.
+
+- **EV-021:** [Qualitative voice-distinctness feedback](../../../research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md): user says `cfc/fic/fid/fie` voices are "Kinda different, no same"; perceptible difference only; no scored quality, gender classification or guaranteed provider/offline claim.
