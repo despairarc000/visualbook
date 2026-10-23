@@ -1,5 +1,5 @@
 """Pure fake-audio narrative reducer for Phase-1 model contract experiments.
-Does not play audio; intentionally ensures "prepared" is not a narrative trigger.
+Does not play audio; intentionally ensures `prepared` is not a narrative trigger.
 """
 from __future__ import annotations
 
