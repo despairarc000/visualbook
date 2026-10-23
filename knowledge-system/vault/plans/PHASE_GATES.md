@@ -132,3 +132,12 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Record screenshot and test exact audible speech/animation sync per actor, pause/stop/skip, imported plain TXT and complex scripts.
 - [ ] Decide persistent scene-presence defaults for `c3+` (enter on first turn vs speaking-only) and test multiple actors in responsive layouts.
 - [ ] Continue voice-provider/offline portability and memory tests independently of successful rendering.
+
+## Mid-story scoped visual style — v0.2 prototype (2026-10-24)
+
+- [x] Code author-friendly `@chibi` and `@end`, generalized `@style` override with stack restoration.
+- [x] Code actual different procedural chibi renderer, preserving background, implicit speakers and TTS audible clock.
+- [x] Add parser regression assertions: nested scopes, speaker switch within style, plain TXT literal tags, malformed/unbalanced styles.
+- [ ] Record passing final CI pure Java and Android APK build, exact SHA-256 and app ID.
+- [ ] Verify on device that chibi really looks different, is readable, and reverts at the right narration boundary.
+- [ ] Design style-family asset compatibility contract and rig state transfer for future anime/comic/storybook style packs.

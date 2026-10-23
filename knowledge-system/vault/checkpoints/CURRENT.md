@@ -125,3 +125,11 @@ This is a **build-verified prototype**, not a real-device verified multimedia ap
 The user installed/tried the first VisualBook story player and reported **"Nice, it works"**. They created an `@c3` speaking character; the stage generated a visible guest only during that turn, removing it afterward. This is concrete **real-device visual behavior**, beyond CI compilation, with limited coverage. [Device acceptance record](../../../implementation/visualbook-player/DEVICE_TEST_V01_FIRST_SUCCESS_2026-10-24.md).
 
 **Known scoped rendering behavior:** `c1/c2` are permanently staged; `c3+` only render as active guest, not persistent scene participants. This is a valid provisional MVP; follow-up architecture must separate character identity, stage presence and active speaker before adding entrance/exit and arbitrary cast staging. Do not claim full voice/audio/video quality or all controls validated by this report. Next validation: screenshot + explicit TTS interaction, then improve default character presence and scalable layouts.
+
+## Temporary mid-story art style scopes — v0.2 implementation (2026-10-24)
+
+User requested simple PHP-like start/end markers to switch styles mid-story, especially an anime-style normal→chibi→normal gag. Experimental Android branch `feature/scoped-art-styles-v02` introduces `@chibi` / `@end` (and `@style chibi|normal|cartoon` / `@end`), nested restore stack with validation, immutable per-speech-segment `artStyle`, and a **genuinely different procedural chibi character renderer**. Audio cursor still advances only on valid TTS audible completion; style is applied at audible start. Dedicated v0.2 package `com.visualbook.player.styles.v02` preserves user's v0.1 app.
+
+[Full scoped-style contract](../design/SCOPED_ART_STYLES_V02.md) · [prototype README](../../../implementation/visualbook-player/README.md).
+
+**Evidence gate:** source implemented, pure Java parser tests augmented; Android compile and user phone playback must be confirmed separately. No claim of multiple custom asset pack systems; chibi and normal are the only implemented visual modes. Next user test should include style nested with `@c3`.

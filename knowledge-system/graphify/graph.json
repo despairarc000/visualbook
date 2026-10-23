@@ -345,6 +345,13 @@
       "kind": "evidence",
       "status": "PROVISIONAL",
       "path": "implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/StoryCoreTest.java"
+    },
+    {
+      "id": "scoped-art-styles-v02",
+      "label": "Scoped art style markers and effective visual style on utterances",
+      "kind": "design",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md"
     }
   ],
   "edges": [
@@ -697,6 +704,21 @@
       "from": "first-story-tests",
       "to": "playback-state-java",
       "type": "tests"
+    },
+    {
+      "from": "scoped-art-styles-v02",
+      "to": "story-core-java",
+      "type": "documents"
+    },
+    {
+      "from": "scoped-art-styles-v02",
+      "to": "android-procedural-stage",
+      "type": "documents"
+    },
+    {
+      "from": "android-first-player",
+      "to": "scoped-art-styles-v02",
+      "type": "depends_on"
     }
   ]
 }
