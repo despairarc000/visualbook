@@ -1,0 +1,18 @@
+# Local/editor tooling (documentation main branch)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.log
+*.tmp
+
+# Android build output on implementation branches
+.gradle/
+build/
+**/build/
+local.properties
+*.apk
+*.aab
