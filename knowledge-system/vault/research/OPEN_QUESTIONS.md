@@ -22,3 +22,9 @@ Research results belong in dedicated evidence reports with source, access date, 
 ## Evidence-led update (2026-10-24)
 
 The Samsung v0.2 command switch behavior is now empirically acceptable in one reported stress scenario, but this does not close ANR root cause in general. The next immediate unanswered question is whether advertised `fil-PH` non-network voices actually synthesize natural, intelligible Filipino **with airplane mode enabled** and are suitable for distribution on other devices. See [latest Samsung evidence](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md). Optional voice model selection remains provisional.
+
+## Filipino timeout narrowing (2026-10-24)
+
+- Why does Samsung TTS `com.samsung.SMT` emit **`ERROR_NETWORK_TIMEOUT=-7`** for selected `fil-PH` voices labelled `requiresNetwork=false`? First exclude incomplete voice pack download; remaining 3 local candidates and optional Google TTS still untested.
+- Is there a truly offline pre-installed `fil-PH` synthesis path after downloading an official package? Test with airplane mode, selected effective voice and audible user rating, not only `getVoices` inventory.
+- Should VisualBook cache `VoiceAvailability` outcome per engine/version/locale/voice, invalidated when model installs/engine changes? Proposed yes; define retry policy and deterministic failure callbacks.

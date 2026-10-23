@@ -39,3 +39,5 @@
 - **EV-016:** [Samsung SM-A066B TTS Probe v0.2 successful stress test](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md), user states "Smooth" after repeated live/prepared/stop switching. One startup UI gap; no recurring gap under stress. No proof of voice quality or root-cause isolation.
 
 - **EV-017:** [v0.3 Android Filipino voice probe compiled](../../../research/experiments/android-audio/BUILD_EVIDENCE_V03_2026-10-24.md), [CI build](https://github.com/despairarc000/visualbook/actions/runs/40027370638). APK archive inspected; no phone-based v0.3 result yet.
+
+- **EV-018:** [SM-A066B TTS Probe v0.3 Filipino synthesis failures](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md): actual Samsung TTS engine `com.samsung.SMT`, two confirmed local `fil-PH` voice selections, live/prepared errors -7 approximately two seconds after queue; English baseline works. Root cause of timeouts and true offline voice availability OPEN.

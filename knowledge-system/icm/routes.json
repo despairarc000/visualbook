@@ -90,9 +90,14 @@
         "android audio",
         "fil-PH",
         "local Filipino",
-        "voice comparison"
+        "voice comparison",
+        "network timeout",
+        "ERROR_NETWORK_TIMEOUT",
+        "Samsung TTS",
+        "voice data"
       ],
       "read": [
+        "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md",
         "research/experiments/android-audio/probe/README.md",

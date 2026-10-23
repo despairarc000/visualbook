@@ -56,3 +56,7 @@ The v0.2 APK installs as a **separate application**, not an update to v0.1; use 
 6. Share logs, subjective results and whether airplane mode was active. A voice may advertise local capability but still fail synthesis if data is missing.
 
 **No actual file/audio model is bundled, no cloud access permission in the app.** This still does not prove high-quality bundled offline Tagalog on a fresh phone; it examines installed TTS engines only.
+
+## Samsung v0.3 voice failure discovery
+
+On SM-A066B Android 15, first two local advertised Filipino voice names **selected successfully** but synthesis failed with **`onError -7`**, confirmed Android `ERROR_NETWORK_TIMEOUT` (NOT `-9 ERROR_NOT_INSTALLED_YET`). See [detailed device report](../DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md). Before changing engines, inspect Settings → General management → Text-to-speech → Samsung preferred-engine gear → Install voice data. If Filipino is available, install with an appropriate connection, and then retry in airplane mode. If Samsung still fails, change preferred TTS engine to Google's if installed, restart this probe and compare. Voice-data installation is an unverified hypothesis; source language availability and `setVoice SUCCESS` are not production proof.

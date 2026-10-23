@@ -84,3 +84,10 @@ The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15.
 - Unique Android application ID `com.visualbook.ttsprobe.v3` for side-by-side installation. Adds explicit local Filipino voice selection by `tts.setVoice` and `getVoice` confirmation before live/prepared playback.
 - **OPEN:** no v0.3 airplane-mode voice auditions on device yet. No model selected, voice quality unproven.
 - Immediately after usable speech evidence: build minimal generic content kit (neutral/classroom backgrounds + two distinct characters + captions + simple fade) and the first Android compiled-script-to-renderer vertical slice. Avoid endless diagnostic app expansion.
+
+## Filipino voice synthesis timeout on real SM-A066B (2026-10-24)
+
+- v0.3 on Samsung TTS `com.samsung.SMT` confirmed `fil-PH` advertised local voices and successful `setVoice()`, **but Filipino live and prepared synthesis failed with `onError -7` (~2s network timeout each)**. Baseline active `en-US-language` live and prepared tests worked. [Exact observation and interpretation](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md).
+- Official Android constant: `-7 ERROR_NETWORK_TIMEOUT`, **not** missing voice data (`-9 ERROR_NOT_INSTALLED_YET`). Missing/undownloaded Filipino data remains a hypothesis. Real airplane-mode setting not stated.
+- Next gate: check Samsung **Install voice data → Filipino** if available, compare all local voices and try Google TTS engine/voice, then verify offline actual speech. Keep voice provider and asset plans independent.
+- Architectural correction: voice inventory + `setVoice SUCCESS` **cannot qualify a voice as ready**. Require synthesis/playback capability probes, explicit failure states and safe text-only fallback without silently using English.
