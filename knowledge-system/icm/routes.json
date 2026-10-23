@@ -23,7 +23,8 @@
         "IDEA_PLAN.md",
         "IMPLEMENTATION_PLAN.md",
         "knowledge-system/vault/INDEX.md",
-        "knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md"
+        "knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md",
+        "implementation/visualbook-player/README.md"
       ],
       "scope": "What VisualBook is, current verified state and roadmap"
     },
@@ -45,6 +46,7 @@
         "intermediate representation"
       ],
       "read": [
+        "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/StoryCore.java",
         "schemas/story-ir-v0.4-draft.schema.json",
         "knowledge-system/vault/design/CANONICAL_IR_V04.md",
         "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md",
@@ -69,6 +71,7 @@
         "playback"
       ],
       "read": [
+        "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/PlaybackState.java",
         "knowledge-system/vault/design/CANONICAL_IR_V04.md",
         "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md",
         "knowledge-system/vault/history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md",
@@ -155,6 +158,7 @@
         "animation"
       ],
       "read": [
+        "implementation/visualbook-player/app/src/main/java/com/visualbook/player/StoryStageView.java",
         "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md",
         "knowledge-system/vault/design/MODULE_CONTRACTS.md",
         "knowledge-system/vault/research/OPEN_QUESTIONS.md"
@@ -192,6 +196,7 @@
         "memory"
       ],
       "read": [
+        "implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/StoryCoreTest.java",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md",
         "research/prototypes/v04/tests/test_story_ir.py",
         "knowledge-system/vault/plans/PHASE_GATES.md",

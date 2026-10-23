@@ -310,6 +310,41 @@
       "kind": "evidence",
       "status": "VERIFIED-TEST",
       "path": "research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md"
+    },
+    {
+      "id": "story-core-java",
+      "label": "Minimal portable actual Java script compiler",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/StoryCore.java"
+    },
+    {
+      "id": "playback-state-java",
+      "label": "Generation-safe audio boundary cursor",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/PlaybackState.java"
+    },
+    {
+      "id": "android-first-player",
+      "label": "Android narrated first story screen",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/app/src/main/java/com/visualbook/player/MainActivity.java"
+    },
+    {
+      "id": "android-procedural-stage",
+      "label": "Android 2D procedural generic classroom and cast",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/app/src/main/java/com/visualbook/player/StoryStageView.java"
+    },
+    {
+      "id": "first-story-tests",
+      "label": "Pure Java story parser and cursor tests",
+      "kind": "evidence",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/StoryCoreTest.java"
     }
   ],
   "edges": [
@@ -617,6 +652,51 @@
       "from": "five-filipino-voice-success",
       "to": "voice-open",
       "type": "documents"
+    },
+    {
+      "from": "android-first-player",
+      "to": "story-core-java",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-first-player",
+      "to": "playback-state-java",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-first-player",
+      "to": "android-procedural-stage",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-first-player",
+      "to": "tts-backend",
+      "type": "depends_on"
+    },
+    {
+      "from": "story-core-java",
+      "to": "script-source",
+      "type": "depends_on"
+    },
+    {
+      "from": "playback-state-java",
+      "to": "narration-cursor",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-procedural-stage",
+      "to": "renderer",
+      "type": "documents"
+    },
+    {
+      "from": "first-story-tests",
+      "to": "story-core-java",
+      "type": "tests"
+    },
+    {
+      "from": "first-story-tests",
+      "to": "playback-state-java",
+      "type": "tests"
     }
   ]
 }

@@ -105,3 +105,11 @@ The user supplied Samsung TTS settings screenshots: v`3.5.02.16` marked latest, 
 ## Voice variety — first perceptual report (2026-10-24)
 
 User reports the Filipino voices sound **somewhat different rather than identical**. Logged in [voice evidence](../../../research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md). This supports pursuing selectable voice profiles for separate characters, but timbre/gender, naturalness, engine identity and airplane-mode feasibility remain unverified. Resume next with **simple narrator + two actor voice picker**, initial generic asset layout and player vertical slice, not more speculative voice-engine development.
+
+## First runnable story player implementation branch (2026-10-24)
+
+Branch `implementation/first-animated-story` introduces a **narrow Android vertical slice**: Java pure `StoryCore` parser + generation-safe `PlaybackState`, procedural responsive classroom + two actor silhouettes (guest fallback), TXT/`.story.md` Android document import, editable built-in Juan/Pedro story, voice selectors for narrator/c1/c2, subtitle UI, and live TTS audible-boundary animation. Explicitly no script execution, asset downloads, model bundling or external network permission.
+
+[Source & scope](../../../implementation/visualbook-player/README.md) · [CI APK workflow](../../../.github/workflows/visualbook-player-build.yml).
+
+**Do not mistake it for the finalized canonical IR v0.4 or a production player.** Initial prototype only supports `@n`, `@cNm`, `@cNf`, `@bg classroom/neutral`; no scene packages, sound packs, true pause-at-position, multi-scene transitions, saved progress or real device validation. It retains sex hints without making gendered voice assumptions. No real Android installation test has been performed on this new player yet. Next: confirm CI and download APK, test TTS boundaries and visual legibility on SM-A066B, then iterate on actual issues.

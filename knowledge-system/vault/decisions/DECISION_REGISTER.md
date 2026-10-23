@@ -23,3 +23,6 @@
 
 | ADR-015 | Introduce a versioned, strict canonical IR boundary; validate schema and cross-references, but keep 0.4-draft provisional | PROVISIONAL | [IR research](../design/CANONICAL_IR_V04.md); pure Python test evidence is not Android evidence |
 | ADR-016 | IDs reproducible for unchanged source but not stable across edits; bookmarks must invalidate or migrate explicitly | PROVISIONAL | Provisional ordinal IDs; stable content identity and edit migration are open |
+
+| ADR-017 | Test first Android vertical slice with platform Canvas + procedural generic assets, without locking final renderer | PROVISIONAL | [Runnable story player source](../../../implementation/visualbook-player/README.md); real-device readability/performance to measure |
+| ADR-018 | Implement a narrow portable script model and sentence-clock state machine before full canonical IR Kotlin port | PROVISIONAL | Distinguish explicit prototype grammar from production 0.4 schema; future migration tests required |

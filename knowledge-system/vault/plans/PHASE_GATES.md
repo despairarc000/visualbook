@@ -105,3 +105,16 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] Listener reports voices are **somewhat different** rather than identical on SM-A066B in current probe.
 - [ ] Score equal-text samples for actual voice distinction, Filipino pronunciation and character suitability; no automatic male/female assignment.
 - [ ] Verify stable selected provider and true airplane-mode playback before marking production voice gate completed.
+
+## First animated story vertical slice v0.1 (prototype, 2026-10-24)
+
+- [x] Code portable script grammar, sentence segmentation and generation-safe cursor with main-method test harness.
+- [x] Code procedural classroom/neutral stage, narrator/character active visuals, mouth animation with subordinate frame clock, and native caption display.
+- [x] Code three selectable voice profiles without inferring from `m/f`, story edit and text-only import via Android SAF.
+- [ ] Confirm latest GitHub Actions pure-core tests and `assembleDebug` both pass on final branch commit; record APK hash.
+- [ ] Install APK on Samsung SM-A066B, check default Juan/Pedro scene, screen dimensions and state transitions.
+- [ ] Confirm TTS onStart/onDone updates visuals only when corresponding spoken utterance is audible, not on pre-generation.
+- [ ] Test pause/resume sentence restart, Stop, manual Skip, voice errors, malformed scripts, orientation/process recreation and memory.
+- [ ] Upgrade to shared canonical IR, multi-scene support, prepared-audio clock, real character rig/asset pack and Media3 background session in later phases.
+
+**Note:** Android debug build is not equivalent to a passed on-device playback test.
