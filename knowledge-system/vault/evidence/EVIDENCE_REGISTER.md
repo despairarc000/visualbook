@@ -51,3 +51,5 @@
 - **EV-022:** [First actual story player prototype source](../../../implementation/visualbook-player/README.md), [Android CI workflow](../../../.github/workflows/visualbook-player-build.yml). Pure Java story compiler and playback cursor have executable tests; Android Java UI and procedural stage implemented on feature branch. Compile/runtime status must be reported from CI; **no physical-device or audio-visual synchronization measurement yet**.
 
 - **EV-023:** [First VisualBook animated story Android build and binary checksum](../../../implementation/visualbook-player/BUILD_EVIDENCE_V01_2026-10-24.md). PR #9 merged; 26 pure Java assertions, Android Gradle build and knowledge validation all passed. **No phone install/visual-audio behavior tested yet**.
+
+- **EV-024:** [First VisualBook player installed and exercised by user](../../../implementation/visualbook-player/DEVICE_TEST_V01_FIRST_SUCCESS_2026-10-24.md). User reports "Nice, it works" and `@c3` implicitly appears only during its spoken turn, then disappears. Real device visual success for dynamic guest, not full audio-sync or performance validation.

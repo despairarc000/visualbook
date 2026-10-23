@@ -124,3 +124,11 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] Final v0.1 Android app and 26 pure Java tests compiled successfully in [Actions 40032106784](https://github.com/despairarc000/visualbook/actions/runs/40032106784); see [APK evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_V01_2026-10-24.md).
 - [x] [Knowledge CI](https://github.com/despairarc000/visualbook/actions/runs/40032106812) passed; PR #9 merged.
 - [ ] Physical device v0.1 gameplay/audio/render/rotation/voice acceptance. A verified **build** is not verified story narration.
+
+## First device player feedback — milestone (2026-10-24)
+
+- [x] First Android story player executed on target user's device, user reports functioning.
+- [x] Implicit extra speaker `@c3` produces a visible generic guest without needing declared assets; user verified turn-limited appearance.
+- [ ] Record screenshot and test exact audible speech/animation sync per actor, pause/stop/skip, imported plain TXT and complex scripts.
+- [ ] Decide persistent scene-presence defaults for `c3+` (enter on first turn vs speaking-only) and test multiple actors in responsive layouts.
+- [ ] Continue voice-provider/offline portability and memory tests independently of successful rendering.
