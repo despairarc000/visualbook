@@ -1,0 +1,31 @@
+id	category	text	goal
+01	greeting	Magandang umaga, Juan! Kumusta ka na?	Natural greeting and question
+02	casual	Pedro, bakit hindi ka pumasok kahapon?	Dialogue question intonation
+03	punchline	Kasi Linggo kahapon!	Punchline delivery and emphasis
+04	honorifics	Si Gng. Reyes at si Dr. Santos ay nasa klinika.	Do not split at title abbreviations
+05	numbers	May 1,250 piso siya, pero 3.14 na lang ang natira.	Number normalization and decimals
+06	taglish	Uy, may online class tayo bukas, check mo ang schedule.	Code-switching pronunciation
+07	emotional	Ha? Totoo ba 'yan? Hindi ako makapaniwala!	Surprise, pauses and exclamation
+08	whispered_intent	Mahina niyang sinabi, huwag kang maingay.	Optional whisper direction, not literal claim
+09	long_sentence	Isang umaga, nagpunta si Juan sa paaralan at nagulat nang makita niya si Pedro na nakaupo sa tapat ng silid-aralan habang hawak ang isang napakalaking aklat.	Breath groups and long sentence
+10	colon	Sinabi ni Juan: Kumusta ka na, kaibigan?	Colon phrase boundary
+11	quotes	Sabi ni Pedro, "Hindi ko alam!" at bigla siyang tumawa.	Quoted speech handling
+12	ellipsis	Sandali... teka... saan napunta ang bag ko?	Ellipses and hesitation
+13	punctuation	Ano?! Bakit naman ganoon?!	Compound punctuation
+14	abbreviation	Bumili ako ng lapis, papel, atbp. sa tindahan.	Abbreviation recognition
+15	names	Sina Juana, Juanito, at Pedro ay magkakaibigan.	Local names
+16	place	Nanggaling sila sa Cebu at nagpunta sa Maynila.	Philippine place names
+17	money	Tatlong daan at limampung piso ang bayad.	Money lexical form
+18	date	Sa ika-23 ng Oktubre, nagsimula ang kuwento.	Date phrasing
+19	expression	Napakamot si Juan sa ulo. Napangiti si Pedro.	Two sentence boundary
+20	question	Bakit kaya tumatawa ang guro?	Question rise
+21	taglish2	Sabi niya, "Wait, may assignment pa pala!"	English insertion in Filipino sentence
+22	negation	Hindi iyon ang sinabi ko. Hindi talaga!	Negation emphasis
+23	male_female	Si Pedro ay sumagot. Si Maria naman ay natawa.	Multiple character consistency
+24	paragraph_end	Doon nagtapos ang kanilang kakaibang araw.	Narrative closure
+25	double_quote	"Hoy, Pedro!" sigaw ni Juan.	Speech quotation wrapper
+26	high_punctuation	Talaga? Oo! Hindi? Ay, ewan!	Short utterance prosody
+27	letter_initial	Si A. Cruz at si B. Santos ay dumating.	Initial handling
+28	device	I-off mo muna ang Wi-Fi para offline ang app.	Technical Filipino/English code-switching
+29	whitespace	Isa itong maikling pangungusap.	Baseline short chunk
+30	long_word	Nakakapagpabagabag ang hindi pagkakaunawaan.	Long Tagalog morphology

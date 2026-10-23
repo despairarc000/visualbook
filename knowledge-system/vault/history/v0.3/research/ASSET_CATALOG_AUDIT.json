@@ -1,0 +1,8 @@
+{
+  "entries": 101,
+  "uniqueIds": 101,
+  "missingFallbackReferences": 0,
+  "cyclesDetected": 0,
+  "entriesWithBinaries": 0,
+  "notes": "Metadata graph validation only; does NOT prove executable resource resolution or licensed media availability."
+}

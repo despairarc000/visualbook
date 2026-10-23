@@ -20,3 +20,5 @@ jobs:
         run: python3 tools/doctor.py
       - name: Run knowledge unit tests
         run: python3 -m unittest discover -s tools/tests -v
+      - name: Reproduce archived v0.3 compiler and fake playback tests
+        run: python3 -m unittest discover -s knowledge-system/vault/history/v0.3/tests -v
