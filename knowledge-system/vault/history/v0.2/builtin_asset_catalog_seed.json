@@ -1,0 +1,1504 @@
+{
+  "catalogVersion": "0.2-DRAFT",
+  "description": "Planned generic content IDs only. None of the artwork or sounds exist in this archive.",
+  "styleId": "storybook-flat-v1",
+  "defaultBackground": "bg.neutral",
+  "defaultCharacter": "char.generic.neutral",
+  "entries": [
+    {
+      "id": "bg.neutral",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "safe",
+        "unspecified"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "bg.abstract",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "gradient",
+        "abstract"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ]
+    },
+    {
+      "id": "bg.school.classroom",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "school",
+        "interior"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.school.hallway",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "school",
+        "interior"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.home.living",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "home",
+        "interior"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.home.kitchen",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "home",
+        "interior"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.home.bedroom",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "home",
+        "sleep"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.outdoor.street",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "street",
+        "town"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.outdoor.plaza",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "barangay",
+        "community"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.commerce.market",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "shopping",
+        "market"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.work.office",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "office",
+        "work"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.nature.park",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "park",
+        "nature"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.nature.countryside",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "province",
+        "nature"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.travel.roadside",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "road",
+        "travel"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.service.clinic",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "clinic",
+        "interior"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ],
+      "variants": [
+        "day",
+        "night"
+      ]
+    },
+    {
+      "id": "bg.abstract.dream",
+      "kind": "background",
+      "role": "scene-rear",
+      "tags": [
+        "dream",
+        "mystery"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "bg.neutral"
+      ]
+    },
+    {
+      "id": "char.generic.neutral",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "neutral",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.generic.masculine",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "masculine",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "char.generic.neutral"
+      ]
+    },
+    {
+      "id": "char.generic.feminine",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "feminine",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "char.generic.neutral"
+      ]
+    },
+    {
+      "id": "char.generic.child",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "child",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "char.generic.neutral"
+      ]
+    },
+    {
+      "id": "char.generic.adult",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "adult",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "char.generic.neutral"
+      ]
+    },
+    {
+      "id": "char.generic.senior",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "senior",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "char.generic.neutral"
+      ]
+    },
+    {
+      "id": "char.generic.group",
+      "kind": "character",
+      "role": "actor-base",
+      "tags": [
+        "group",
+        "generic"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "char.generic.neutral"
+      ]
+    },
+    {
+      "id": "char.accent.1",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c1",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.2",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c2",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.3",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c3",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.4",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c4",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.5",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c5",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.6",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c6",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.7",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c7",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "char.accent.8",
+      "kind": "character-accent",
+      "role": "distinguish-implicit-cast",
+      "tags": [
+        "c8",
+        "accent"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "expr.neutral",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "neutral"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "expr.talk",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "talk"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.listen",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "listen"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.happy",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "happy"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.sad",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "sad"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.surprised",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "surprised"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.angry",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "angry"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.confused",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "confused"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.sleepy",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "sleepy"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.laughing",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "laughing"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "expr.worried",
+      "kind": "expression",
+      "role": "actor-expression",
+      "tags": [
+        "worried"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "expr.neutral"
+      ]
+    },
+    {
+      "id": "prop.desk",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "desk"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.chair",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "chair"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.table",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "table"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.door",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "door"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.window",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "window"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.bed",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "bed"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.phone",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "phone"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.book",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "book"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.bag",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "bag"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.chalkboard",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "chalkboard"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.vehicle",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "vehicle"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.tree",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "tree"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.market-stall",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "market-stall"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": [
+        "prop.generic-placeholder"
+      ]
+    },
+    {
+      "id": "prop.generic-placeholder",
+      "kind": "prop",
+      "role": "stage-object",
+      "tags": [
+        "fallback"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.fade",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "fade",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.dissolve",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "dissolve",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.pan",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "pan",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.zoom",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "zoom",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.speaker-focus",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "speaker-focus",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.small-shake",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "small-shake",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.rain",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "rain",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.dust",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "dust",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.blink",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "blink",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.talk-pulse",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "talk-pulse",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "fx.idle-drift",
+      "kind": "procedural-effect",
+      "role": "effect",
+      "tags": [
+        "idle-drift",
+        "reduced-motion-compatible"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.step",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "step"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.door-open",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "door-open"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.door-close",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "door-close"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.book-drop",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "book-drop"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.knock",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "knock"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.page-turn",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "page-turn"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.school-bell",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "school-bell"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.rain-light",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "rain-light"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.crowd-soft",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "crowd-soft"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.chair-move",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "chair-move"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.tap-soft",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "tap-soft"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.footstep-gravel",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "footstep-gravel"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.footstep-wood",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "footstep-wood"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.door-creak",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "door-creak"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.glass-clink",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "glass-clink"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.bell-soft",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "bell-soft"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.bird",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "bird"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.wind",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "wind"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.water",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "water"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.writing",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "writing"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.cart-roll",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "cart-roll"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "sfx.laugh-soft",
+      "kind": "sfx",
+      "role": "sound-effect",
+      "tags": [
+        "laugh-soft"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "amb.classroom-soft",
+      "kind": "ambience",
+      "role": "environment-loop",
+      "tags": [
+        "classroom-soft"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "amb.street-day",
+      "kind": "ambience",
+      "role": "environment-loop",
+      "tags": [
+        "street-day"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "amb.park-birds",
+      "kind": "ambience",
+      "role": "environment-loop",
+      "tags": [
+        "park-birds"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "amb.rain",
+      "kind": "ambience",
+      "role": "environment-loop",
+      "tags": [
+        "rain"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "amb.interior-roomtone",
+      "kind": "ambience",
+      "role": "environment-loop",
+      "tags": [
+        "interior-roomtone"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "amb.market-soft",
+      "kind": "ambience",
+      "role": "environment-loop",
+      "tags": [
+        "market-soft"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "music.calm",
+      "kind": "music",
+      "role": "optional-bed",
+      "tags": [
+        "calm"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "music.playful",
+      "kind": "music",
+      "role": "optional-bed",
+      "tags": [
+        "playful"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "music.mystery",
+      "kind": "music",
+      "role": "optional-bed",
+      "tags": [
+        "mystery"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "ui.tap",
+      "kind": "ui-sfx",
+      "role": "ui",
+      "tags": [
+        "tap"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "ui.chapter",
+      "kind": "ui-sfx",
+      "role": "ui",
+      "tags": [
+        "chapter"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    },
+    {
+      "id": "ui.choice",
+      "kind": "ui-sfx",
+      "role": "ui",
+      "tags": [
+        "choice"
+      ],
+      "styleId": "storybook-flat-v1",
+      "sourceAsset": null,
+      "licenseId": "UNASSIGNED",
+      "status": "PLANNED_NOT_INCLUDED",
+      "fallbackChain": []
+    }
+  ]
+}
