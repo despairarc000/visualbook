@@ -5,7 +5,7 @@
 ## Canonical live documentation
 
 - [Product requirements](requirements/PRODUCT_REQUIREMENTS.md)
-- [Story authoring/compiler architecture](design/SCRIPT_AND_COMPILER.md)
+- [Canonical story IR v0.4 research](design/CANONICAL_IR_V04.md)\n- [Story authoring/compiler architecture](design/SCRIPT_AND_COMPILER.md)
 - [Narration pointer/playback architecture](design/NARRATION_AND_PLAYBACK.md)
 - [Generic artwork, sounds and effects](design/BUILTIN_CONTENT_PLAN.md)
 - [Modules and data contracts](design/MODULE_CONTRACTS.md)

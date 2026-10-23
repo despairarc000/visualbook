@@ -226,6 +226,41 @@
       "kind": "evidence",
       "status": "HISTORICAL",
       "path": "samples/tagalog_tts_anthology.txt"
+    },
+    {
+      "id": "canonical-ir-draft",
+      "label": "Versioned story IR 0.4 research contract",
+      "kind": "contract",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/CANONICAL_IR_V04.md"
+    },
+    {
+      "id": "ir-schema",
+      "label": "IR structural JSON schema",
+      "kind": "contract",
+      "status": "PROVISIONAL",
+      "path": "schemas/story-ir-v0.4-draft.schema.json"
+    },
+    {
+      "id": "ir-bridge",
+      "label": "v0.4 Python IR bridge prototype",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "research/prototypes/v04/story_ir.py"
+    },
+    {
+      "id": "ir-contract-tests",
+      "label": "v0.4 IR prototype tests",
+      "kind": "evidence",
+      "status": "PROVISIONAL",
+      "path": "research/prototypes/v04/tests/test_story_ir.py"
+    },
+    {
+      "id": "android-narration-experiment",
+      "label": "Android TTS experiment protocol",
+      "kind": "document",
+      "status": "PROVISIONAL",
+      "path": "research/experiments/android-audio/EXPERIMENT.md"
     }
   ],
   "edges": [
@@ -427,6 +462,46 @@
     {
       "from": "story-anthology",
       "to": "segmentation",
+      "type": "feeds"
+    },
+    {
+      "from": "canonical-ir-draft",
+      "to": "canonical-ir",
+      "type": "documents"
+    },
+    {
+      "from": "ir-schema",
+      "to": "canonical-ir-draft",
+      "type": "documents"
+    },
+    {
+      "from": "ir-bridge",
+      "to": "script-compiler",
+      "type": "depends_on"
+    },
+    {
+      "from": "ir-bridge",
+      "to": "canonical-ir-draft",
+      "type": "feeds"
+    },
+    {
+      "from": "ir-contract-tests",
+      "to": "ir-bridge",
+      "type": "tests"
+    },
+    {
+      "from": "android-narration-experiment",
+      "to": "tts-backend",
+      "type": "tests"
+    },
+    {
+      "from": "android-narration-experiment",
+      "to": "narration-player",
+      "type": "tests"
+    },
+    {
+      "from": "canonical-ir-draft",
+      "to": "event-reducer",
       "type": "feeds"
     }
   ]

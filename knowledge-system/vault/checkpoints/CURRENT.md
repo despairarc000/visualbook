@@ -42,3 +42,9 @@ No Android app/APK, no actual mobile visual renderer, no model-distribution righ
 ## Agent startup / handoff
 
 Read `AGENTS.md`, `NAVIGATION.md`, `IDEA_PLAN.md`, `IMPLEMENTATION_PLAN.md`, route task through `knowledge-system/icm/icm.py`, inspect Graphify before modifying interfaces and validate with `python3 tools/doctor.py`. Always update evidence and checkpoint with commit/test results; distinguish historical evidence from implementation.
+
+## New research branch: canonical IR v0.4 (2026-10-23)
+
+Branch `research/canonical-ir-v04` adds a **PROVISIONAL** versioned IR bridge, JSON Schema, semantic validation, minimal script regression tests and explicit Android TTS experiment plan. This is a pure Python study. **Do not mark Phase 1 contract or Android audio gate complete merely because this branch exists.** After PR CI is green, record its exact run and outcome here.
+
+Remaining issues: stable edit IDs, true source spans, real scene silent beats, Android audio callback testing and offline Filipino voice licensing.

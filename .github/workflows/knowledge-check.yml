@@ -27,3 +27,5 @@ jobs:
 
       - name: Validate AST-based code graph extraction
         run: python3 knowledge-system/graphify/scan_code.py --summary
+      - name: Run v0.4 canonical IR prototype tests
+        run: python3 -m unittest discover -s research/prototypes/v04/tests -v
