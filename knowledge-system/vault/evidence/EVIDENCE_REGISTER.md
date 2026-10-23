@@ -59,3 +59,5 @@
 - **EV-026:** [Scoped normal↔chibi art-style APK build evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_STYLES_V02_2026-10-24.md): merged PR #11, 42 pure Java checks, verified Android APK SHA-256. Device visual behavior remains unverified.
 
 - **EV-027:** [Virtual canvas & figure geometry prototype](../design/VIRTUAL_CANVAS_GEOMETRY_V03.md): exact 100×100 local artboard, stage-relative position, circle/triangle/polygon/curved path commands, bounds validator, plus Android procedural path rendering. Source implemented on feature branch; build/device verification must be separately recorded.
+
+- **EV-028:** [Virtual Canvas Geometry v0.3 Android APK and test evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_VIRTUAL_CANVAS_V03_2026-10-24.md): PR #12 merged, 61 story-core and 43 geometry assertions passed, final Android compile passed, extracted debug APK CRC and SHA-256 verified. Physical figure drawing remains untested.

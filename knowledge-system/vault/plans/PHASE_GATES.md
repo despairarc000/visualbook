@@ -159,3 +159,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] User verifies precise at:77,56 placement on SM-A066B, style coexistence and valid error reporting.
 - [ ] Add transform hierarchy and reusable shape part pivots for detailed AI-authored creatures.
 - [ ] Generalize automatic staging, imported image fallback and non-audible cue timeline in later architecture.
+
+## v0.3 virtual stage build-verified result
+
+- [x] Latest pure JVM geometry + story-core tests **104 assertions total** passed; [CI details](../../../implementation/visualbook-player/BUILD_EVIDENCE_VIRTUAL_CANVAS_V03_2026-10-24.md).
+- [x] Android app build and final knowledge doctor succeeded; PR #12 merged; APK CRC/SHA-256 recorded.
+- [ ] Verify runtime rendering, figure construction controls and stage-coordinate grid on actual Samsung SM-A066B.
+- [ ] Design reusable nested geometry groups and transforms for creature body-part rigging and controlled direction changes.

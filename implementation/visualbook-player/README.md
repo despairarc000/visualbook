@@ -103,3 +103,7 @@ Figures have TWO independent coordinate systems. The figure itself can be drawn 
 ```
 
 This places the *center* of the figure at stage (77,56), reserving 27% of the stage width, preserving its own aspect ratio. Preset `left/center/right` remains the easy mode. Geometry must be authored as data, not Java or executable code. No arbitrary pixel assumptions, no unnatural stretching. Some placement can clip at stage edges deliberately; automatic occlusion avoidance is still future work.
+
+## Virtual Canvas v0.3 verified build
+
+[Build and SHA-256 record](BUILD_EVIDENCE_VIRTUAL_CANVAS_V03_2026-10-24.md): 61 StoryCore and 43 geometry assertions passed; Android Gradle and knowledge CI succeeded; PR #12 merged. User phone acceptance remains open.
