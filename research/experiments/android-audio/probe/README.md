@@ -21,7 +21,7 @@ cd research/experiments/android-audio/probe
 gradle --no-daemon assembleDebug
 \`\`\`
 
-Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android package name: \`com.visualbook.ttsprobe\`.
+Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android package name for v0.2: \`com.visualbook.ttsprobe.v2\` (separate from v0.1, because independent CI debug-signing keys may differ).
 
 ## Device protocol
 
@@ -41,3 +41,5 @@ The experiment currently probes *one* prepared utterance and *three* live uttera
 ## v0.2 regression exercise
 
 On Android 15 (SM-A066B), rapidly perform live → stop → prepared → stop → live and record any freeze. Examine `tts.stop() duration_ms` and `UI-MAIN gap` markers. A successful Gradle compile cannot establish a runtime freeze is fixed; share a new report after reinstalling the APK. If UI still freezes, use Perfetto or Android ANR trace to capture main thread and binder state.
+
+The v0.2 APK installs as a **separate application**, not an update to v0.1; use the `VB TTS Probe v0.2` icon. Uninstall old experiment APKs later when no longer needed.
