@@ -4,6 +4,8 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -27,11 +29,14 @@ public final class StoryCore {
     public static final class Story {
         public final List<Segment> segments;
         public final Set<String> cast;
+        public final Map<String, String> sexHints;
         public final String background;
         public final String source;
-        Story(List<Segment> segments, Set<String> cast, String background, String source) {
+        Story(List<Segment> segments, Set<String> cast, Map<String,String> sexHints,
+              String background, String source) {
             this.segments = Collections.unmodifiableList(new ArrayList<>(segments));
             this.cast = Collections.unmodifiableSet(new LinkedHashSet<>(cast));
+            this.sexHints = Collections.unmodifiableMap(new LinkedHashMap<>(sexHints));
             this.background = background;
             this.source = source;
         }
@@ -54,6 +59,7 @@ public final class StoryCore {
         List<Segment> output = new ArrayList<>();
         Set<String> cast = new LinkedHashSet<>();
         cast.add("n");
+        Map<String,String> sexHints = new LinkedHashMap<>();
         String speaker = "n", background = "classroom";
         StringBuilder block = new StringBuilder();
         int blockLine = 1, lineNum = 0;
@@ -67,6 +73,14 @@ public final class StoryCore {
                     flush(block, speaker, blockLine, output);
                     speaker = match.group(1);
                     cast.add(speaker);
+                    String hint = match.group(2);
+                    if (hint != null) {
+                        if ("n".equals(speaker)) throw new ScriptError(lineNum,
+                                "Narrator cannot have a character sex hint");
+                        if (sexHints.containsKey(speaker) && !sexHints.get(speaker).equals(hint))
+                            throw new ScriptError(lineNum, "Conflicting sex hint for " + speaker);
+                        sexHints.put(speaker, hint);
+                    }
                     String inline = match.group(3);
                     if (inline != null && !inline.trim().isEmpty()) {
                         blockLine = lineNum;
@@ -98,7 +112,7 @@ public final class StoryCore {
         flush(block, speaker, blockLine, output);
         if (output.isEmpty()) throw new ScriptError(1, "No narration text");
         if (output.size() > 500) throw new ScriptError(1, "More than 500 utterances");
-        return new Story(output, cast, background, original);
+        return new Story(output, cast, sexHints, background, original);
     }
 
     private static void flush(StringBuilder block, String speaker, int line, List<Segment> out) {

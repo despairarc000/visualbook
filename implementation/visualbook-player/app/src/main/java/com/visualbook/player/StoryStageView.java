@@ -19,6 +19,7 @@ import android.view.View;
 public final class StoryStageView extends View {
     private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
     private String background = "classroom", active = "n";
+    private String name1 = "C1", name2 = "C2";
     private boolean speaking = false;
     private boolean reducedMotion = false;
 
@@ -34,6 +35,11 @@ public final class StoryStageView extends View {
         invalidate();
     }
     public void reduceMotion(boolean reduce) { reducedMotion = reduce; invalidate(); }
+    public void setActorLabels(String c1, String c2) {
+        name1 = c1 == null ? "C1" : c1;
+        name2 = c2 == null ? "C2" : c2;
+        invalidate();
+    }
 
     @Override protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -49,9 +55,9 @@ public final class StoryStageView extends View {
         float size = Math.min(w * .115f, h * .18f);
         size = Math.max(16f, size);
         float foot = h * .84f;
-        drawActor(canvas, w * .29f, foot, size, "c1", "Juan",
+        drawActor(canvas, w * .29f, foot, size, "c1", name1,
                 Color.rgb(59, 117, 157), Color.rgb(238, 190, 141));
-        drawActor(canvas, w * .72f, foot, size, "c2", "Pedro",
+        drawActor(canvas, w * .72f, foot, size, "c2", name2,
                 Color.rgb(154, 103, 117), Color.rgb(195, 144, 110));
         if (!"n".equals(active) && !"c1".equals(active) && !"c2".equals(active)) {
             drawActor(canvas, w * .50f, foot - size * .18f, size * .80f,

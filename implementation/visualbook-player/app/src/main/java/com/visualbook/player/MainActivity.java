@@ -250,6 +250,9 @@ public final class MainActivity extends Activity {
             story=result;
             playback=new PlaybackState(result.segments);
             stage.setStoryBackground(result.background);
+            // The demo explicitly mentions Juan/Pedro; other scripts remain generic.
+            stage.setActorLabels(DEMO.equals(editor.getText().toString()) ? "Juan" : "C1",
+                    DEMO.equals(editor.getText().toString()) ? "Pedro" : "C2");
             stage.show("n",false);
             caption.setText("Story ready • " + result.segments.size() + " speech segments.");
             setStatus("Compiled • " + result.cast.size() + " implicit speakers • " +

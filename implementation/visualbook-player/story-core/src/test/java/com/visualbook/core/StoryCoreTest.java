@@ -21,6 +21,8 @@ public final class StoryCoreTest {
         ok(literal.segments.get(0).text.startsWith("@c1m"), "TXT directives remain literal");
         StoryCore.Story cast = parse("@bg classroom\n@n\nIsang araw.\n@c1m\nHello! Kumusta?\n@c2f Mabuti.", true);
         ok(cast.cast.contains("c1") && cast.cast.contains("c2"), "implicit cast");
+        ok("m".equals(cast.sexHints.get("c1")) && "f".equals(cast.sexHints.get("c2")),
+           "optional speaker sex hints preserved but do not determine voice");
         ok(cast.segments.size() == 4, "sentence segmentation");
         ok(cast.segments.get(1).speaker.equals("c1") && cast.segments.get(2).speaker.equals("c1"), "speaker turn continues");
         ok(cast.segments.get(3).speaker.equals("c2"), "new speaker");
@@ -31,6 +33,8 @@ public final class StoryCoreTest {
         error("@unknown do something\nhello");
         error("@bg forest\nHi");
         error("@c0 bad");
+        error("@c1m hi\n@c1f bye");
+        error("@nm invalid");
         error("@bg neutral\n");
         PlaybackState state = new PlaybackState(cast.segments);
         String first = state.begin();
