@@ -49,3 +49,5 @@
 - **EV-021:** [Qualitative voice-distinctness feedback](../../../research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md): user says `cfc/fic/fid/fie` voices are "Kinda different, no same"; perceptible difference only; no scored quality, gender classification or guaranteed provider/offline claim.
 
 - **EV-022:** [First actual story player prototype source](../../../implementation/visualbook-player/README.md), [Android CI workflow](../../../.github/workflows/visualbook-player-build.yml). Pure Java story compiler and playback cursor have executable tests; Android Java UI and procedural stage implemented on feature branch. Compile/runtime status must be reported from CI; **no physical-device or audio-visual synchronization measurement yet**.
+
+- **EV-023:** [First VisualBook animated story Android build and binary checksum](../../../implementation/visualbook-player/BUILD_EVIDENCE_V01_2026-10-24.md). PR #9 merged; 26 pure Java assertions, Android Gradle build and knowledge validation all passed. **No phone install/visual-audio behavior tested yet**.

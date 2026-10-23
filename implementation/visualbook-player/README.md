@@ -36,3 +36,7 @@ gradle --no-daemon assembleDebug
 ```
 
 Android app ID: `com.visualbook.player.slice` to avoid colliding with any research probe. First phone test should verify synchronization, Tagalog pronunciation, voice switching, screen rotation and 4 GB memory behavior. Audio engine/listening results are unknown until tested.
+
+## Build checkpoint
+
+[Version 0.1 build record](BUILD_EVIDENCE_V01_2026-10-24.md) confirms 26 passing pure Java assertions, a successfully compiled 32,419-byte debug APK with recorded SHA-256, and merged PR #9. Physical Samsung phone testing remains open.

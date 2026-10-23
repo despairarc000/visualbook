@@ -118,3 +118,9 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Upgrade to shared canonical IR, multi-scene support, prepared-audio clock, real character rig/asset pack and Media3 background session in later phases.
 
 **Note:** Android debug build is not equivalent to a passed on-device playback test.
+
+## VisualBook v0.1 build verification update
+
+- [x] Final v0.1 Android app and 26 pure Java tests compiled successfully in [Actions 40032106784](https://github.com/despairarc000/visualbook/actions/runs/40032106784); see [APK evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_V01_2026-10-24.md).
+- [x] [Knowledge CI](https://github.com/despairarc000/visualbook/actions/runs/40032106812) passed; PR #9 merged.
+- [ ] Physical device v0.1 gameplay/audio/render/rotation/voice acceptance. A verified **build** is not verified story narration.
