@@ -133,3 +133,9 @@ User requested simple PHP-like start/end markers to switch styles mid-story, esp
 [Full scoped-style contract](../design/SCOPED_ART_STYLES_V02.md) · [prototype README](../../../implementation/visualbook-player/README.md).
 
 **Evidence gate:** source implemented, pure Java parser tests augmented; Android compile and user phone playback must be confirmed separately. No claim of multiple custom asset pack systems; chibi and normal are the only implemented visual modes. Next user test should include style nested with `@c3`.
+
+## VisualBook Styles v0.2 APK build VERIFIED and merged (2026-10-24)
+
+[Temporary art-style scoping](../design/SCOPED_ART_STYLES_V02.md) is now implemented as actual Android **normal/chibi visual rendering**, not only a plan. [PR #11](https://github.com/despairarc000/visualbook/pull/11) merged into `main` at `a3845299a6cb07c9291a3101fbfd80d65d70b7c8`. [CI run 40037026012](https://github.com/despairarc000/visualbook/actions/runs/40037026012) verified Android `assembleDebug` plus **42 passing pure Java assertions**; [knowledge CI 40037026020](https://github.com/despairarc000/visualbook/actions/runs/40037026020) passed. Extracted debug APK SHA-256: `cb1d5408afd8ea1ac7e04b2afb8f639537d2b333d3bead969d8cceff4996efbe`, app ID `com.visualbook.player.styles.v02` (side-by-side v0.1). [Build evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_STYLES_V02_2026-10-24.md).
+
+**OPEN:** no v0.2 smartphone art-style playback inspection yet; physical device result for the v0.1 player still stands independently. Next: verify chibi entry/exit during audible narration, `@c3` guest during chibi, and pause/resume, then design per-actor style targeting and compatible asset packs without coupling story semantics to artwork.

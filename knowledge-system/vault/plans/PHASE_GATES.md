@@ -141,3 +141,11 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Record passing final CI pure Java and Android APK build, exact SHA-256 and app ID.
 - [ ] Verify on device that chibi really looks different, is readable, and reverts at the right narration boundary.
 - [ ] Design style-family asset compatibility contract and rig state transfer for future anime/comic/storybook style packs.
+
+## v0.2 scoped art-style verified build
+
+- [x] GitHub Actions 40037026012 passed 42 portable parser/playback assertions, Gradle Android compile, APK artifact upload.
+- [x] Knowledge CI 40037026020 passed and [PR #11](https://github.com/despairarc000/visualbook/pull/11) merged.
+- [x] [APK SHA-256 and side-by-side app ID](../../../implementation/visualbook-player/BUILD_EVIDENCE_STYLES_V02_2026-10-24.md) recorded.
+- [ ] Real SM-A066B confirms chibi style visibly starts/ends where intended.
+- [ ] Scale up style registry for per-character changes and consistent facing/pose/rig support.

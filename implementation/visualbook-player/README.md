@@ -67,3 +67,7 @@ Bumalik sa normal ang lahat.
 The story core attaches `artStyle` to every spoken segment. **Changing the visual mode must not trigger speech**; the scene updates on a valid live TTS `onStart` for that segment, with obsolete callbacks guarded by the audio cursor. Pause retains the current look, Stop resets to normal, and explicit Skip can show the upcoming section's look. This is **global scene styling** in v0.2, not a per-actor style swap; no cross-style part-rigged custom character packs, @style anime assets or automatic morph animation yet.
 
 App ID: `com.visualbook.player.styles.v02`, installed side-by-side with v0.1 to avoid GitHub debug-signing incompatibility; label **VisualBook Styles v0.2**. The example story now demonstrates a chibi comedic reaction automatically.
+
+## v0.2 verified build
+
+[Verified scoped art style build record](BUILD_EVIDENCE_STYLES_V02_2026-10-24.md): PR #11 merged, 42 pure Java assertions passed, Android APK compiled and archive inspected; separate v0.2 app. On-device chibi rendering remains to be tested.

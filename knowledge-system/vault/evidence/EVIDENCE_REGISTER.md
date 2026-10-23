@@ -55,3 +55,5 @@
 - **EV-024:** [First VisualBook player installed and exercised by user](../../../implementation/visualbook-player/DEVICE_TEST_V01_FIRST_SUCCESS_2026-10-24.md). User reports "Nice, it works" and `@c3` implicitly appears only during its spoken turn, then disappears. Real device visual success for dynamic guest, not full audio-sync or performance validation.
 
 - **EV-025:** [Scoped art style grammar and implementation](../design/SCOPED_ART_STYLES_V02.md), [app source](../../../implementation/visualbook-player/README.md). User request for normal→chibi→normal expressive story transitions implemented on v0.2 feature branch; final CI and phone tests required before claiming working in practice.
+
+- **EV-026:** [Scoped normal↔chibi art-style APK build evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_STYLES_V02_2026-10-24.md): merged PR #11, 42 pure Java checks, verified Android APK SHA-256. Device visual behavior remains unverified.
