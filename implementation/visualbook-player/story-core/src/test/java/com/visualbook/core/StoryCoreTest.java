@@ -36,6 +36,37 @@ public final class StoryCoreTest {
         error("@c1m hi\n@c1f bye");
         error("@nm invalid");
         error("@bg neutral\n");
+        StoryCore.Story change = parse("@n Normal.\n@chibi\n@c1m Hoy!\n@c3 Ako rin!\n@end\n@c2 Tapos.",true);
+        ok(change.segments.size()==4, "style tags are silent");
+        ok("normal".equals(change.segments.get(0).artStyle), "initial style normal");
+        ok("chibi".equals(change.segments.get(1).artStyle) &&
+           "chibi".equals(change.segments.get(2).artStyle), "chibi applies across speaker switches");
+        ok("normal".equals(change.segments.get(3).artStyle), "@end restores normal");
+        ok(change.cast.contains("c3"), "implicit guest preserved across style scope");
+        StoryCore.Story nested = parse("@chibi\n@c1 Grabe!\n@style normal\n@c2 Teka.\n@end\n@c1 Oo!\n@end\n@c3 Balik.", true);
+        ok("chibi".equals(nested.segments.get(0).artStyle) &&
+           "normal".equals(nested.segments.get(1).artStyle) &&
+           "chibi".equals(nested.segments.get(2).artStyle) &&
+           "normal".equals(nested.segments.get(3).artStyle),
+           "nested stack restores parent style and base");
+        StoryCore.Story genericStyle = parse("@style cartoon\n@c1 Hello!\n@end",true);
+        ok("normal".equals(genericStyle.segments.get(0).artStyle), "cartoon is base style alias");
+        StoryCore.Story plainTag = parse("@chibi\nHello!\n@end",false);
+        ok(plainTag.segments.get(0).text.startsWith("@chibi"), "plain TXT does not interpret art directives");
+        StoryCore.Story longStyle = parse("@chibi\n@c1 First. Second!\n@end",true);
+        ok(longStyle.segments.size()==2 &&
+           "chibi".equals(longStyle.segments.get(1).artStyle),
+           "segmented speech retains same style");
+        error("@end\nHello");
+        error("@chibi\n@c1 Hello");
+        error("@style watercolour\nHello\n@end");
+        error("@chibi yes\nHello\n@end");
+        error("@style chibi\nA\n@end illegal");
+        error("@chibi\n@chibi\nHi\n@end");
+        StringBuilder deeply = new StringBuilder();
+        for(int i=0;i<9;i++)deeply.append("@chibi\n");
+        deeply.append("Hi.");
+        error(deeply.toString());
         PlaybackState state = new PlaybackState(cast.segments);
         String first = state.begin();
         ok(state.index() == 0 && !state.isSpeaking(), "queued is not audible");

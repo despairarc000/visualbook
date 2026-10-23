@@ -18,7 +18,7 @@ import android.view.View;
  */
 public final class StoryStageView extends View {
     private final Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private String background = "classroom", active = "n";
+    private String background = "classroom", active = "n", visualStyle = "normal";
     private String name1 = "C1", name2 = "C2";
     private boolean speaking = false;
     private boolean reducedMotion = false;
@@ -33,6 +33,11 @@ public final class StoryStageView extends View {
         active = speaker == null ? "n" : speaker;
         speaking = isSpeaking;
         invalidate();
+    }
+    /** Pure rendering state: narration pointers remain owned by PlaybackState. */
+    public void setVisualStyle(String style) {
+        String normalized = "chibi".equals(style) ? "chibi" : "normal";
+        if (!normalized.equals(visualStyle)) { visualStyle = normalized; invalidate(); }
     }
     public void reduceMotion(boolean reduce) { reducedMotion = reduce; invalidate(); }
     public void setActorLabels(String c1, String c2) {
@@ -51,6 +56,7 @@ public final class StoryStageView extends View {
         canvas.drawRect(0, 0, w, h, p); p.setShader(null);
         if ("classroom".equals(background)) classroom(canvas, w, h);
         else neutral(canvas, w, h);
+        if ("chibi".equals(visualStyle)) chibiAccent(canvas, w, h);
 
         float size = Math.min(w * .115f, h * .18f);
         size = Math.max(16f, size);
@@ -119,6 +125,10 @@ public final class StoryStageView extends View {
 
     private void drawActor(Canvas c, float x, float feet, float r,
                            String id, String label, int shirt, int skin) {
+        if ("chibi".equals(visualStyle)) {
+            drawChibiActor(c, x, feet, r, id, label, shirt, skin);
+            return;
+        }
         boolean talk = speaking && active.equals(id);
         float bounce = talk && !reducedMotion ?
                 (float)Math.sin(SystemClock.uptimeMillis() / 125.0) * r * .05f : 0f;
@@ -170,6 +180,99 @@ public final class StoryStageView extends View {
         p.setColor(Color.WHITE);
         c.drawText(label,x-tw*.5f,top+txt+pad*.27f,p);
         p.setFakeBoldText(false);
+    }
+
+
+    /** Real chibi shape transformation: larger head/eyes, tiny limbs and body, pastel aura.
+     * No bitmap scaling or outside packs; consistent colors and actor identity.
+     */
+    private void drawChibiActor(Canvas c, float x, float feet, float r,
+                                String id, String label, int shirt, int skin) {
+        boolean talk = speaking && active.equals(id);
+        float bounce = talk && !reducedMotion ?
+                (float)Math.sin(SystemClock.uptimeMillis() / 125.0) * r * .065f : 0f;
+        float headR = r * 1.17f;
+        float centerY = feet - r * 1.73f + bounce;
+        p.setColor(0x444D4D59);
+        c.drawOval(new RectF(x - r*.83f,feet-r*.05f,x+r*.83f,feet+r*.16f),p);
+        if (talk) {
+            p.setColor(0xAAFFDC89);
+            c.drawCircle(x,centerY,headR*1.29f,p);
+        }
+        // Short legs and pill-shaped torso, deliberately distinct from normal proportions.
+        rounded(c,x-r*.45f,feet-r*.43f,x-r*.08f,feet, r*.12f,
+                Color.rgb(70,72,92));
+        rounded(c,x+r*.08f,feet-r*.43f,x+r*.45f,feet, r*.12f,
+                Color.rgb(70,72,92));
+        rounded(c,x-r*.60f,feet-r*1.15f,x+r*.60f,feet-r*.36f,
+                r*.30f,shirt);
+        rounded(c,x-r*.80f,feet-r*.99f,x-r*.53f,feet-r*.55f,r*.15f,skin);
+        rounded(c,x+r*.53f,feet-r*.99f,x+r*.80f,feet-r*.55f,r*.15f,skin);
+        // Oversized head; bangs and large expressive eyes.
+        p.setColor(Color.rgb(62,50,56));
+        c.drawCircle(x,centerY-r*.12f,headR*1.045f,p);
+        p.setColor(skin);
+        c.drawCircle(x,centerY,headR,p);
+        p.setColor(Color.rgb(66,51,62));
+        c.drawArc(new RectF(x-headR,centerY-headR*1.08f,
+                x+headR,centerY+headR*.55f),180,171,true,p);
+        p.setColor(skin);
+        c.drawOval(new RectF(x-headR*.87f,centerY-headR*.46f,
+                x+headR*.87f,centerY+headR*.93f),p);
+        // Eye whites and colored pupils. Smaller elements remain proportionally legible.
+        p.setColor(Color.WHITE);
+        float eyeX=headR*.39f, eyeY=headR*.07f;
+        c.drawOval(new RectF(x-eyeX-headR*.21f,centerY-eyeY-headR*.18f,
+                x-eyeX+headR*.21f,centerY-eyeY+headR*.25f),p);
+        c.drawOval(new RectF(x+eyeX-headR*.21f,centerY-eyeY-headR*.18f,
+                x+eyeX+headR*.21f,centerY-eyeY+headR*.25f),p);
+        p.setColor(Color.rgb(68,61,82));
+        c.drawCircle(x-eyeX,centerY-eyeY+headR*.07f,headR*.14f,p);
+        c.drawCircle(x+eyeX,centerY-eyeY+headR*.07f,headR*.14f,p);
+        p.setColor(Color.WHITE);
+        c.drawCircle(x-eyeX-headR*.035f,centerY-eyeY-headR*.005f,headR*.05f,p);
+        c.drawCircle(x+eyeX-headR*.035f,centerY-eyeY-headR*.005f,headR*.05f,p);
+        p.setColor(Color.rgb(232,144,143));
+        c.drawOval(new RectF(x-headR*.80f,centerY+headR*.31f,
+                x-headR*.53f,centerY+headR*.46f),p);
+        c.drawOval(new RectF(x+headR*.53f,centerY+headR*.31f,
+                x+headR*.80f,centerY+headR*.46f),p);
+        p.setColor(Color.rgb(122,63,83));
+        if(talk) {
+            c.drawOval(new RectF(x-headR*.13f,centerY+headR*.38f,
+                    x+headR*.13f,centerY+headR*.62f),p);
+        } else {
+            p.setStyle(Paint.Style.STROKE);
+            p.setStrokeWidth(Math.max(1.6f,headR*.05f));
+            c.drawArc(new RectF(x-headR*.15f,centerY+headR*.36f,
+                    x+headR*.15f,centerY+headR*.56f),5,170,false,p);
+            p.setStyle(Paint.Style.FILL);
+        }
+        // Chibi-only decorative accent, tied to speaker but not story time.
+        if (talk) {
+            p.setColor(Color.rgb(241,174,87));
+            p.setTextSize(Math.max(10f,r*.45f));
+            c.drawText("✦",x+headR*.83f,centerY-headR*.60f,p);
+        }
+        float pad=Math.max(4f,r*.10f), textSize=Math.max(11f,r*.38f);
+        p.setTextSize(textSize);p.setFakeBoldText(true);
+        float textWidth=p.measureText(label);
+        float y=feet+r*.17f;
+        rounded(c,x-textWidth*.5f-pad,y,x+textWidth*.5f+pad,
+                y+textSize+pad*1.6f,pad,
+                talk?Color.rgb(103,76,119):Color.rgb(109,99,112));
+        p.setColor(Color.WHITE);
+        c.drawText(label,x-textWidth*.5f,y+textSize+pad*.27f,p);
+        p.setFakeBoldText(false);
+    }
+
+    private void chibiAccent(Canvas c,float w,float h){
+        // Stable deterministic background accents: no random draws or allocations per frame.
+        p.setColor(0x25FFF5B7);
+        c.drawCircle(w*.16f,h*.25f,w*.14f,p);
+        c.drawCircle(w*.82f,h*.43f,w*.13f,p);
+        p.setColor(0x22ECA9BE);
+        c.drawCircle(w*.52f,h*.17f,w*.10f,p);
     }
 
     private void rect(Canvas c, float l, float t, float r, float b, int color) {

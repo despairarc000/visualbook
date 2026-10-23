@@ -47,9 +47,11 @@ public final class MainActivity extends Activity {
             "@bg classroom\n" +
             "@n\nIsang araw, nagkita sina Juan at Pedro sa paaralan.\n\n" +
             "@c1m\nPedro, may assignment ka ba?\n\n" +
-            "@c2m\nMeron!\n\n" +
-            "@c1\nNasaan?\n\n" +
-            "@c2\nNasa panaginip ko!\n";
+            "@chibi\n" +
+            "@c2m\nNAKALIMUTAN KO!!!\n\n" +
+            "@c1\nANO?!\n\n" +
+            "@end\n" +
+            "@c2\nJoke lang! Nasa bag ko.\n";
     private static final int PICK_TEXT = 33;
     private static final int MAX_TEXT_BYTES = 200_000;
     private static final String[] IDS = {"n", "c1", "c2"};
@@ -316,6 +318,7 @@ public final class MainActivity extends Activity {
             story=result;
             playback=new PlaybackState(result.segments);
             stage.setStoryBackground(result.background);
+            stage.setVisualStyle("normal");
             // The demo explicitly mentions Juan/Pedro; other scripts remain generic.
             stage.setActorLabels(DEMO.equals(editor.getText().toString()) ? "Juan" : "C1",
                     DEMO.equals(editor.getText().toString()) ? "Pedro" : "C2");
@@ -437,6 +440,7 @@ public final class MainActivity extends Activity {
                 if(destroyed||playback==null||!playback.audibleStart(id))return;
                 StoryCore.Segment s=playback.current();
                 if(s==null)return;
+                stage.setVisualStyle(s.artStyle);
                 stage.show(s.speaker,true);
                 caption.setText(("n".equals(s.speaker)?"Narrator":s.speaker.toUpperCase()) +
                         ": " + s.text);
@@ -482,7 +486,10 @@ public final class MainActivity extends Activity {
     private void stop() {
         activeRequest=null;
         if(playback!=null)playback.reset();
-        if(stage!=null)stage.show("n",false);
+        if(stage!=null) {
+            stage.setVisualStyle("normal");
+            stage.show("n",false);
+        }
         if(caption!=null)caption.setText("Stopped. Play begins the story from the start.");
         final TextToSpeech engine = tts;
         if(engine!=null)audio.post(engine::stop);
@@ -493,6 +500,9 @@ public final class MainActivity extends Activity {
         if(playback==null)return;
         activeRequest=null;
         playback.skip();
+        // Explicit manual cursor move can display the next section's style.
+        StoryCore.Segment nextSegment = playback.current();
+        stage.setVisualStyle(nextSegment==null ? "normal" : nextSegment.artStyle);
         stage.show("n",false);
         final TextToSpeech engine = tts;
         if(engine!=null)audio.post(engine::stop);
