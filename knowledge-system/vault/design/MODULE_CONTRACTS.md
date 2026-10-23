@@ -37,3 +37,7 @@ The [first Android player](../../../implementation/visualbook-player/README.md) 
 ## Art-style scopes as presentation state, not scripted speech
 
 [Scoped art styles v0.2](SCOPED_ART_STYLES_V02.md) establishes a source/IR boundary: `@chibi` and `@end` compile to **effective style values on speech segments**; an Android renderer chooses a corresponding procedural style at audible start. `PlaybackState` remains independent of Canvas, style assets, and directives. For future production, `StyleRegistry.resolve(styleId,characterRigCapabilities)` and `StageRenderer` should share a portable style semantic slot contract. One story may mix normal, chibi, anime-lite, comic, etc., but **only normal/chibi are actually implemented** now.
+
+## Virtual shape geometry v0.3 — two coordinate domains
+
+[Virtual canvas geometry contract](VIRTUAL_CANVAS_GEOMETRY_V03.md): a self-contained `VectorFigure` defines pure validated primitives in its own unit artboard; a `Placement` chooses a normalized stage center and width. `StoryCore.Segment.visibleFigures` records each active visible object at its audible boundary while imported figure definitions are immutable story resources. Android Canvas transforms from local to stage pixels with a uniform meet scale. Do not conflate *position of eye inside creature* with *position of creature on phone stage* or convert the stage into raw physical screen coordinates. Future part/group transforms should obey a parent→child scene graph.
