@@ -89,6 +89,16 @@ public final class StoryCoreTest {
                 "styles and figures coexist with c3 speaker");
         ok(drawn.segments.get(2).visibleFigures.isEmpty(), "hide removes later visibility");
         ok(drawn.cast.contains("c3"), "geometry doesn't restrict implicit speakers");
+        StoryCore.Story precise = parse(figureScript.replace("@show wyrm right",
+            "@show wyrm at:77,56 width:27"),true);
+        VectorFigure.Placement located=precise.segments.get(0).visibleFigures.get(0);
+        ok("at".equals(located.slot) && located.stageX==77f &&
+           located.stageY==56f && located.widthPercent==27f,
+           "custom 100x100 stage coordinates preserve exact AI placement");
+        error(figureScript.replace("@show wyrm right","@show wyrm at:NaN,56 width:27"));
+        error(figureScript.replace("@show wyrm right","@show wyrm at:77,120 width:27"));
+        error(figureScript.replace("@show wyrm right","@show wyrm at:77,56 width:0"));
+        error(figureScript.replace("@show wyrm right","@show wyrm at:77 width:20"));
         StoryCore.Story textOnly = parse(figureScript,false);
         ok(textOnly.figures.isEmpty(), "plain TXT never executes figure directives");
         error("@show unknown\n@n Test.");

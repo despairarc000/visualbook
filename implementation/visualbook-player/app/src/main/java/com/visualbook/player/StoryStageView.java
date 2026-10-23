@@ -303,14 +303,14 @@ public final class StoryStageView extends View {
         for (VectorFigure.Placement placement : visibleVectors) {
             VectorFigure fig=vectorDefinitions.get(placement.figureId);
             if(fig==null)continue;
-            float centerX = "left".equals(placement.slot)?width*.22f:
-                    "right".equals(placement.slot)?width*.78f:width*.50f;
-            float allottedWidth = "center".equals(placement.slot)?width*.48f:width*.29f;
-            float allottedHeight = height*.43f;
+            float centerX=width*placement.stageX/100f;
+            float centerY=height*placement.stageY/100f;
+            float allottedWidth=width*placement.widthPercent/100f;
+            float allottedHeight=height*.43f;
             float scale=VectorFigure.fitScale(fig.width,fig.height,allottedWidth,allottedHeight);
             float drawWidth=fig.width*scale,drawHeight=fig.height*scale;
             canvas.save();
-            canvas.translate(centerX-drawWidth*.5f,height*.30f-drawHeight*.5f);
+            canvas.translate(centerX-drawWidth*.5f,centerY-drawHeight*.5f);
             canvas.scale(scale,scale);
             canvas.clipRect(0,0,fig.width,fig.height);
             for(VectorFigure.Part part:fig.parts)drawPart(canvas,part);

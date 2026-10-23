@@ -37,9 +37,18 @@ public final class VectorFigure {
 
     public static final class Placement {
         public final String figureId, slot;
+        // 100x100 logical stage coordinates, independent of a figure's local artboard.
+        public final float stageX, stageY, widthPercent;
         public Placement(String figureId, String slot) {
             this.figureId = figureId;
             this.slot = slot;
+            stageX = "left".equals(slot) ? 22f : "right".equals(slot) ? 78f : 50f;
+            stageY = 30f;
+            widthPercent = "center".equals(slot) ? 48f : 29f;
+        }
+        public Placement(String figureId, float stageX, float stageY, float widthPercent) {
+            this.figureId=figureId;slot="at";
+            this.stageX=stageX;this.stageY=stageY;this.widthPercent=widthPercent;
         }
     }
 

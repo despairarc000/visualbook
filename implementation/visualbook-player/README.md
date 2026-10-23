@@ -93,3 +93,13 @@ The shape definition is built once at compile time and `@show`/`@hide` persist a
 `@figure` blocks and show/hide cues are NOT narration. Their effects are applied to the next speech segment at an actual TTS audible start; a future silent-cue timeline needs a separate clock. Existing `@chibi` and `@end` remain style-only and unchanged. Import remains UTF-8 text/annotated markdown, and untagged plain TXT is literal.
 
 **Limitations:** global figure placement slot only, no nested groups/transforms/rigged animation, image assets, 3D, external SVG import, anti-overlap scene layout or per-figure style transformation yet. Source is not a general unconstrained natural-language-to-image model. Figure content must be explicitly authored in geometric instructions by a human or AI. New app ID `com.visualbook.player.canvas.v03`, installed alongside prior apps.
+
+### Precise stage coordinates
+
+Figures have TWO independent coordinate systems. The figure itself can be drawn on its local `100x100` artboard. To place that entire figure on the story stage, the stage also exposes a normalized `100x100` coordinate space, independent of phone resolution:
+
+```text
+@show spirit at:77,56 width:27
+```
+
+This places the *center* of the figure at stage (77,56), reserving 27% of the stage width, preserving its own aspect ratio. Preset `left/center/right` remains the easy mode. Geometry must be authored as data, not Java or executable code. No arbitrary pixel assumptions, no unnatural stretching. Some placement can clip at stage edges deliberately; automatic occlusion avoidance is still future work.

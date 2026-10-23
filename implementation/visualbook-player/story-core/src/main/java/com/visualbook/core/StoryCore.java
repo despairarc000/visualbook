@@ -124,16 +124,34 @@ public final class StoryCore {
                     flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
                     String[] args=t.split("\\s+");
                     if ("@show".equals(args[0])) {
-                        if(args.length<2||args.length>3)
-                            throw new ScriptError(lineNum,"@show id [left|center|right]");
+                        if(args.length<2||args.length>4)
+                            throw new ScriptError(lineNum,
+                                "@show id [left|center|right] or @show id at:x,y width:w");
                         if(!figures.containsKey(args[1]))
                             throw new ScriptError(lineNum,"Unknown figure id: "+args[1]);
-                        String slot=args.length==2?"center":args[2];
-                        if(!"left".equals(slot)&&!"center".equals(slot)&&!"right".equals(slot))
-                            throw new ScriptError(lineNum,"Use slot left, center or right");
+                        VectorFigure.Placement placement;
+                        if(args.length==4 && args[2].startsWith("at:") && args[3].startsWith("width:")) {
+                            String[] pos=args[2].substring(3).split(",",-1);
+                            if(pos.length!=2)throw new ScriptError(lineNum,"at:x,y needs two numbers");
+                            try {
+                                float px=Float.parseFloat(pos[0]), py=Float.parseFloat(pos[1]);
+                                float pw=Float.parseFloat(args[3].substring(6));
+                                if(!Float.isFinite(px)||!Float.isFinite(py)||!Float.isFinite(pw)||
+                                        px<0||px>100||py<0||py>100||pw<5||pw>70)
+                                    throw new NumberFormatException();
+                                placement=new VectorFigure.Placement(args[1],px,py,pw);
+                            } catch(NumberFormatException ex) {
+                                throw new ScriptError(lineNum,"Use finite at:x,y (0..100) and width:w (5..70)");
+                            }
+                        } else if(args.length<=3) {
+                            String slot=args.length==2?"center":args[2];
+                            if(!"left".equals(slot)&&!"center".equals(slot)&&!"right".equals(slot))
+                                throw new ScriptError(lineNum,"Use slot left, center or right");
+                            placement=new VectorFigure.Placement(args[1],slot);
+                        } else throw new ScriptError(lineNum,"Use @show id at:x,y width:w");
                         if(!shown.containsKey(args[1]) && shown.size()>=4)
                             throw new ScriptError(lineNum,"Only 4 simultaneous figures in prototype");
-                        shown.put(args[1],new VectorFigure.Placement(args[1],slot));
+                        shown.put(args[1],placement);
                     } else {
                         if(args.length!=2)throw new ScriptError(lineNum,"@hide requires an id");
                         if(!figures.containsKey(args[1]))throw new ScriptError(lineNum,
