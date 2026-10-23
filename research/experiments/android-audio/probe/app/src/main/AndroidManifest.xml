@@ -6,7 +6,7 @@
         </intent>
     </queries>
     <application
-        android:label="VB TTS Probe v0.2"
+        android:label="VB TTS Probe v0.3"
         android:allowBackup="false"
         android:usesCleartextTraffic="false"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">

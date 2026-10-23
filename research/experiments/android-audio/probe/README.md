@@ -1,4 +1,4 @@
-# VisualBook TTS Probe v0.2 — Android research only
+# VisualBook TTS Probe v0.3 — Android research only
 
 **Device feedback:** v0.1 showed occasional UI unresponsiveness when Stop was followed by switching playback mode. v0.2 moves TTS/MediaPlayer stop and commands to a serial background HandlerThread, limits UI log rendering, adds a heartbeat and timing diagnostics, and validates range callbacks. See [Samsung SM-A066B observation](../DEVICE_TEST_SM-A066B_2026-10-24.md).
 
@@ -21,7 +21,7 @@ cd research/experiments/android-audio/probe
 gradle --no-daemon assembleDebug
 \`\`\`
 
-Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android package name for v0.2: \`com.visualbook.ttsprobe.v2\` (separate from v0.1, because independent CI debug-signing keys may differ).
+Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android package name for v0.3: \`com.visualbook.ttsprobe.v3\` (separate from v0.1, because independent CI debug-signing keys may differ).
 
 ## Device protocol
 
@@ -43,3 +43,16 @@ The experiment currently probes *one* prepared utterance and *three* live uttera
 On Android 15 (SM-A066B), rapidly perform live → stop → prepared → stop → live and record any freeze. Examine `tts.stop() duration_ms` and `UI-MAIN gap` markers. A successful Gradle compile cannot establish a runtime freeze is fixed; share a new report after reinstalling the APK. If UI still freezes, use Perfetto or Android ANR trace to capture main thread and binder state.
 
 The v0.2 APK installs as a **separate application**, not an update to v0.1; use the `VB TTS Probe v0.2` icon. Uninstall old experiment APKs later when no longer needed.
+
+## v0.3: Compare Filipino offline voices on Samsung SM-A066B
+
+**What the user actually observed in v0.2:** voice inventory had 473 entries; `fil-PH` support=1, `tl-PH` support=-2; active voice still `en-US-language`. A local voice listing is *not proof* installed data synthesizes audible natural Tagalog. The first test did not invoke `setVoice`.
+
+1. Put the phone in airplane mode. Open **VB TTS Probe v0.3** (installed side-by-side with v0.1 and v0.2).
+2. Once TTS ready, tap `List installed voices`; capture engine name, active voice, local Filipino candidate names, voice quality and latency metadata.
+3. Tap `Next OFFLINE Filipino voice + LIVE` once. Check log for `FILIPINO VOICE candidate=`, `selectStatus=0` and matching `effective=`. Listen to three sentences.
+4. Repeat for each candidate, rating Filipino pronunciation, intonation, clarity and pauses. `quality` is *engine metadata*, not an objective Tagalog voice-quality score.
+5. Repeat promising voices using `Next OFFLINE Filipino voice + PREP` (cycles one voice each click). Prepared audio playback must use actual MediaPlayer completion, **never** synthesizeToFile.onDone.
+6. Share logs, subjective results and whether airplane mode was active. A voice may advertise local capability but still fail synthesis if data is missing.
+
+**No actual file/audio model is bundled, no cloud access permission in the app.** This still does not prove high-quality bundled offline Tagalog on a fresh phone; it examines installed TTS engines only.
