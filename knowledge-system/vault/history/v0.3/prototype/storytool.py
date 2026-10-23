@@ -38,7 +38,7 @@ def segment(text: str, cap: int = 220) -> list[str]:
         if nxt >= len(text):
             bounds.append(nxt)
             continue
-        if text[nxt] not in ' \t“”"\'':
+        if text[nxt] not in ' \t“”\"\'':
             continue
         if ch == '.' and i > 0:
             if i + 1 < len(text) and text[i-1].isdigit() and text[i+1].isdigit():

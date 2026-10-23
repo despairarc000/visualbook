@@ -23,7 +23,4 @@ jobs:
       - name: Reproduce archived v0.3 compiler and fake playback tests
         run: python3 -m unittest discover -s knowledge-system/vault/history/v0.3/tests -v
       - name: Audit archive source byte integrity
-        run: python3 tools/archive_integrity.py
-
-      - name: Locate historical parser copy drift
-        run: python3 tools/find_archive_delta.py
+        run: python3 tools/archive_integrity.py --strict
