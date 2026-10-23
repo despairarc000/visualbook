@@ -40,7 +40,7 @@ Character appearance is a *logical* `generic.silhouette` plus deterministic colo
 
 ## Validation layers
 
-1. JSON Schema 2020-12 structural/type check (schema file; external validator optional).
+1. JSON Schema 2020-12 structural/type check against the standard `jsonschema` library in CI; unknown fields rejected. See [independent tests](../../../research/prototypes/v04/tests/test_json_schema.py).
 2. Semantic validator in `validate_ir`: unique character/scene/block/utterance/cue IDs; block→speaker; cue→same-scene block and known actor; backgrounds typed; exact utterance concatenation; nonempty utterances.
 3. Playback adapter preflight: available resources, capability mapping, voice model availability, quotas, accessibility and cross-version policy. **Not yet implemented.**
 
