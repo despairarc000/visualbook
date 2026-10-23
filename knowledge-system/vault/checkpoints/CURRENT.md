@@ -56,3 +56,9 @@ Remaining issues: stable edit IDs, true source spans, real scene silent beats, A
 - [Exact build evidence and errors](../../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md) records commit, artifact, APK size and SHA-256.
 - **Not yet proven:** APK installed on physical device, offline Tagalog voice quality, callback accuracy, Media3 playback, target 4GB-memory performance or default story visuals.
 - Next action: run diagnostic APK in airplane mode on low-memory Android phone, collect diagnostics + subjective listening report, then choose real narration adapter. Do not mark Android feasibility gate complete from a green Gradle job.
+
+## Device observation / freeze investigation (2026-10-24)
+
+The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15. Logs show two complete 3-utterance live runs, two prepared clips played, and optional live range timing data; prep mode emits suspiciously permuted range fields. User reports UI unresponsiveness when tapping Stop then another mode. This is not yet a confirmed root-cause ANR.
+
+[Detailed user-supplied evidence](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md). Research branch `fix/tts-probe-switch-freeze` introduces a v0.2 background-thread switch/stop experiment and throttled log UI. **Device fix not yet verified;** build and rerun on phone required. Offline voice/quality and precise audible word timing remain open.

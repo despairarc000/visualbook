@@ -1,4 +1,6 @@
-# VisualBook TTS Probe — Android research only
+# VisualBook TTS Probe v0.2 — Android research only
+
+**Device feedback:** v0.1 showed occasional UI unresponsiveness when Stop was followed by switching playback mode. v0.2 moves TTS/MediaPlayer stop and commands to a serial background HandlerThread, limits UI log rendering, adds a heartbeat and timing diagnostics, and validates range callbacks. See [Samsung SM-A066B observation](../DEVICE_TEST_SM-A066B_2026-10-24.md).
 
 **This is not the VisualBook story player.** It performs small, reproducible tests on an actual Android phone to resolve our narration architecture risk.
 
@@ -35,3 +37,7 @@ Debug APK path: \`app/build/outputs/apk/debug/app-debug.apk\`. Debug Android pac
 The live callback is close to audio playback but not guaranteed sample-accurate. Prepared-file TTS callbacks are about file writes, not audible sound. Voice selection is opportunistic: first advertised offline \`fil\`/\`tl\` voice if available; if none, the chosen default remains and may not be Tagalog-capable.
 
 The experiment currently probes *one* prepared utterance and *three* live utterances; it is not a full 30-phrase or p95 latency benchmark. It also does not test Media3 background service, audio focus, process recovery or rendered visuals. Those remain future experiments.
+
+## v0.2 regression exercise
+
+On Android 15 (SM-A066B), rapidly perform live → stop → prepared → stop → live and record any freeze. Examine `tts.stop() duration_ms` and `UI-MAIN gap` markers. A successful Gradle compile cannot establish a runtime freeze is fixed; share a new report after reinstalling the APK. If UI still freezes, use Perfetto or Android ANR trace to capture main thread and binder state.

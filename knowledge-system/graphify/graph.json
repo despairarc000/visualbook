@@ -275,6 +275,13 @@
       "kind": "evidence",
       "status": "VERIFIED-TEST",
       "path": "research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md"
+    },
+    {
+      "id": "tts-device-freeze-report",
+      "label": "Samsung real-device diagnostic run + UI unresponsiveness report",
+      "kind": "evidence",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md"
     }
   ],
   "edges": [
@@ -532,6 +539,16 @@
       "from": "android-probe-evidence",
       "to": "android-tts-probe",
       "type": "documents"
+    },
+    {
+      "from": "tts-device-freeze-report",
+      "to": "android-tts-probe",
+      "type": "tests"
+    },
+    {
+      "from": "tts-device-freeze-report",
+      "to": "narration-player",
+      "type": "tests"
     }
   ]
 }

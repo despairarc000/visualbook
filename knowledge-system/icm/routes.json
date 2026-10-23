@@ -90,6 +90,7 @@
         "android audio"
       ],
       "read": [
+        "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md",
         "research/experiments/android-audio/probe/README.md",
         "research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md",
         "research/experiments/android-audio/EXPERIMENT.md",
@@ -172,6 +173,7 @@
         "memory"
       ],
       "read": [
+        "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md",
         "research/prototypes/v04/tests/test_story_ir.py",
         "knowledge-system/vault/plans/PHASE_GATES.md",
         "knowledge-system/vault/evidence/EVIDENCE_REGISTER.md",
