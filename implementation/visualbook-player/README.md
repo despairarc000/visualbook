@@ -9,7 +9,7 @@
 ### Scope
 
 - Demo Juan/Pedro story preloaded.
-- User-editable script accepting `@n`, `@c1`, `@c2m`, `@c3f`, `@bg classroom` / `@bg neutral`, or plain TXT toggle.
+- Android text document picker (UTF-8 TXT / .story.md inferred from extension), bounded 200-KB import; no storage permission.\n- User-editable script accepting `@n`, `@c1`, `@c2m`, `@c3f`, `@bg classroom` / `@bg neutral`, or plain TXT toggle.
 - Implicit cast: no character manifest required. Speaker-specific generic silhouette fallback including a "guest" actor for `c3+`.
 - Three actor voice selectors (n, c1, c2), automatically proposing distinct local Filipino voice candidates if present; optional on-device voice engine, no bundled models.
 - Live Android TTS utterance callbacks drive visible speaking animation and progression. No fake timer-based story advancement. Animation frames use a subordinate clock only while speaking.
@@ -18,7 +18,7 @@
 
 ### Limitations
 
-This is a **narrow tested subset**, not the complete v0.4 spec: no ZIP/storypack import, import picker, @after expressions, multiple background scene visits, audio clip caching, exact interior audio seek, saved progress, actor-specific custom sprites, soundtrack, screen-off foreground service, rate/pitch controls or offline-engine guarantee. Editor accepts up to 100k characters and 500 utterances; Android UI loads input directly into memory. Parser preserves imported text in the in-memory `Story`, though no persisted state yet.
+This is a **narrow tested subset**, not the complete v0.4 spec: no ZIP/storypack import, full import validation, @after expressions, multiple background scene visits, audio clip caching, exact interior audio seek, saved progress, actor-specific custom sprites, soundtrack, screen-off foreground service, rate/pitch controls or offline-engine guarantee. Editor accepts up to 100k characters and 500 utterances; Android UI loads input directly into memory. Parser preserves imported text in the in-memory `Story`, though no persisted state yet.
 
 The old research probe remains unmodified. Android TTS provider identity and installed voices vary; fail visibly if no playable voice. No model/audio/media licensing to redistribute is assumed.
 
