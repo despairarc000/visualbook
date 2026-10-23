@@ -296,6 +296,13 @@
       "kind": "evidence",
       "status": "VERIFIED-TEST",
       "path": "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md"
+    },
+    {
+      "id": "samsung-tts-settings-screenshot",
+      "label": "SM-A066B installed voice settings show only English Hindi (Filipino absent)",
+      "kind": "evidence",
+      "status": "VERIFIED-TEST",
+      "path": "research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md"
     }
   ],
   "edges": [
@@ -582,6 +589,16 @@
     {
       "from": "samsung-filipino-synthesis-timeout",
       "to": "voice-open",
+      "type": "documents"
+    },
+    {
+      "from": "samsung-tts-settings-screenshot",
+      "to": "voice-open",
+      "type": "documents"
+    },
+    {
+      "from": "samsung-tts-settings-screenshot",
+      "to": "samsung-filipino-synthesis-timeout",
       "type": "documents"
     }
   ]
