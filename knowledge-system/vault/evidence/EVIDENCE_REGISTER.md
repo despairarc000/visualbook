@@ -22,3 +22,7 @@
 - The former experimental scripts and fixtures are now in GitHub, with a SHA-256 audit for seven source files. The original complete ZIP from the earlier chat was separately available to the project initiator; GitHub stores its unpacked research contents rather than a ZIP binary.
 - Do not assert voices, visual art, app builds or real Android device tests were performed: none have been demonstrated.
 - For each future experiment record exact commit, device, OS build, tool versions, command and reproducible result.
+
+## Verified CI reference (before this evidence update)
+
+[GitHub Actions run 39965364380](https://github.com/despairarc000/visualbook/actions/runs/39965364380): 10 knowledge/fixture tests and 29 preserved Python prototype tests pass; 9 valid ICM routes, 32 conceptual Graphify nodes/40 edges, 28 live Markdown files with no missing links, seven original sources SHA-256-identical. The new AST code scanner reports 58 nodes / 104 relationships, no parse errors. This is a reproducible source-structure observation, not a phone performance measurement.

@@ -1,38 +1,44 @@
 # CURRENT — VisualBook project checkpoint
 
-**Date:** 2026-10-23 (Asia/Manila). **Stage:** Phase 1 specification, GitHub-native knowledge setup and reproducible research. **Repository:** `despairarc000/visualbook`, `main`.
+**Date:** 2026-10-23 (Asia/Manila). **Stage:** Phase 1 documentation + reproducible proof-of-concept. **GitHub:** `despairarc000/visualbook`, `main`.
 
-## Stable vision
+## Canonical product vision
 
-An offline-first Android illustrated story player with progressive authoring. Plain TXT is narrator content; `@n`, `@c1`, `@c2m`, `@c3f` markers are enough to create implicit speaker identities with optional sex hint, defaults for other details. The **audibly played** narration position drives segment-boundary visual triggers, subtitles and story progress. Advanced script and attached media can specialize characters, cameras, sounds, art and voice packs without replacing the engine.
+Offline-first Android cinematic story player: load plain text or minimal `@n/@c1/@c2m/@c3f` scripted dialogue; unspecified characters/backgrounds/sounds/effects resolve to coherent generic defaults; advanced scripts specialize them. Narration's **audibly played** position, primarily utterance boundaries, is the trigger source of truth for visual state and subtitles. Viewer voice/appearance overrides remain separate from original story. No high-quality default Tagalog offline voice is yet demonstrated.
 
-## GitHub setup — verified
+## Repository now contains
 
-- Empty repo initialized; root [idea plan](../../../IDEA_PLAN.md), [implementation plan](../../../IMPLEMENTATION_PLAN.md), [navigation](../../../NAVIGATION.md) and [AGENTS](../../../AGENTS.md) committed.
-- Current Markdown vault with status-coded requirements/design/research/decision register/phase gates/evidence and this checkpoint.
-- Original v0.2 and v0.3 research documents archived; original v0.3 storytool and fake playback Python source, tests, corpus and two golden script/IR examples committed.
-- ICM deterministic route CLI and Graphify conceptual dependency CLI committed, with agent-scoped workflow and GitHub Actions validator.
-- Tagalog joke/story anthology preserved under `samples/` as a long plain-text stress input.
+- Root `README.md`, `NAVIGATION.md`, `IDEA_PLAN.md`, `IMPLEMENTATION_PLAN.md`, root/scoped `AGENTS.md`.
+- Markdown knowledge vault with requirements, modular design, research/open risks, decision register, evidence, phase gates, historical v0.2/v0.3 plans and this checkpoint.
+- ICM deterministic task router (9 routes) with doctor; Graphify conceptual dependency graph (32 nodes, 40 edges) and Python AST source-level scanner.
+- Preserved v0.3 compiler and fake playback Python experiments, 29 original tests, examples/compiled fixtures, 30-phrase Tagalog TTS evaluation corpus, package security notes and checksum manifest.
+- Full 100KB original Tagalog anthology under `samples/` for long-story stress testing.
+- GitHub Actions CI for links, Graphify, ICM, knowledge/fixture tests, archived Python tests and strict SHA-256 original-source audit.
 
-## Evidence gates (last checked CI before this checkpoint)
+## Latest verified completed CI before this checkpoint
 
-- GitHub Actions knowledge workflow on earlier commit `bb13d7aa047fac891b91998012175cbd547422f7` **success**: ICM 9 routes, Graphify 31 nodes / 39 relationships, 27 active Markdown docs with 0 broken links; nine additional knowledge/fixture tests and 29 original parser/fake-player tests passed.
-- SHA-256 integrity audit: **7 of 7** specifically mapped original v0.3 source files byte-identical. Other archived text documents are preserved but not yet all hash-compared.
-- This checkpoint adds an anthology route/graph node and will have a fresh CI validation; use the latest green run before marking those updated counts VERIFIED.
-- Python experiments are not Android device tests; sample clips, voices, renderers and assets have not been measured.
+[GitHub Actions run 39965364380](https://github.com/despairarc000/visualbook/actions/runs/39965364380) **SUCCESS** (2026-10-23):
+- ICM: 9 routes, 0 problems
+- Conceptual Graphify: 32 nodes, 40 edges, 0 problems
+- AST source graph: 58 nodes, 104 edges, 0 parsing problems
+- Live Markdown doctor: 28 files, 0 broken links
+- Tests: 10 knowledge/fixture tests + 29 original prototype tests passed
+- Original v0.3 source SHA-256: 7 byte-identical, 0 divergence
 
-## What has NOT been built
+This checkpoint adds two more integrity tests (long sample file and speech corpus). Verify newest CI before reporting those two tests as passed.
 
-No APK or live mobile scene renderer, no finished bundled illustrations or sound files, no high-quality redistributable default offline Tagalog TTS selected, no real-device audio gap or frame/RAM testing, no final canonical IR or `.storypack` implementation.
+## NOT implemented
 
-## Highest-priority next steps
+No Android app/APK, no actual mobile visual renderer, no model-distribution rights confirmed, no installed high-quality Tagalog offline TTS, no actual shipped backgrounds, characters or effects, and no real-device timing/RAM benchmarks. Earlier corpus segmentation results were parser simulations only.
 
-1. Freeze the minimal parser and canonical IR contracts plus compatibility fixtures.
-2. Validate real Android TTS and offline Tagalog voice candidates for latency, gaps, license and prosody with the saved corpus.
-3. Benchmark 2D rendering and audio concurrently on a 4GB-class phone.
-4. Produce the first neutral/classroom/street/living room asset family with two coherent generic characters and subtitles.
-5. Integrate one end-to-end slice only after clocks, fallbacks and device budgets are proved.
+## Recommended next actions
 
-## Agent handoff
+1. Freeze canonical versioned production IR, source grammar and deterministic ID policy.
+2. Prove live and prepared TTS segment continuity/quality; test licensing and offline Tagalog voice on Android.
+3. Benchmark audio plus 2D rendering on 4GB-class Android; lock the backend only after evidence.
+4. Produce an actual coherent first content batch (neutral, classroom, street, living room, two generic characters, captions, basic fade, a few explicit SFX).
+5. Build vertical Android slice under implementation branch and add device tests with real trace data.
 
-Read root `AGENTS.md`, `NAVIGATION.md`, route task via ICM, inspect relevant Graphify neighbors, update the decision register and checkpoint with evidence. Keep implementation-specific work in separate branches and clarify simulated vs real-device verification.
+## Agent startup / handoff
+
+Read `AGENTS.md`, `NAVIGATION.md`, `IDEA_PLAN.md`, `IMPLEMENTATION_PLAN.md`, route task through `knowledge-system/icm/icm.py`, inspect Graphify before modifying interfaces and validate with `python3 tools/doctor.py`. Always update evidence and checkpoint with commit/test results; distinguish historical evidence from implementation.

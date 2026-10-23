@@ -11,7 +11,8 @@
 - [x] Source SHA-256 fidelity checked for 7 tracked v0.3 files (strict CI success 2026-10-23).
 - [x] ICM routes, Graphify concept graph and navigation links validated in GitHub CI for previous stable commit.
 - [ ] Full bytewise checksums for every historical document and v0.2 asset entry reconciled.
-- [ ] Validate the most recent sample/link/route graph changes via latest CI.
+- [x] Validate latest sample/route/graph updates and AST code scanner via [green GitHub Actions run](https://github.com/despairarc000/visualbook/actions/runs/39965364380).
+- [ ] Verify archive byte integrity beyond the seven tracked v0.3 originals.
 
 ## Phase 1 spec gate
 
