@@ -44,3 +44,26 @@ Android app ID: `com.visualbook.player.slice` to avoid colliding with any resear
 ## First real phone feedback
 
 [Device observation record](DEVICE_TEST_V01_FIRST_SUCCESS_2026-10-24.md): the user successfully ran the app and created `@c3` without explicit assets; the generic guest appeared while `c3` spoke and vanished on subsequent turns. Full audio-sync quality/voice testing is not yet confirmed. Future cast rendering will separate scene presence from active speaker; current v0.1 behavior is intentional narrow-prototype fallback.
+
+## v0.2: Easy temporary art-style scopes
+
+The new prototype recognizes `@chibi` / `@end`, or `@style chibi` / `@end` as equivalent, plus nested `@style normal` (alias `@style cartoon`) overrides. **One marker per line**. Only two actual procedural modes are supported so far: normal/cartoon, and a visibly redesigned chibi body/head/eyes/mouth with pastel accents. `@end` restores the parent style (nested scopes work); unmatched ends, unclosed blocks and unknown modes raise compiler errors with line locations. Plain TXT still treats markers literally.
+
+Example:
+
+```text
+@n
+Pedro, anong nangyari?
+@chibi
+@c1m
+NAKALIMUTAN KO!
+@c2m
+ANO?!
+@end
+@n
+Bumalik sa normal ang lahat.
+```
+
+The story core attaches `artStyle` to every spoken segment. **Changing the visual mode must not trigger speech**; the scene updates on a valid live TTS `onStart` for that segment, with obsolete callbacks guarded by the audio cursor. Pause retains the current look, Stop resets to normal, and explicit Skip can show the upcoming section's look. This is **global scene styling** in v0.2, not a per-actor style swap; no cross-style part-rigged custom character packs, @style anime assets or automatic morph animation yet.
+
+App ID: `com.visualbook.player.styles.v02`, installed side-by-side with v0.1 to avoid GitHub debug-signing incompatibility; label **VisualBook Styles v0.2**. The example story now demonstrates a chibi comedic reaction automatically.
