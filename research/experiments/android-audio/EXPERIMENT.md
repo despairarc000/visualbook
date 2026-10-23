@@ -1,6 +1,6 @@
 # Android Narration Experiment — Targeted Plan
 
-**Status: NOT RUN.** No APK/device logs/audio samples yet. Do not mark as measured.
+**Status: PROBE APK BUILT, NOT RUN ON DEVICE.** No device logs/audio samples yet. See [build evidence](BUILD_EVIDENCE_2026-10-24.md). Do not mark as measured.
 
 ## Hypotheses
 
@@ -41,4 +41,4 @@ B. **Prepared audio:** synthesize to a controlled media cache, verify output int
 
 ## Next action
 
-Create a **small, disposable Android experiment branch** after the format/reducer interface is agreed; run it on target device and upload measured evidence. Do not choose libGDX or neural model based on this document alone.
+The [small Android diagnostic app](probe/README.md) now builds. Next: install it on target device, run live vs prepared tests in airplane mode, capture logs plus subjective listening findings, and report the exact installed voice. Do not choose libGDX or any neural model based on a successful compile alone.

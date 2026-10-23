@@ -48,3 +48,11 @@ Read `AGENTS.md`, `NAVIGATION.md`, `IDEA_PLAN.md`, `IMPLEMENTATION_PLAN.md`, rou
 Branch `research/canonical-ir-v04` adds a **PROVISIONAL** versioned IR bridge, JSON Schema, semantic validation, minimal script regression tests and explicit Android TTS experiment plan. This is a pure Python study. **Do not mark Phase 1 contract or Android audio gate complete merely because this branch exists.** After PR CI is green, record its exact run and outcome here.
 
 Remaining issues: stable edit IDs, true source spans, real scene silent beats, Android audio callback testing and offline Filipino voice licensing.
+
+## Android speech probe — build verified, device test open (2026-10-24)
+
+- PR #1 (canonical IR 0.4 research and schema conformance) merged as `2629fe69a3600bb9eb221776c9315d140c795c48`; post-merge knowledge CI [39968958633](https://github.com/despairarc000/visualbook/actions/runs/39968958633) succeeded. This is still a draft IR, not production format.
+- Research branch `research/android-tts-probe`, draft PR #2, contains minimal Java Android TTS probe; corrected setup to Android SDK action v4. Debug APK built and uploaded successfully by [run 40019414406](https://github.com/despairarc000/visualbook/actions/runs/40019414406).
+- [Exact build evidence and errors](../../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md) records commit, artifact, APK size and SHA-256.
+- **Not yet proven:** APK installed on physical device, offline Tagalog voice quality, callback accuracy, Media3 playback, target 4GB-memory performance or default story visuals.
+- Next action: run diagnostic APK in airplane mode on low-memory Android phone, collect diagnostics + subjective listening report, then choose real narration adapter. Do not mark Android feasibility gate complete from a green Gradle job.

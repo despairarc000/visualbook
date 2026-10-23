@@ -13,7 +13,7 @@
 - [Decision register](decisions/DECISION_REGISTER.md)
 - [Phase acceptance gates](plans/PHASE_GATES.md)
 - [Open research questions](research/OPEN_QUESTIONS.md)
-- [TTS and Android evidence](research/TTS_AND_ANDROID_RISKS.md)
+- [TTS diagnostic APK build evidence](../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md)\n- [TTS and Android evidence](research/TTS_AND_ANDROID_RISKS.md)
 - [Evidence register](evidence/EVIDENCE_REGISTER.md)
 - [Current checkpoint](checkpoints/CURRENT.md)
 - [Handoff template](templates/HANDOFF.md)

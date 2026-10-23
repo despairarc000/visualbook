@@ -16,4 +16,8 @@ Use 30-line Tagalog test corpus from v0.3 source research pack when available; r
 
 ## Major blockers
 
-No actual high-quality offline Tagalog voice selected; no APK; no physical device or simultaneous render/TTS profile. Never summarize any of these as implemented.
+No actual high-quality offline Tagalog voice selected; an **experimental debug APK builds**, but no physical device or simultaneous render/TTS profile has been demonstrated. Never claim its compiled code establishes audible accuracy or good Tagalog speech.
+
+## New build evidence (2026-10-24)
+
+The [TTS Probe Android diagnostic](../../../research/experiments/android-audio/probe/README.md) builds on GitHub Actions. [Build report](../../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md) distinguishes SDK tooling errors from actual Java compile success. The next blocker is **real device execution in airplane mode**. `android-actions/setup-android@v3` requested the retired `tools` package; moving to v4 fixed CI setup. No neural model was shipped.
