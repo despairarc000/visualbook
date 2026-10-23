@@ -70,3 +70,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Root cause of v0.1 freeze isolated via ANR/Perfetto or controlled A/B tests; successful v0.2 mitigation alone cannot prove individual culprit.
 - [ ] Explicitly select each compatible non-network `fil-PH` voice and test in airplane mode; record best and failures.
 - [ ] Audition segmentation prosody and measure actual gaps with synthesized audio/recordings, not callback differences alone.
+
+## Filipino voice comparison (v0.3)
+
+- [x] Build instrumented Filipino voice comparison app with explicit local candidate selection and source verification; [CI evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_V03_2026-10-24.md).
+- [ ] Test actual selected offline `fil-PH` voice on Samsung phone with airplane mode enabled, listen and rank.
+- [ ] Decide whether native local TTS meets first-release minimum, or a separately licensed packaged offline neural voice is required.
+- [ ] Freeze first generic asset-kit contract and resume implementation vertical slice after testing audio on the intended device.

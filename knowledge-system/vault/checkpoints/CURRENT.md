@@ -77,3 +77,10 @@ The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15.
 - Critical discovery: engine reported `fil-PH=1`, `tl-PH=-2` and 4+ advertised non-network Filipino voice variants, yet **active voice remained `en-US-language`**. Offline Tagalog speech quality was never tested by selecting local `fil-PH` voice.
 - New research branch `research/tagalog-offline-voice-comparison` adds separate v0.3 Android APK experiment. It explicitly selects and confirms Filipino voices, cycles each through live or prepared audio and logs actual selected/observed IDs. On-device v0.3 tests OPEN.
 - Next: real airplane-mode Tagalog pronunciation audition of local voices, then determine if system TTS suffices or external licensed offline neural models are needed. In parallel define initial generic character/background/prop/effect package contract.
+
+## v0.3 Filipino voice-selection research merged (2026-10-24)
+
+- [Build evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_V03_2026-10-24.md). [PR #4](https://github.com/despairarc000/visualbook/pull/4) merged as `2fee9270d2de5000756b3a6a3734a122f8990959`. Both Android build and knowledge PR CI passed. v0.3 APK was extracted and its ZIP integrity inspected.
+- Unique Android application ID `com.visualbook.ttsprobe.v3` for side-by-side installation. Adds explicit local Filipino voice selection by `tts.setVoice` and `getVoice` confirmation before live/prepared playback.
+- **OPEN:** no v0.3 airplane-mode voice auditions on device yet. No model selected, voice quality unproven.
+- Immediately after usable speech evidence: build minimal generic content kit (neutral/classroom backgrounds + two distinct characters + captions + simple fade) and the first Android compiled-script-to-renderer vertical slice. Avoid endless diagnostic app expansion.
