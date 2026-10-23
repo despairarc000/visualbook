@@ -1,0 +1,47 @@
+name: VisualBook First Story Android APK
+on:
+  push:
+    branches: [implementation/first-animated-story]
+    paths:
+      - implementation/visualbook-player/**
+      - .github/workflows/visualbook-player-build.yml
+  pull_request:
+    paths:
+      - implementation/visualbook-player/**
+      - .github/workflows/visualbook-player-build.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-first-story:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Check pure story parser and audible reducer
+        run: |
+          mkdir -p /tmp/visualbook-core-tests
+          javac -d /tmp/visualbook-core-tests implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/*.java implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/StoryCoreTest.java
+          java -cp /tmp/visualbook-core-tests com.visualbook.core.StoryCoreTest
+      - name: Android SDK tools
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+      - name: Install Android SDK API 35
+        run: sdkmanager --install "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Build first actual VisualBook player
+        working-directory: implementation/visualbook-player
+        run: gradle --no-daemon assembleDebug --stacktrace
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: visualbook-first-animated-story-debug
+          path: implementation/visualbook-player/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
