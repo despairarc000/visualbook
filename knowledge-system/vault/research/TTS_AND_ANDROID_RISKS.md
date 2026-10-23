@@ -21,3 +21,7 @@ No actual high-quality offline Tagalog voice selected; an **experimental debug A
 ## New build evidence (2026-10-24)
 
 The [TTS Probe Android diagnostic](../../../research/experiments/android-audio/probe/README.md) builds on GitHub Actions. [Build report](../../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md) distinguishes SDK tooling errors from actual Java compile success. The next blocker is **real device execution in airplane mode**. `android-actions/setup-android@v3` requested the retired `tools` package; moving to v4 fixed CI setup. No neural model was shipped.
+
+## First user device evidence (2026-10-24)
+
+[Samsung SM-A066B report](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md): live utterance start/end callbacks succeeded for two full runs and prepared-file output completed, but user reported UI freeze after Stop followed by another mode. No actual ANR/Perfetto trace yet. Preliminary code review implicates main-thread stop/release and per-callback log re-layout as possible causes; v0.2 experimental fix on branch `fix/tts-probe-switch-freeze`. Live optional word callback exists, but invalid reordered file-range data means neither audio path should assume reliable fine-grained range alignment without validation. Offline voice support not established.

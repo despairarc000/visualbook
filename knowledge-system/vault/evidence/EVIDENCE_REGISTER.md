@@ -31,3 +31,5 @@
 
 - **EV-012:** [Android TTS probe build evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md). GitHub Actions run `40019414406` succeeded, source SHA `21aa89e8d5570c73d7b12054f4c5ea03489863a4`; experimental APK archived as a short-lived GitHub Actions artifact. Not tested on an actual phone.
 - **EV-013:** [PR #1 merged](https://github.com/despairarc000/visualbook/pull/1) and [knowledge CI success](https://github.com/despairarc000/visualbook/actions/runs/39968958633). Canonical IR/schema checks pass in CI but production format and real-world timing remain provisional.
+
+- **EV-014:** [First Samsung Galaxy A06 5G device log analysis](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md). Actual live 3x2 completion and prepared-file 2x playback callbacks, user-reported UI switch freeze; no root cause trace or offline Tagalog voice verdict. Experimental v0.2 fix requires real-device validation.
