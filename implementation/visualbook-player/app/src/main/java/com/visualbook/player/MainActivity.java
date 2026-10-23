@@ -1,6 +1,14 @@
 package com.visualbook.player;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.database.Cursor;
+import android.provider.OpenableColumns;
+import android.content.ContentResolver;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +50,8 @@ public final class MainActivity extends Activity {
             "@c2m\nMeron!\n\n" +
             "@c1\nNasaan?\n\n" +
             "@c2\nNasa panaginip ko!\n";
+    private static final int PICK_TEXT = 33;
+    private static final int MAX_TEXT_BYTES = 200_000;
     private static final String[] IDS = {"n", "c1", "c2"};
     private final Handler ui = new Handler(Looper.getMainLooper());
     private HandlerThread audioThread;
@@ -148,9 +158,11 @@ public final class MainActivity extends Activity {
 
         LinearLayout toggles = new LinearLayout(this);
         toggles.setOrientation(LinearLayout.HORIZONTAL);
-        toggles.addView(button("Edit story", () -> toggleEditor()),
+        toggles.addView(button("Edit", () -> toggleEditor()),
                 new LinearLayout.LayoutParams(0,dp(45),1));
-        toggles.addView(button("Character voices", () -> toggleVoices()),
+        toggles.addView(button("Import TXT", this::importText),
+                new LinearLayout.LayoutParams(0,dp(45),1));
+        toggles.addView(button("Voices", () -> toggleVoices()),
                 new LinearLayout.LayoutParams(0,dp(45),1));
         root.addView(toggles);
 
@@ -224,6 +236,60 @@ public final class MainActivity extends Activity {
         status.setMaxLines(3);
         root.addView(status);
         setContentView(root);
+    }
+
+
+    private void importText() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {startActivityForResult(intent,PICK_TEXT);}
+        catch (RuntimeException problem) {setStatus("Document picker unavailable: " + problem.getMessage());}
+    }
+
+    @Override protected void onActivityResult(int request,int result,Intent data) {
+        super.onActivityResult(request,result,data);
+        if(request != PICK_TEXT || result != RESULT_OK || data==null || data.getData()==null)return;
+        final Uri uri=data.getData();
+        // OpenDocument grants read URI access without storage permissions.
+        setStatus("Reading selected story file…");
+        new Thread(() -> {
+            try {
+                String filename = "story.txt";
+                try (Cursor cursor = getContentResolver().query(uri,
+                        new String[]{OpenableColumns.DISPLAY_NAME},null,null,null)) {
+                    if(cursor!=null && cursor.moveToFirst())
+                        filename=cursor.getString(0);
+                } catch (RuntimeException ignored) {
+                    // Display name isn't needed to safely read the file.
+                }
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                try (InputStream stream=getContentResolver().openInputStream(uri)) {
+                    if(stream==null)throw new IllegalArgumentException("No readable data");
+                    byte[] buffer=new byte[4096];
+                    int n;
+                    while((n=stream.read(buffer))!=-1) {
+                        if(out.size()+n>MAX_TEXT_BYTES)
+                            throw new IllegalArgumentException("TXT exceeds 200 KB limit");
+                        out.write(buffer,0,n);
+                    }
+                }
+                String text = new String(out.toByteArray(),StandardCharsets.UTF_8);
+                final String finalFilename = filename == null ? "story.txt" : filename;
+                ui.post(() -> {
+                    if(destroyed)return;
+                    editor.setText(text);
+                    plainText.setChecked(!finalFilename.toLowerCase(Locale.ROOT)
+                            .endsWith(".story.md"));
+                    compileSource();
+                    if(story != null) setStatus("Imported " + finalFilename +
+                            " • " + story.segments.size() + " narration segments");
+                });
+            } catch(Exception problem) {
+                ui.post(() -> setStatus("Cannot import story: " + problem.getMessage()));
+            }
+        },"VisualBook-Text-Import").start();
     }
 
     private void toggleEditor() {
@@ -408,7 +474,8 @@ public final class MainActivity extends Activity {
         activeRequest=null;
         if(playback!=null)playback.pause();
         if(stage!=null)stage.show("n",false);
-        if(tts!=null && audio!=null)audio.post(() -> tts.stop());
+        final TextToSpeech engine = tts;
+        if(engine!=null && audio!=null)audio.post(engine::stop);
         if(status!=null)setStatus("Paused. Play repeats the interrupted sentence from its beginning.");
     }
 
@@ -417,7 +484,8 @@ public final class MainActivity extends Activity {
         if(playback!=null)playback.reset();
         if(stage!=null)stage.show("n",false);
         if(caption!=null)caption.setText("Stopped. Play begins the story from the start.");
-        if(tts!=null)audio.post(() -> tts.stop());
+        final TextToSpeech engine = tts;
+        if(engine!=null)audio.post(engine::stop);
         setStatus("Stopped at beginning.");
     }
 
@@ -426,7 +494,8 @@ public final class MainActivity extends Activity {
         activeRequest=null;
         playback.skip();
         stage.show("n",false);
-        if(tts!=null)audio.post(() -> tts.stop());
+        final TextToSpeech engine = tts;
+        if(engine!=null)audio.post(engine::stop);
         caption.setText(playback.isFinished()?"Tapos na.":"Skipped by listener • tap Play.");
         setStatus("Manual text-only skip; no audio completion was fabricated.");
     }
