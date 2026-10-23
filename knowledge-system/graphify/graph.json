@@ -1,0 +1,421 @@
+{
+  "schema": "visualbook.graph.v1",
+  "updated": "2026-10-23",
+  "description": "Manually curated conceptual dependencies, NOT actual source-code AST",
+  "nodes": [
+    {
+      "id": "idea-plan",
+      "label": "Idea plan",
+      "kind": "document",
+      "status": "CONFIRMED",
+      "path": "IDEA_PLAN.md"
+    },
+    {
+      "id": "implementation-plan",
+      "label": "Implementation plan",
+      "kind": "document",
+      "status": "PROVISIONAL",
+      "path": "IMPLEMENTATION_PLAN.md"
+    },
+    {
+      "id": "requirements",
+      "label": "Product requirements",
+      "kind": "document",
+      "status": "CONFIRMED",
+      "path": "knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md"
+    },
+    {
+      "id": "script-source",
+      "label": "Plain / annotated / packaged story source",
+      "kind": "contract",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md"
+    },
+    {
+      "id": "script-compiler",
+      "label": "Story parser / semantic compiler",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md"
+    },
+    {
+      "id": "canonical-ir",
+      "label": "Versioned canonical story IR",
+      "kind": "contract",
+      "status": "OPEN",
+      "path": "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md"
+    },
+    {
+      "id": "speaker-registry",
+      "label": "Implicit character registry",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md"
+    },
+    {
+      "id": "segmentation",
+      "label": "Adaptive utterance segmenter",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md"
+    },
+    {
+      "id": "tts-backend",
+      "label": "System / offline neural / pre-recorded speech adapter",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md"
+    },
+    {
+      "id": "voice-resolver",
+      "label": "Voice identity and capability resolver",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/MODULE_CONTRACTS.md"
+    },
+    {
+      "id": "narration-player",
+      "label": "Audible media playback controller",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md"
+    },
+    {
+      "id": "narration-cursor",
+      "label": "Audible narration cursor",
+      "kind": "contract",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md"
+    },
+    {
+      "id": "event-reducer",
+      "label": "Serialized narration event reducer",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md"
+    },
+    {
+      "id": "scene-state",
+      "label": "Reconstructible scene state",
+      "kind": "contract",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md"
+    },
+    {
+      "id": "renderer",
+      "label": "2D scene rendering adapter",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/MODULE_CONTRACTS.md"
+    },
+    {
+      "id": "camera-layout",
+      "label": "World/camera/screen composition",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md"
+    },
+    {
+      "id": "character-system",
+      "label": "Generic and overridable characters",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md"
+    },
+    {
+      "id": "asset-resolver",
+      "label": "Typed resource resolver and fallback",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md"
+    },
+    {
+      "id": "builtin-library",
+      "label": "Coherent bundled story world",
+      "kind": "resource",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md"
+    },
+    {
+      "id": "subtitles",
+      "label": "Caption and transcript presentation",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md"
+    },
+    {
+      "id": "android-ui",
+      "label": "Android UI / import / customization",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/MODULE_CONTRACTS.md"
+    },
+    {
+      "id": "media3",
+      "label": "Android MediaSession player integration",
+      "kind": "adapter",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md"
+    },
+    {
+      "id": "package-security",
+      "label": "Untrusted storypack validation",
+      "kind": "module",
+      "status": "ACCEPTED",
+      "path": "knowledge-system/vault/design/PACKAGE_SECURITY.md"
+    },
+    {
+      "id": "phase-gates",
+      "label": "Phase / conformance test gates",
+      "kind": "document",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/plans/PHASE_GATES.md"
+    },
+    {
+      "id": "voice-open",
+      "label": "Tagalog offline voice and license blocker",
+      "kind": "risk",
+      "status": "OPEN",
+      "path": "knowledge-system/vault/research/OPEN_QUESTIONS.md"
+    },
+    {
+      "id": "v02-catalog",
+      "label": "Historical 101-ID planned catalog",
+      "kind": "evidence",
+      "status": "HISTORICAL",
+      "path": "knowledge-system/vault/history/v0.2/builtin_asset_catalog_seed.json"
+    },
+    {
+      "id": "v03-clock",
+      "label": "Historical v0.3 timing research",
+      "kind": "evidence",
+      "status": "HISTORICAL",
+      "path": "knowledge-system/vault/history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md"
+    },
+    {
+      "id": "v03-grammar",
+      "label": "Historical v0.3 grammar research",
+      "kind": "evidence",
+      "status": "HISTORICAL",
+      "path": "knowledge-system/vault/history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md"
+    },
+    {
+      "id": "checkpoint",
+      "label": "Current checkpoint",
+      "kind": "document",
+      "status": "CONFIRMED",
+      "path": "knowledge-system/vault/checkpoints/CURRENT.md"
+    },
+    {
+      "id": "icm",
+      "label": "ICM context router",
+      "kind": "tool",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/icm/README.md"
+    },
+    {
+      "id": "graphify",
+      "label": "Graphify architecture mapper",
+      "kind": "tool",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/graphify/README.md"
+    }
+  ],
+  "edges": [
+    {
+      "from": "idea-plan",
+      "to": "requirements",
+      "type": "documents"
+    },
+    {
+      "from": "requirements",
+      "to": "script-source",
+      "type": "documents"
+    },
+    {
+      "from": "script-source",
+      "to": "script-compiler",
+      "type": "feeds"
+    },
+    {
+      "from": "script-compiler",
+      "to": "speaker-registry",
+      "type": "depends_on"
+    },
+    {
+      "from": "script-compiler",
+      "to": "segmentation",
+      "type": "depends_on"
+    },
+    {
+      "from": "script-compiler",
+      "to": "canonical-ir",
+      "type": "feeds"
+    },
+    {
+      "from": "speaker-registry",
+      "to": "canonical-ir",
+      "type": "feeds"
+    },
+    {
+      "from": "segmentation",
+      "to": "canonical-ir",
+      "type": "feeds"
+    },
+    {
+      "from": "canonical-ir",
+      "to": "event-reducer",
+      "type": "feeds"
+    },
+    {
+      "from": "canonical-ir",
+      "to": "scene-state",
+      "type": "feeds"
+    },
+    {
+      "from": "voice-resolver",
+      "to": "tts-backend",
+      "type": "depends_on"
+    },
+    {
+      "from": "tts-backend",
+      "to": "narration-player",
+      "type": "feeds"
+    },
+    {
+      "from": "media3",
+      "to": "narration-player",
+      "type": "feeds"
+    },
+    {
+      "from": "narration-player",
+      "to": "narration-cursor",
+      "type": "feeds"
+    },
+    {
+      "from": "narration-cursor",
+      "to": "event-reducer",
+      "type": "controls"
+    },
+    {
+      "from": "event-reducer",
+      "to": "scene-state",
+      "type": "feeds"
+    },
+    {
+      "from": "scene-state",
+      "to": "renderer",
+      "type": "feeds"
+    },
+    {
+      "from": "scene-state",
+      "to": "subtitles",
+      "type": "feeds"
+    },
+    {
+      "from": "asset-resolver",
+      "to": "scene-state",
+      "type": "resolves"
+    },
+    {
+      "from": "asset-resolver",
+      "to": "builtin-library",
+      "type": "depends_on"
+    },
+    {
+      "from": "renderer",
+      "to": "camera-layout",
+      "type": "depends_on"
+    },
+    {
+      "from": "renderer",
+      "to": "character-system",
+      "type": "depends_on"
+    },
+    {
+      "from": "character-system",
+      "to": "speaker-registry",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-ui",
+      "to": "narration-player",
+      "type": "depends_on"
+    },
+    {
+      "from": "android-ui",
+      "to": "subtitles",
+      "type": "depends_on"
+    },
+    {
+      "from": "package-security",
+      "to": "script-compiler",
+      "type": "feeds"
+    },
+    {
+      "from": "voice-open",
+      "to": "phase-gates",
+      "type": "blocks"
+    },
+    {
+      "from": "phase-gates",
+      "to": "implementation-plan",
+      "type": "tests"
+    },
+    {
+      "from": "v02-catalog",
+      "to": "builtin-library",
+      "type": "documents"
+    },
+    {
+      "from": "v03-clock",
+      "to": "narration-cursor",
+      "type": "documents"
+    },
+    {
+      "from": "v03-grammar",
+      "to": "script-source",
+      "type": "documents"
+    },
+    {
+      "from": "icm",
+      "to": "checkpoint",
+      "type": "depends_on"
+    },
+    {
+      "from": "graphify",
+      "to": "implementation-plan",
+      "type": "documents"
+    },
+    {
+      "from": "checkpoint",
+      "to": "implementation-plan",
+      "type": "documents"
+    },
+    {
+      "from": "script-compiler",
+      "to": "package-security",
+      "type": "depends_on"
+    },
+    {
+      "from": "subtitles",
+      "to": "narration-cursor",
+      "type": "depends_on"
+    },
+    {
+      "from": "asset-resolver",
+      "to": "package-security",
+      "type": "depends_on"
+    },
+    {
+      "from": "narration-player",
+      "to": "voice-resolver",
+      "type": "depends_on"
+    },
+    {
+      "from": "camera-layout",
+      "to": "scene-state",
+      "type": "depends_on"
+    }
+  ]
+}

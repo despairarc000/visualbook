@@ -1,0 +1,189 @@
+{
+  "schema": "visualbook.icm.v1",
+  "updated": "2026-10-23",
+  "base": [
+    "AGENTS.md",
+    "NAVIGATION.md",
+    "knowledge-system/vault/checkpoints/CURRENT.md"
+  ],
+  "default": "overview",
+  "routes": {
+    "overview": {
+      "terms": [
+        "overview",
+        "start",
+        "vision",
+        "project",
+        "idea",
+        "plan",
+        "general",
+        "architecture"
+      ],
+      "read": [
+        "IDEA_PLAN.md",
+        "IMPLEMENTATION_PLAN.md",
+        "knowledge-system/vault/INDEX.md",
+        "knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md"
+      ],
+      "scope": "What VisualBook is, current verified state and roadmap"
+    },
+    "authoring": {
+      "terms": [
+        "authoring",
+        "script",
+        "syntax",
+        "parser",
+        "compiler",
+        "ai",
+        "character marker",
+        "@c1",
+        "@c2m",
+        "story.md"
+      ],
+      "read": [
+        "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md",
+        "knowledge-system/vault/history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md",
+        "knowledge-system/vault/decisions/DECISION_REGISTER.md"
+      ],
+      "scope": "Minimal notation, implicit cast, source spans, IR"
+    },
+    "narration": {
+      "terms": [
+        "narration",
+        "audio pointer",
+        "clock",
+        "timing",
+        "trigger",
+        "seek",
+        "pause",
+        "utterance",
+        "tts pointer",
+        "timeline",
+        "playback"
+      ],
+      "read": [
+        "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md",
+        "knowledge-system/vault/history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md",
+        "knowledge-system/vault/design/MODULE_CONTRACTS.md"
+      ],
+      "scope": "Audible progress and deterministic event reducer"
+    },
+    "voice": {
+      "terms": [
+        "voice",
+        "filipino",
+        "tagalog",
+        "speech",
+        "tts",
+        "model",
+        "sherpa",
+        "piper",
+        "mms",
+        "android audio"
+      ],
+      "read": [
+        "knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md",
+        "knowledge-system/vault/history/v0.3/contracts/06_VOICES_AND_PERFORMANCE.md",
+        "knowledge-system/vault/research/OPEN_QUESTIONS.md"
+      ],
+      "scope": "Voice selection/licensing, device feasibility and fallback"
+    },
+    "assets": {
+      "terms": [
+        "asset",
+        "generic",
+        "background",
+        "character",
+        "sprite",
+        "sfx",
+        "music",
+        "effect",
+        "art",
+        "catalog",
+        "default",
+        "fallback"
+      ],
+      "read": [
+        "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md",
+        "knowledge-system/vault/history/v0.2/builtin_asset_catalog_seed.json",
+        "knowledge-system/vault/history/v0.3/contracts/05_GENERIC_CONTENT_SYSTEM.md"
+      ],
+      "scope": "Coherent typed default world and production catalog"
+    },
+    "rendering": {
+      "terms": [
+        "renderer",
+        "libgdx",
+        "canvas",
+        "viewport",
+        "screen",
+        "landscape",
+        "portrait",
+        "camera",
+        "layout",
+        "animation"
+      ],
+      "read": [
+        "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md",
+        "knowledge-system/vault/design/MODULE_CONTRACTS.md",
+        "knowledge-system/vault/research/OPEN_QUESTIONS.md"
+      ],
+      "scope": "2D visual backend and responsive composition"
+    },
+    "package": {
+      "terms": [
+        "storypack",
+        "zip",
+        "manifest",
+        "package",
+        "security",
+        "import",
+        "archive",
+        "license"
+      ],
+      "read": [
+        "knowledge-system/vault/design/PACKAGE_SECURITY.md",
+        "knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md",
+        "knowledge-system/vault/evidence/EVIDENCE_REGISTER.md"
+      ],
+      "scope": "Package import and compatibility boundaries"
+    },
+    "quality": {
+      "terms": [
+        "test",
+        "validation",
+        "doctor",
+        "ci",
+        "benchmark",
+        "qa",
+        "fuzz",
+        "performance",
+        "memory"
+      ],
+      "read": [
+        "knowledge-system/vault/plans/PHASE_GATES.md",
+        "knowledge-system/vault/evidence/EVIDENCE_REGISTER.md",
+        "IMPLEMENTATION_PLAN.md"
+      ],
+      "scope": "Acceptance gates and evidence"
+    },
+    "handoff": {
+      "terms": [
+        "handoff",
+        "resume",
+        "continue",
+        "checkpoint",
+        "codex",
+        "agents",
+        "status",
+        "next"
+      ],
+      "read": [
+        "knowledge-system/vault/templates/HANDOFF.md",
+        "knowledge-system/vault/decisions/DECISION_REGISTER.md",
+        "IMPLEMENTATION_PLAN.md"
+      ],
+      "scope": "Safe continuation across agents and conversations"
+    }
+  }
+}
