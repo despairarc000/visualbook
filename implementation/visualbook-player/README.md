@@ -40,3 +40,7 @@ Android app ID: `com.visualbook.player.slice` to avoid colliding with any resear
 ## Build checkpoint
 
 [Version 0.1 build record](BUILD_EVIDENCE_V01_2026-10-24.md) confirms 26 passing pure Java assertions, a successfully compiled 32,419-byte debug APK with recorded SHA-256, and merged PR #9. Physical Samsung phone testing remains open.
+
+## First real phone feedback
+
+[Device observation record](DEVICE_TEST_V01_FIRST_SUCCESS_2026-10-24.md): the user successfully ran the app and created `@c3` without explicit assets; the generic guest appeared while `c3` spoke and vanished on subsequent turns. Full audio-sync quality/voice testing is not yet confirmed. Future cast rendering will separate scene presence from active speaker; current v0.1 behavior is intentional narrow-prototype fallback.
