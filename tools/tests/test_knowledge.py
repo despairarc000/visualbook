@@ -8,6 +8,7 @@ sys.path.insert(0,str(ROOT/"knowledge-system"/"icm"))
 sys.path.insert(0,str(ROOT/"knowledge-system"/"graphify"))
 import icm
 import graphify
+import scan_code
 
 class KnowledgeTest(unittest.TestCase):
     def test_routes_valid(self):
@@ -26,6 +27,11 @@ class KnowledgeTest(unittest.TestCase):
         src=ROOT/"knowledge-system/vault/history/v0.2/builtin_asset_catalog_seed.json"
         j=json.loads(src.read_text(encoding="utf-8"))
         self.assertIn("catalogVersion",j)
+    def test_source_graph_scanner(self):
+        result=scan_code.scan()
+        self.assertEqual(result['parse_errors'],[])
+        self.assertTrue(any('storytool.py:compile_story' in n['id'] for n in result['nodes']))
+        self.assertTrue(any(e['relation']=='defines' for e in result['edges']))
     def test_live_index(self):
         self.assertTrue((ROOT/"NAVIGATION.md").is_file())
 

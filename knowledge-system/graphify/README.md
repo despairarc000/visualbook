@@ -24,3 +24,15 @@ python3 knowledge-system/graphify/graphify.py mermaid
 - `blocks`: open question blocks milestone
 
 Update nodes/edges together with relevant ADR and ICM route. Missing evidence must be marked PROVISIONAL, never disguised as implemented code.
+
+## Source-level Graphify (AST)
+
+The hand-maintained architecture graph is complemented by an on-demand **real Python code scanner**:
+
+```sh
+python3 knowledge-system/graphify/scan_code.py --summary
+python3 knowledge-system/graphify/scan_code.py --focus storytool
+python3 knowledge-system/graphify/scan_code.py --json
+```
+
+It parses Python source under the configured folders, outputs file/function/class/import nodes and conservative local function-call relations. This is observational evidence from actual committed files, unlike proposed conceptual nodes. It deliberately does not claim Kotlin/Java AST support yet; when Android code exists, add a proper parser for that language rather than guessing by filename.
