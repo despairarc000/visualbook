@@ -1,0 +1,19 @@
+# TTS / Android Investigation Register
+
+**Status:** PROVISIONAL / OPEN. Research snapshot last gathered 2026-10-23, no Android benchmark performed.
+
+## Evidence from earlier v0.3 work
+
+- Android `UtteranceProgressListener` supports audible start/done semantics; range callback depends on particular installed engine. `synthesizeToFile` can prepare audio for our own player. Inspect [v0.3 research](../history/v0.3/research/01_FINDINGS_AND_SOURCES.md) for primary documentation URLs and caveats.
+- Preferred runtime contract is prepared segment audio with actual playback-position clock, live Android TTS fallback coarse segment anchors and pre-recorded audio as another producer.
+- Media3 MediaSessionService provides a candidate for background narration; practical interruptions, restart, resumption and focus need device testing.
+- Meta MMS Tagalog checkpoint exists with **CC BY-NC 4.0** licensing; cannot assume commercial redistribution. A fast inference backend like sherpa-onnx does not imply an available Filipino voice. Kokoro public language list does not prove native Tagalog support.
+- libGDX Android embedding is plausible, but real measured rendering/power/memory with concurrent synthesis is missing.
+
+## Required research procedure
+
+Use 30-line Tagalog test corpus from v0.3 source research pack when available; reproduce on target low-memory Android plus at least one modern device. Record Android build, local voice enumeration, offline airplane mode, audio samples with consent, subjective ratings, synthesis duration and p50/p95 pauses, CPU/RAM, background service behavior. Evaluate risk and legal distributions before selecting a bundled model.
+
+## Major blockers
+
+No actual high-quality offline Tagalog voice selected; no APK; no physical device or simultaneous render/TTS profile. Never summarize any of these as implemented.
