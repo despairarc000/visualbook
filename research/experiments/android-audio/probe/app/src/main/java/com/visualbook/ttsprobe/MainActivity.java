@@ -50,6 +50,8 @@ public final class MainActivity extends Activity {
     private final AtomicInteger generation = new AtomicInteger(0);
     private final ConcurrentHashMap<String, Long> utteranceStarts = new ConcurrentHashMap<>();
     private final Set<String> invalidRangeWarned = ConcurrentHashMap.newKeySet();
+    // Owned by the audio worker; never select a voice while current audio is active.
+    private int filipinoVoiceIndex = -1;
     private final StringBuilder report = new StringBuilder();
     private HandlerThread audioThread;
     private Handler audio;
@@ -85,13 +87,15 @@ public final class MainActivity extends Activity {
         }
 
         TextView title = new TextView(this);
-        title.setText("VisualBook TTS Probe v0.2 — responsive switching diagnostic");
+        title.setText("VisualBook TTS Probe v0.3 — Filipino voices + switching");
         title.setTextSize(18);
         root.addView(title);
 
         addButton(root, "1. List installed voices", this::listVoices);
         addButton(root, "2. Speak 3 live sentences", () -> requestMode("LIVE"));
         addButton(root, "3. Synthesize + play file", () -> requestMode("PREP"));
+        addButton(root, "4. Next OFFLINE Filipino voice + LIVE", () -> requestFilipinoVoice(false));
+        addButton(root, "5. Next OFFLINE Filipino voice + PREP", () -> requestFilipinoVoice(true));
         addButton(root, "Stop / invalidate callbacks", () -> requestMode("STOP"));
         addButton(root, "Share diagnostic text", this::shareReport);
 
@@ -104,8 +108,8 @@ public final class MainActivity extends Activity {
         setContentView(root);
         log("Device " + Build.MANUFACTURER + " " + Build.MODEL +
                 " Android " + Build.VERSION.RELEASE + " SDK " + Build.VERSION.SDK_INT);
-        log("Probe v0.2: TTS stop, speak, file synthesis, voice queries and MediaPlayer " +
-                "operations run on a serial background thread. No INTERNET permission.");
+        log("Probe v0.3: audio on background worker; compare advertised local fil-PH voices." +
+                " No INTERNET permission. Use airplane mode for offline verification.");
 
         lastUiBeatMs = SystemClock.elapsedRealtime();
         main.postDelayed(uiHeartbeat, 250L);
@@ -277,7 +281,8 @@ public final class MainActivity extends Activity {
                 ArrayList<Voice> voices = new ArrayList<>(raw);
                 voices.sort(Comparator.comparing(Voice::getName));
                 Voice active = tts.getVoice();
-                log("Voice inventory count=" + voices.size() + " active=" +
+                log("Voice inventory count=" + voices.size() +
+                        " default_engine=" + tts.getDefaultEngine() + " active=" +
                         (active == null ? "<none>" : active.getName()));
                 int printedOther = 0;
                 for (Voice voice : voices) {
@@ -286,12 +291,86 @@ public final class MainActivity extends Activity {
                     if (tagalog || printedOther++ < 12) {
                         log((tagalog ? "TAGALOG CANDIDATE " : "") + voice.getName() +
                                 " locale=" + voice.getLocale().toLanguageTag() +
-                                " requiresNetwork=" + voice.isNetworkConnectionRequired());
+                                " requiresNetwork=" + voice.isNetworkConnectionRequired() +
+                                " quality=" + voice.getQuality() + " latency=" + voice.getLatency());
                     }
                 }
                 log("Voice listing does not change voice mid-utterance.");
             } catch (RuntimeException problem) {
                 log("Voice query error " + problem);
+            } finally {
+                endCommand();
+            }
+        });
+    }
+
+    /**
+     * Compare the engine's advertised non-network Filipino voices, one at a time.
+     * A voice's isNetworkConnectionRequired=false is metadata, NOT proof that its
+     * voice data is installed or that it speaks well. Test in airplane mode.
+     */
+    private void requestFilipinoVoice(boolean prepared) {
+        if (!ready) {
+            log("TTS not ready; Filipino voice comparison not started.");
+            return;
+        }
+        final int desired = generation.incrementAndGet();
+        final String mode = prepared ? "FIL-PREP" : "FIL-LIVE";
+        log("UI REQUEST " + mode + " generation=" + desired +
+                " queued on background audio worker.");
+        audio.post(() -> {
+            if (destroyed || generation.get() != desired) {
+                log("Discarded superseded Filipino voice selection generation=" + desired);
+                return;
+            }
+            beginCommand(mode);
+            try {
+                stopCore();
+                if (destroyed || generation.get() != desired) return;
+                Set<Voice> raw = tts.getVoices();
+                if (raw == null) {
+                    log("No voice inventory; Filipino comparison unavailable.");
+                    return;
+                }
+                ArrayList<Voice> candidates = new ArrayList<>();
+                for (Voice voice : raw) {
+                    String language = voice.getLocale().getLanguage();
+                    if (("fil".equals(language) || "tl".equals(language)) &&
+                            !voice.isNetworkConnectionRequired()) {
+                        candidates.add(voice);
+                    }
+                }
+                candidates.sort(Comparator.comparing(Voice::getName));
+                if (candidates.isEmpty()) {
+                    log("No advertised local Filipino voice. Read-only mode available.");
+                    return;
+                }
+                filipinoVoiceIndex = (filipinoVoiceIndex + 1) % candidates.size();
+                Voice selected = candidates.get(filipinoVoiceIndex);
+                long setStarted = SystemClock.elapsedRealtime();
+                int result = tts.setVoice(selected);
+                Voice effective = tts.getVoice();
+                log("FILIPINO VOICE candidate=" + (filipinoVoiceIndex + 1) + "/" +
+                        candidates.size() + " name=" + selected.getName() +
+                        " locale=" + selected.getLocale().toLanguageTag() +
+                        " network=" + selected.isNetworkConnectionRequired() +
+                        " quality=" + selected.getQuality() +
+                        " latency=" + selected.getLatency() +
+                        " selectStatus=" + result +
+                        " setVoiceMs=" + (SystemClock.elapsedRealtime() - setStarted) +
+                        " effective=" + (effective == null ? "<none>" : effective.getName()));
+                if (result != TextToSpeech.SUCCESS ||
+                        effective == null || !selected.getName().equals(effective.getName())) {
+                    log("Voice selection failed or voice substituted; DO NOT attribute " +
+                            "any playback to requested voice.");
+                    return;
+                }
+                if (destroyed || generation.get() != desired) return;
+                if (prepared) prepareFile(desired);
+                else startLive(desired);
+                recordMemory();
+            } catch (RuntimeException unexpected) {
+                log("FILIPINO VOICE error " + unexpected);
             } finally {
                 endCommand();
             }
@@ -371,6 +450,7 @@ public final class MainActivity extends Activity {
     }
 
     private void startLive(int desired) {
+        if (tts.getVoice() != null) log("LIVE active voice=" + tts.getVoice().getName());
         for (int i = 0; i < CORPUS.length; i++) {
             if (generation.get() != desired) return;
             String id = "L:" + desired + ":" + i;
@@ -386,6 +466,7 @@ public final class MainActivity extends Activity {
     private void prepareFile(int desired) {
         File file = new File(getCacheDir(), "probe-" + desired + ".wav");
         // Very small example; production needs bounded, atomically written cache management.
+        if (tts.getVoice() != null) log("PREP active voice=" + tts.getVoice().getName());
         int result = tts.synthesizeToFile(CORPUS[0], null, file, "P:" + desired);
         log("PREP synthesizeToFile enqueue returned=" + result + " file=" + file.getName() +
                 " (NOT audible progress)");
@@ -447,7 +528,7 @@ public final class MainActivity extends Activity {
     private void shareReport() {
         Intent send = new Intent(Intent.ACTION_SEND);
         send.setType("text/plain");
-        send.putExtra(Intent.EXTRA_SUBJECT, "VisualBook TTS Probe v0.2 diagnostics");
+        send.putExtra(Intent.EXTRA_SUBJECT, "VisualBook TTS Probe v0.3 Filipino voice diagnostics");
         send.putExtra(Intent.EXTRA_TEXT, report.toString());
         startActivity(Intent.createChooser(send, "Share probe diagnostics"));
     }

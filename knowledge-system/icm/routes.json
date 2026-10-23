@@ -87,9 +87,13 @@
         "sherpa",
         "piper",
         "mms",
-        "android audio"
+        "android audio",
+        "fil-PH",
+        "local Filipino",
+        "voice comparison"
       ],
       "read": [
+        "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md",
         "research/experiments/android-audio/probe/README.md",
         "research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md",

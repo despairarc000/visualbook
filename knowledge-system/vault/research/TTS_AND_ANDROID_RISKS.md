@@ -25,3 +25,7 @@ The [TTS Probe Android diagnostic](../../../research/experiments/android-audio/p
 ## First user device evidence (2026-10-24)
 
 [Samsung SM-A066B report](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md): live utterance start/end callbacks succeeded for two full runs and prepared-file output completed, but user reported UI freeze after Stop followed by another mode. No actual ANR/Perfetto trace yet. Preliminary code review implicates main-thread stop/release and per-callback log re-layout as possible causes; v0.2 experimental fix on branch `fix/tts-probe-switch-freeze`. Live optional word callback exists, but invalid reordered file-range data means neither audio path should assume reliable fine-grained range alignment without validation. Offline voice support not established.
+
+## Samsung v0.2 stress evidence (2026-10-24)
+
+On SM-A066B Android 15, [v0.2 rapid switching test](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md) was reported smooth, with `tts.stop()` generally 0–4 ms on worker, MediaPlayer cleanup 49–54 ms, no new UI heartbeat-gap report during the stress sequence. Only one initial 514-ms startup UI gap occurred, preceding TTS init. The engine advertises `fil-PH` (country-level support), several local Filipino candidates, but **active voice was en-US-language**. Therefore voice quality/availability is the *next* hard blocker. An advertised network-free voice is not proven available until it actually synthesizes offline; the new v0.3 probe cycles and confirms these voices.

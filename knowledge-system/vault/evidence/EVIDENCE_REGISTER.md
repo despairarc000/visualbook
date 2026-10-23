@@ -35,3 +35,5 @@
 - **EV-014:** [First Samsung Galaxy A06 5G device log analysis](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md). Actual live 3x2 completion and prepared-file 2x playback callbacks, user-reported UI switch freeze; no root cause trace or offline Tagalog voice verdict. Experimental v0.2 fix requires real-device validation.
 
 - **EV-015:** [v0.2 TTS freeze-mitigation APK CI/build evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_V02_2026-10-24.md), [merged PR #3](https://github.com/despairarc000/visualbook/pull/3). Compiles, produces APK; NOT real-device tested for freeze correction.
+
+- **EV-016:** [Samsung SM-A066B TTS Probe v0.2 successful stress test](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md), user states "Smooth" after repeated live/prepared/stop switching. One startup UI gap; no recurring gap under stress. No proof of voice quality or root-cause isolation.

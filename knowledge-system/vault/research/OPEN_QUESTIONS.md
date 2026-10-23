@@ -18,3 +18,7 @@
 | P2 | Interactive branches and choices, advanced camera, parallax? | Advanced stories | Explicit scope/graph interpretation |
 
 Research results belong in dedicated evidence reports with source, access date, device/build, commands and outcome. Don't close questions through reasoning alone.
+
+## Evidence-led update (2026-10-24)
+
+The Samsung v0.2 command switch behavior is now empirically acceptable in one reported stress scenario, but this does not close ANR root cause in general. The next immediate unanswered question is whether advertised `fil-PH` non-network voices actually synthesize natural, intelligible Filipino **with airplane mode enabled** and are suitable for distribution on other devices. See [latest Samsung evidence](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md). Optional voice model selection remains provisional.

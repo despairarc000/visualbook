@@ -1,7 +1,7 @@
 name: Android TTS Probe Debug APK
 on:
   push:
-    branches: [research/android-tts-probe]
+    branches: [research/android-tts-probe, research/tagalog-offline-voice-comparison]
     paths:
       - research/experiments/android-audio/probe/**
       - .github/workflows/tts-probe-build.yml
