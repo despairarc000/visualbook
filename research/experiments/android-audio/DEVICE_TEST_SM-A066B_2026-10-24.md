@@ -28,11 +28,11 @@ v0.1 executes `tts.stop()`, synchronous MediaPlayer cleanup, TTS queuing and voi
 - Throttle diagnostic TextView to latest 9K characters at most once per 200 ms; preserve bounded full shareable log separately.
 - Add 250-ms main-thread heartbeat, audio command begin/end duration including stop() duration, and report audio command stuck beyond 1.5s.
 - Only consider range callbacks when text offsets are plausible; prepared-file range timestamps are NOT audible progress.
-- Increment version code; replace previous installed app without changing package ID.
+- Increment version code; use separate v0.2 package ID because GitHub debug signing keys may differ.
 
 ## Tests required on phone
 
-1. Install version 0.2 over 0.1. Tap Voice List after TTS ready.
+1. Install version 0.2 as a separate app (different application ID); keep v0.1 for controlled comparison. Tap Voice List after TTS ready.
 2. Run live, tap **Stop while speaking**, immediately run prepared-file, then repeat in reverse.
 3. Tap each mode several times quickly; verify latest requested mode wins with no stuck UI.
 4. Confirm logs include `AUDIO COMMAND begin/finished`, `tts.stop duration_ms` and `UI-MAIN gap` only if main thread stalls.
