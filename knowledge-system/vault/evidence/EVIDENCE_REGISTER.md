@@ -41,3 +41,5 @@
 - **EV-017:** [v0.3 Android Filipino voice probe compiled](../../../research/experiments/android-audio/BUILD_EVIDENCE_V03_2026-10-24.md), [CI build](https://github.com/despairarc000/visualbook/actions/runs/40027370638). APK archive inspected; no phone-based v0.3 result yet.
 
 - **EV-018:** [SM-A066B TTS Probe v0.3 Filipino synthesis failures](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md): actual Samsung TTS engine `com.samsung.SMT`, two confirmed local `fil-PH` voice selections, live/prepared errors -7 approximately two seconds after queue; English baseline works. Root cause of timeouts and true offline voice availability OPEN.
+
+- **EV-019:** [SM-A066B Samsung TTS Settings screenshots distilled](../../../research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md). Visible installed/configurable voice list only English (India), English (US), Hindi (India), Samsung TTS v3.5.02.16; no Filipino entry or Install voice data on that screenshot. No original screenshot binary committed to avoid unrelated app-name disclosure.

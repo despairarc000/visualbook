@@ -85,3 +85,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Determine whether missing/unfinished local voice-pack download is involved; record actual installation state.
 - [ ] Reproduce/resolve Filipino synthesis with Samsung voice data installed, or compare Google TTS engine using same corpus.
 - [ ] Prove usable speech **in airplane mode** and rank Tagalog prosody before selecting a production default.
+
+## Samsung voice settings inspection (2026-10-24)
+
+- [x] Inspect user-supplied local Samsung TTS settings screenshot: English India/US and Hindi only, latest version v3.5.02.16; Filipino not visible. [Evidence](../../../research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md).
+- [ ] Locate system-wide Preferred engine selector on actual SM-A066B One UI 7; check available Google provider.
+- [ ] If compatible, install/configure Google Speech Recognition & Synthesis, download Filipino voice pack if offered and verify airplane-mode synthesis.
+- [ ] Decide production voice availability through **actual audible successful local synthesis**, not locale enumerations or `setVoice=0`.

@@ -91,3 +91,7 @@ The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15.
 - Official Android constant: `-7 ERROR_NETWORK_TIMEOUT`, **not** missing voice data (`-9 ERROR_NOT_INSTALLED_YET`). Missing/undownloaded Filipino data remains a hypothesis. Real airplane-mode setting not stated.
 - Next gate: check Samsung **Install voice data → Filipino** if available, compare all local voices and try Google TTS engine/voice, then verify offline actual speech. Keep voice provider and asset plans independent.
 - Architectural correction: voice inventory + `setVoice SUCCESS` **cannot qualify a voice as ready**. Require synthesis/playback capability probes, explicit failure states and safe text-only fallback without silently using English.
+
+## Samsung voice settings screenshots (2026-10-24)
+
+The user supplied Samsung TTS settings screenshots: v`3.5.02.16` marked latest, visible voices **English (India), English (US; selected), Hindi (India)**. No Filipino and no Install voice data control visible on that page. Separate Settings search routes Text-to-speech through TalkBack settings. [Documented observations and next safe path](../../../research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md). These visuals strengthen the missing-ready-data hypothesis but **do not** establish the cause of Android `-7 ERROR_NETWORK_TIMEOUT`. Next compare Google Speech Recognition & Synthesis via system-wide Preferred engine selection and validate actual `fil-PH` offline playback. Do not reset app data or enable TalkBack unnecessarily.

@@ -13,7 +13,7 @@
 - [Decision register](decisions/DECISION_REGISTER.md)
 - [Phase acceptance gates](plans/PHASE_GATES.md)
 - [Open research questions](research/OPEN_QUESTIONS.md)
-- [Samsung v0.3 Filipino synthesis timeout](../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md)\n- [Samsung v0.2 device stress evidence](../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md)\n- [TTS diagnostic APK build evidence](../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md)\n- [TTS and Android evidence](research/TTS_AND_ANDROID_RISKS.md)
+- [Samsung voice settings screenshot evidence](../../research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md)\n- [Samsung v0.3 Filipino synthesis timeout](../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md)\n- [Samsung v0.2 device stress evidence](../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md)\n- [TTS diagnostic APK build evidence](../../research/experiments/android-audio/BUILD_EVIDENCE_2026-10-24.md)\n- [TTS and Android evidence](research/TTS_AND_ANDROID_RISKS.md)
 - [Evidence register](evidence/EVIDENCE_REGISTER.md)
 - [Current checkpoint](checkpoints/CURRENT.md)
 - [Handoff template](templates/HANDOFF.md)
