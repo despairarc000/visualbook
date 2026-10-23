@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import com.visualbook.core.PlaybackState;
 import com.visualbook.core.StoryCore;
+import com.visualbook.core.VectorFigure;
+import java.util.Collections;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,7 +47,14 @@ import java.util.Set;
 public final class MainActivity extends Activity {
     private static final String DEMO =
             "@bg classroom\n" +
-            "@n\nIsang araw, nagkita sina Juan at Pedro sa paaralan.\n\n" +
+            "@figure spirit 100x100\n" +
+            "triangle 11,84 49,8 88,84 fill:#8465B9 stroke:#5A357B width:2\n" +
+            "circle 77 56 11 fill:#F6D16B stroke:#714A95 width:2\n" +
+            "path M 15 64 C 20 14 59 26 74 18 stroke:#F7E2B3 width:3\n" +
+            "@endfigure\n" +
+            "@show spirit center\n" +
+            "@n\nIsang araw, nagkita sina Juan at Pedro sa paaralan. Isang mahiwagang nilalang ang lumitaw.\n\n" +
+            "@hide spirit\n" +
             "@c1m\nPedro, may assignment ka ba?\n\n" +
             "@chibi\n" +
             "@c2m\nNAKALIMUTAN KO!!!\n\n" +
@@ -319,6 +328,7 @@ public final class MainActivity extends Activity {
             playback=new PlaybackState(result.segments);
             stage.setStoryBackground(result.background);
             stage.setVisualStyle("normal");
+            stage.setVectors(result.figures, Collections.emptyList());
             // The demo explicitly mentions Juan/Pedro; other scripts remain generic.
             stage.setActorLabels(DEMO.equals(editor.getText().toString()) ? "Juan" : "C1",
                     DEMO.equals(editor.getText().toString()) ? "Pedro" : "C2");
@@ -406,6 +416,7 @@ public final class MainActivity extends Activity {
         if(segment==null) {
             activeRequest=null;
             stage.show("n",false);
+            if(story!=null)stage.setVectors(story.figures,Collections.emptyList());
             caption.setText("The end • Tapos na ang kuwento.");
             setStatus("Finished all narrated speech segments.");
             return;
@@ -441,6 +452,7 @@ public final class MainActivity extends Activity {
                 StoryCore.Segment s=playback.current();
                 if(s==null)return;
                 stage.setVisualStyle(s.artStyle);
+                stage.setVectors(story.figures,s.visibleFigures);
                 stage.show(s.speaker,true);
                 caption.setText(("n".equals(s.speaker)?"Narrator":s.speaker.toUpperCase()) +
                         ": " + s.text);
@@ -488,6 +500,7 @@ public final class MainActivity extends Activity {
         if(playback!=null)playback.reset();
         if(stage!=null) {
             stage.setVisualStyle("normal");
+            if(story!=null)stage.setVectors(story.figures,Collections.emptyList());
             stage.show("n",false);
         }
         if(caption!=null)caption.setText("Stopped. Play begins the story from the start.");
@@ -503,6 +516,8 @@ public final class MainActivity extends Activity {
         // Explicit manual cursor move can display the next section's style.
         StoryCore.Segment nextSegment = playback.current();
         stage.setVisualStyle(nextSegment==null ? "normal" : nextSegment.artStyle);
+        if(story!=null)stage.setVectors(story.figures,
+                nextSegment==null?Collections.emptyList():nextSegment.visibleFigures);
         stage.show("n",false);
         final TextToSpeech engine = tts;
         if(engine!=null)audio.post(engine::stop);
