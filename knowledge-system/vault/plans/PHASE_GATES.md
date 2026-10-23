@@ -92,3 +92,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Locate system-wide Preferred engine selector on actual SM-A066B One UI 7; check available Google provider.
 - [ ] If compatible, install/configure Google Speech Recognition & Synthesis, download Filipino voice pack if offered and verify airplane-mode synthesis.
 - [ ] Decide production voice availability through **actual audible successful local synthesis**, not locale enumerations or `setVoice=0`.
+
+## Filipino voice partial-feasibility success (2026-10-24)
+
+- [x] Real SM-A066B: at least 3 Filipino named local TTS profiles complete full three-utterance live speech; one fourth completes prepared WAV playback. [Evidence](../../../research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md).
+- [ ] Identify actual bound TTS engine; current log only reports `getDefaultEngine=com.samsung.SMT`, despite user's statement about Google offline TTS.
+- [ ] Complete offline airplane-mode playback (document connectivity) and human audition for each voice candidate.
+- [ ] Decide voice defaults and stable cast `characterId→voiceProfile` contract from acoustic evidence, not just voice IDs.

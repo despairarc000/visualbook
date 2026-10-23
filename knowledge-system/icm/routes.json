@@ -97,9 +97,15 @@
         "voice data",
         "Samsung TTS settings",
         "Google Speech Recognition",
-        "voice installation"
+        "voice installation",
+        "five voice",
+        "voice variety",
+        "fil-ph-x",
+        "voice profile",
+        "voice casting"
       ],
       "read": [
+        "research/experiments/android-audio/SM-A066B_FIVE_FILIPINO_VOICES_2026-10-24.md",
         "research/experiments/android-audio/SAMSUNG_TTS_SETTINGS_SM-A066B_2026-10-24.md",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V03_TIMEOUT_2026-10-24.md",
         "research/experiments/android-audio/DEVICE_TEST_SM-A066B_V02_2026-10-24.md",
