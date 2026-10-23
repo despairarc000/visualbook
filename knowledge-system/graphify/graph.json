@@ -219,6 +219,13 @@
       "kind": "tool",
       "status": "PROVISIONAL",
       "path": "knowledge-system/graphify/README.md"
+    },
+    {
+      "id": "story-anthology",
+      "label": "Long Tagalog anthology test input",
+      "kind": "evidence",
+      "status": "HISTORICAL",
+      "path": "samples/tagalog_tts_anthology.txt"
     }
   ],
   "edges": [
@@ -416,6 +423,11 @@
       "from": "camera-layout",
       "to": "scene-state",
       "type": "depends_on"
+    },
+    {
+      "from": "story-anthology",
+      "to": "segmentation",
+      "type": "feeds"
     }
   ]
 }

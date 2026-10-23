@@ -1,38 +1,40 @@
+
 # Validation Gates / Exit Criteria
 
-**Status:** PROVISIONAL planning checklist; checked means supported by verifiable evidence.
+**Status:** PROVISIONAL planning checklist; checked only when supported by verifiable evidence.
 
 ## Knowledge setup gate
 
-- [x] Original user vision documented in current [idea plan](../../../IDEA_PLAN.md).
-- [x] Preserved source documents for historical v0.2 and most core v0.3 planning.
-- [ ] Original ZIP's prototype Python sources/tests embedded or otherwise fully restored and rerun in repository.
-- [ ] ICM routes and Graphify validated by repository CI.
-- [ ] Active navigation links verified in CI.
+- [x] Original user vision and progressive authoring documented in [idea plan](../../../IDEA_PLAN.md).
+- [x] Original v0.2 and v0.3 Markdown research and 101 logical planned assets preserved in history.
+- [x] Archived v0.3 Python parser/reducer sources, tests, 30-line Tagalog TTS corpus and compiled sample fixtures in GitHub.
+- [x] Source SHA-256 fidelity checked for 7 tracked v0.3 files (strict CI success 2026-10-23).
+- [x] ICM routes, Graphify concept graph and navigation links validated in GitHub CI for previous stable commit.
+- [ ] Full bytewise checksums for every historical document and v0.2 asset entry reconciled.
+- [ ] Validate the most recent sample/link/route graph changes via latest CI.
 
 ## Phase 1 spec gate
 
-- [ ] Canonical IR typed definitions and JSON schema.
-- [ ] Minimal authoring grammar and Unicode source mapping frozen.
-- [ ] Audio clock event sequence, seek/pause/restart and silence handling frozen.
-- [ ] Generic asset types, metadata, fallback and responsive-layout contract frozen.
-- [ ] Package import/voice security quotas and version capabilities frozen.
-- [ ] Conformance cases with expected state output and error codes.
+- [ ] Typed canonical production IR definitions and schema.
+- [ ] Minimal authoring grammar plus Unicode offsets/source mapping fully specified.
+- [ ] Audio clock reducer including seeking, pause/resume, silent beat and boundary ordering frozen.
+- [ ] Generic asset types/metadata/responsive layout and fallbacks frozen.
+- [ ] Package import, model limits, trust policies and version capability contracts frozen.
+- [ ] Golden conformance cases and diagnostics with stable code IDs for production.
 
 ## Phase 2 Android feasibility gate
 
-- [ ] Actual offline Tagalog voice on supported device, rights and model inventory.
-- [ ] Narration gap and quality test with sentence segmentation.
-- [ ] Media3 + background audio tests, focus and process recovery.
-- [ ] Portrait/landscape renderer and memory baseline.
-- [ ] Combined concurrent speech + visuals thermal/RAM/frame tests.
+- [ ] Actually compatible/legal offline Tagalog voice and audio benchmark.
+- [ ] Tagalog sentence segmentation prosody and inter-chunk gap measurement.
+- [ ] Media3 background playback, focus, process recovery.
+- [ ] 2D backend portrait/landscape/device memory baseline.
+- [ ] Concurrent speech+visual frame/memory/thermal measurements.
 
-## Phase 3 player gate
+## Phase 3 functioning app gate
 
-- [ ] Imports TXT, minimal annotated script, compiled package.
-- [ ] Generic characters and scenery with available fallbacks.
-- [ ] Accurate visual start/end triggers and captions.
-- [ ] Pause/seek/rotation and voice/asset failure.
-- [ ] Exported and installable Android APK with actual device smoke test.
+- [ ] Real installable Android APK imports TXT/simple script/storypack.
+- [ ] Narration/caption synchronization and two distinct generic actors.
+- [ ] Safe fallbacks, pause/seek/rotation and true audio event handling.
+- [ ] Real device tests with logs and exact commit/version.
 
-Never mark phases as complete solely because a document or mock-up exists.
+Never mark an Android feature complete from a Python-only simulation or documentation.

@@ -38,12 +38,14 @@
         "character marker",
         "@c1",
         "@c2m",
-        "story.md"
+        "story.md",
+        "anthology"
       ],
       "read": [
         "knowledge-system/vault/design/SCRIPT_AND_COMPILER.md",
         "knowledge-system/vault/history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md",
-        "knowledge-system/vault/decisions/DECISION_REGISTER.md"
+        "knowledge-system/vault/decisions/DECISION_REGISTER.md",
+        "samples/README.md"
       ],
       "scope": "Minimal notation, implicit cast, source spans, IR"
     },
@@ -163,7 +165,8 @@
       "read": [
         "knowledge-system/vault/plans/PHASE_GATES.md",
         "knowledge-system/vault/evidence/EVIDENCE_REGISTER.md",
-        "IMPLEMENTATION_PLAN.md"
+        "IMPLEMENTATION_PLAN.md",
+        "samples/README.md"
       ],
       "scope": "Acceptance gates and evidence"
     },

@@ -11,6 +11,7 @@
 | Understand authoring | [Authoring design](knowledge-system/vault/design/SCRIPT_AND_COMPILER.md) → [historical v0.3 grammar](knowledge-system/vault/history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md) |
 | Fix timing or playback | [Narration model](knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md) → [historical event contract](knowledge-system/vault/history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md) |
 | Plan art and effects | [Content design](knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md) → [101-ID seed](knowledge-system/vault/history/v0.2/builtin_asset_catalog_seed.json) |
+| Explore long Tagalog sample | [Anthology sample](samples/tagalog_tts_anthology.txt) → [Story sample guide](samples/README.md) → [Parser prototype](knowledge-system/vault/history/v0.3/prototype/storytool.py) |
 | Evaluate Tagalog voice | [TTS research](knowledge-system/vault/research/TTS_AND_ANDROID_RISKS.md) → [old benchmark plan](knowledge-system/vault/history/v0.3/contracts/06_VOICES_AND_PERFORMANCE.md) |
 | Inspect dependencies | [Graphify index](knowledge-system/graphify/README.md) → [Graph data](knowledge-system/graphify/graph.json) |
 | Agent task context | [ICM router](knowledge-system/icm/README.md) → [routes](knowledge-system/icm/routes.json) → [checkpoint](knowledge-system/vault/checkpoints/CURRENT.md) |

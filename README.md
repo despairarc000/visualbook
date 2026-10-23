@@ -23,4 +23,10 @@ Narration's **audible position** drives story progress. Sentence/utterance bound
 - [Legacy v0.3 research contracts](knowledge-system/vault/history/v0.3/00_START_HERE.md) — preserved original documents.
 - [Legacy v0.2 research and 101 planned asset IDs](knowledge-system/vault/history/v0.2/00_START_HERE.md) — historical only.
 
-No APK, downloaded/redistributable neural voice, finished illustrated asset set or device benchmark is claimed. V0.3 parser and playback tests existed in earlier research; code archiving is tracked separately until its actual source is committed and verified.
+No APK, downloaded/redistributable neural voice, finished illustrated asset set or device benchmark is claimed. The archived v0.3 Python parser and fake narration reducer are committed and reproduced by GitHub CI (29 historical tests). Original sources were audited against source SHA-256. This does not mean an Android app exists.
+
+## Samples and quality
+
+- [Tagalog anthology input sample](samples/tagalog_tts_anthology.txt) — long-form narrator stress input.
+- [Historical v0.3 parser and reducer](knowledge-system/vault/history/v0.3/prototype/) — pure-Python research only.
+- [Knowledge CI](.github/workflows/knowledge-check.yml) — validation of links, ICM routes, Graphify, golden fixtures and the archived experimental tests.

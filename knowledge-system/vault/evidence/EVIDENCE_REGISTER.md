@@ -1,18 +1,24 @@
-# Evidence / Provenance Register
+# VisualBook — Evidence and Source Archive
 
-**Status:** current record 2026-10-23.
+**Status:** updated 2026-10-23. Archived work is documentation and Python experiments, not an Android application.
 
-| Evidence ID | Artifact | What it actually establishes |
+| ID | Artifact | Evidence scope |
 |---|---|---|
-| EV-001 | [v0.2 plans](../history/v0.2/00_START_HERE.md) | Early architecture thinking, 101 logical asset *plans*, not assets |
-| EV-002 | [v0.3 initial summary](../history/v0.3/00_START_HERE.md) | Research plus pure Python proof-of-concept, no APK or real voices |
-| EV-003 | [v0.3 script spec](../history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md) | Implemented prototype grammar boundaries, not frozen production spec |
-| EV-004 | [v0.3 narration spec](../history/v0.3/contracts/04_NARRATION_CLOCK_AND_EVENTS.md) | Pure fake playback reducer event design, not Android event measurements |
-| EV-005 | [v0.3 voice research](../history/v0.3/contracts/06_VOICES_AND_PERFORMANCE.md) | Candidate backends and license risk; no selected Tagalog model |
-| EV-006 | [v0.3 validation roadmap](../history/v0.3/contracts/08_VALIDATION_AND_ROADMAP.md) | Described 29 simulated unit tests passing in previous run; reproduction in GitHub pending |
-| EV-007 | [v0.2 101-ID seed](../history/v0.2/builtin_asset_catalog_seed.json) | Machine-readable logical registry; no shipped images/sounds |
-| EV-008 | GitHub commit history | New navigation/vault assets actually committed; validate source paths via doctor and API |
+| EV-001 | [Original v0.2 planning](../history/v0.2/00_START_HERE.md) | Early architectural ideas and 101 planned logical content entries, no binary media |
+| EV-002 | [Original v0.3 research overview](../history/v0.3/00_START_HERE.md) | Prototype/compiler/reducer concept and research dates |
+| EV-003 | [V0.3 grammar](../history/v0.3/contracts/03_SCRIPT_LANGUAGE_V0_3.md) | Explicit minimal marker and cue semantics of Python proof |
+| EV-004 | [Original storytool](../history/v0.3/prototype/storytool.py), [fake playback](../history/v0.3/prototype/fake_playback.py) | Historical proof source, Python standard library, no TTS/Android |
+| EV-005 | [Archived parser/playback tests](../history/v0.3/tests/test_storytool.py), [playback tests](../history/v0.3/tests/test_fake_playback.py) | 29 simulated tests reproduced by GitHub CI |
+| EV-006 | [Sample script](../history/v0.3/examples/minimal.story.md) / [compiled IR](../history/v0.3/examples/minimal.compiled.json) | Golden compiler fixtures, not production IR |
+| EV-007 | [Tagalog TTS test corpus](../history/v0.3/research/TAGALOG_TTS_TEST_CORPUS.tsv) | 30 phrases for future listening/latency tests |
+| EV-008 | [100+ planned assets](../history/v0.2/builtin_asset_catalog_seed.json) and [original audit](../history/v0.3/research/ASSET_CATALOG_AUDIT.json) | 101 logical assets / 0 shipped binaries |
+| EV-009 | [Long Tagalog anthology](../../../samples/tagalog_tts_anthology.txt) | Large plain-text stress input, not reviewed TTS output |
+| EV-010 | [Original v0.3 hashes](../history/v0.3/CHECKSUMS_AND_RESULTS.json) | Recorded baseline source checksums; 7 tested byte-identical by CI |
+| EV-011 | [Knowledge CI](../../../.github/workflows/knowledge-check.yml) | Executable ICM/Graphify/link integrity and Python tests |
 
-**Missing snapshot inventory (from earlier local v0.3 archive):** `contracts/07_PACKAGE_SECURITY_AND_COMPAT.md`, `research/TAGALOG_TTS_TEST_CORPUS.tsv`, `prototype/storytool.py`, `prototype/fake_playback.py`, `tests/test_storytool.py`, `tests/test_fake_playback.py`, generated example scripts/JSON and test hashes. These should be imported or explicitly reconstructed before claiming full source preservation. Do not label missing files as committed.
+## Provenance safeguards
 
-External references remain listed in preserved research, with access-date caveat.
+- Original v0.2/v0.3 docs are preserved as historical snapshots; new live contracts are in `vault/design`, `requirements`, and `decisions`.
+- The former experimental scripts and fixtures are now in GitHub, with a SHA-256 audit for seven source files. The original complete ZIP from the earlier chat was separately available to the project initiator; GitHub stores its unpacked research contents rather than a ZIP binary.
+- Do not assert voices, visual art, app builds or real Android device tests were performed: none have been demonstrated.
+- For each future experiment record exact commit, device, OS build, tool versions, command and reproducible result.
