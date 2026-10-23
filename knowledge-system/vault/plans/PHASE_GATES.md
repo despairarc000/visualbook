@@ -56,3 +56,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Validate Media3 service/audio focus and concurrent visual renderer memory budget.
 
 **Important:** this build does not satisfy the Phase 2 audio feasibility gate.
+
+## Samsung v0.2 UI freeze experiment
+
+- [x] Migrate TTS/service calls from UI thread to serial background command handler and throttle diagnostic TextView.
+- [x] Build v0.2 independent Android APK + record exact binary checksum in [evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_V02_2026-10-24.md).
+- [ ] Re-test rapid Stop → Live / Stop → Prep switching on SM-A066B Android 15.
+- [ ] If UI freeze persists, capture a main-thread/IPC stack or Perfetto trace to isolate cause.

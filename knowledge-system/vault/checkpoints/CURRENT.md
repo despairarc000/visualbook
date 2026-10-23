@@ -62,3 +62,10 @@ Remaining issues: stable edit IDs, true source spans, real scene silent beats, A
 The project initiator tested **TTS Probe v0.1** on Samsung SM-A066B, Android 15. Logs show two complete 3-utterance live runs, two prepared clips played, and optional live range timing data; prep mode emits suspiciously permuted range fields. User reports UI unresponsiveness when tapping Stop then another mode. This is not yet a confirmed root-cause ANR.
 
 [Detailed user-supplied evidence](../../../research/experiments/android-audio/DEVICE_TEST_SM-A066B_2026-10-24.md). Research branch `fix/tts-probe-switch-freeze` introduces a v0.2 background-thread switch/stop experiment and throttled log UI. **Device fix not yet verified;** build and rerun on phone required. Offline voice/quality and precise audible word timing remain open.
+
+## Verified fix build and merged PR #3 (2026-10-24)
+
+- [TTS Probe v0.2 build evidence](../../../research/experiments/android-audio/BUILD_EVIDENCE_V02_2026-10-24.md): debug APK built on GitHub and verified as valid APK/ZIP, SHA-256 `67be5455cae7ff83ac9ca69efedc5316b50005f3fcd4734938a155b21ae39569`.
+- PR [#3](https://github.com/despairarc000/visualbook/pull/3) **merged** at `ac19c138f6f2e81d823cdad83dbccb3bdbf05cea`; build [40025942636](https://github.com/despairarc000/visualbook/actions/runs/40025942636) and knowledge [40025942618](https://github.com/despairarc000/visualbook/actions/runs/40025942618) both successful.
+- Fix under test: serial HandlerThread TTS/MediaPlayer cleanup/commands, safe generation tokens, throttled log UI, heartbeat/operation timings, invalid range rejection. New application ID `com.visualbook.ttsprobe.v2` for side-by-side v0.1 comparison.
+- **OPEN:** user has not run v0.2 on Samsung phone; freeze fix is a candidate, not a proven solution. No selected offline Tagalog voice or fully rendered VisualBook app yet.
