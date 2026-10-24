@@ -134,3 +134,7 @@ Each part's own (0,0) is its top-left; `pivot:x,y` selects the point that lands 
 **Not supported yet:** animated pivots over time, skeletal deformation/IK, arbitrary skew/mesh warps, auto-generated art from unrestricted natural language, imported PNG/SVG, or per-figure texture/material style changes. Those require separate asset-control contracts. A figure's geometric construction is pure, deterministic and portable across screen resolutions.
 
 Package `com.visualbook.player.rig.v04`, separately installed from the v0.1/v0.2/v0.3 research builds.
+
+## Shape Engine v0.4 verified build
+
+[Android source, tests and APK evidence](BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md): PR #13 merged, Android build succeeded, 66 core and 76 geometry assertions passed; separate v0.4 app with a modular mythical-creature demonstration. Physical device check still required.

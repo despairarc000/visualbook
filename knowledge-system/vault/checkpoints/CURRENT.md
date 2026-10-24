@@ -159,3 +159,9 @@ User asked to continue after v0.3 precise virtual coordinates. Branch `feature/s
 [Feature spec](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md) · [Implementation README](../../../implementation/visualbook-player/README.md) · [PR #13](https://github.com/despairarc000/visualbook/pull/13)
 
 **Next:** pass final CI, verify APK/SHA256, then visually test on Samsung A06 5G before expanding into timed animation, independent materials and imported assets.
+
+## Shape Engine v0.4 MERGED; APK verified (2026-10-24)
+
+[PR #13](https://github.com/despairarc000/visualbook/pull/13) merged into `main` as `8d79381eca3120bcc36c9f51e024559260cf0395`. Feature adds actual `@part` local artboards, `@use` group transforms around pivot, nested acyclic part references and a composed mythical-creature Android Canvas demo. Final [CI Android build](https://github.com/despairarc000/visualbook/actions/runs/40044410923) and [knowledge checks](https://github.com/despairarc000/visualbook/actions/runs/40044410950) passed. Total **142 pure Java assertions** passed (StoryCore 66 / vector rig 76). APK SHA-256: `f305e3770a9bd3d4f7d45a7e6853a7770cb56c407c3683eb1ab372192842e9c3`, size 50639 bytes, app ID `com.visualbook.player.rig.v04`.
+
+[Full build record](../../../implementation/visualbook-player/BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md). **Phone test still pending.** Next priority: real user evaluates readability, scene clipping and wing/horn proportions, then decide whether to add programmatic timed animation cues or imported assets and preview/correction tooling.

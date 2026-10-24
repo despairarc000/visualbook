@@ -176,3 +176,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Obtain passing latest Android/JVM CI and record build artifact hash.
 - [ ] Real phone test: compare wing/eye/horn placement, multi-instance rendering, chibi coexistence and FPS.
 - [ ] Define future authoring shorthand, asset-pack handles, transform animation, orientation rig support and corrective preview workflow.
+
+## Shape Engine v0.4 build verification
+
+- [x] PR #13 merged, [Android build 40044410923](https://github.com/despairarc000/visualbook/actions/runs/40044410923) and knowledge validation passed.
+- [x] [142 Java assertions, APK CRC and hash](../../../implementation/visualbook-player/BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md) recorded.
+- [ ] User confirms wing/head/eye rig visibility and transform controls on Samsung Galaxy A06 5G.
+- [ ] Measure/inspect actual stage frame quality on low-memory phone before expanding animated multi-part rigs.
