@@ -401,6 +401,27 @@
       "kind": "design",
       "status": "PROVISIONAL",
       "path": "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md"
+    },
+    {
+      "id": "series-director-java",
+      "label": "Source-aligned nonspoken chapters scenes and cast metadata",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/SeriesDirector.java"
+    },
+    {
+      "id": "series-player-v07",
+      "label": "Bundled episode library and long-form playback resume v0.7",
+      "kind": "design",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md"
+    },
+    {
+      "id": "juan-pedro-directed-episode",
+      "label": "Directed chapter and scene cues for S1E1",
+      "kind": "content",
+      "status": "PROVISIONAL",
+      "path": "stories/juan-pedro/season-01/E01_Directed_v07.story.md"
     }
   ],
   "edges": [
@@ -837,6 +858,26 @@
     {
       "from": "render-inspector-java",
       "to": "vector-geometry-core",
+      "type": "depends_on"
+    },
+    {
+      "from": "series-player-v07",
+      "to": "series-director-java",
+      "type": "documents"
+    },
+    {
+      "from": "series-director-java",
+      "to": "story-core-java",
+      "type": "depends_on"
+    },
+    {
+      "from": "juan-pedro-directed-episode",
+      "to": "series-director-java",
+      "type": "uses"
+    },
+    {
+      "from": "series-player-v07",
+      "to": "android-first-player",
       "type": "depends_on"
     }
   ]

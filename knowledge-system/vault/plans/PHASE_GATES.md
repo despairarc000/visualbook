@@ -218,3 +218,14 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] APK SHA-256 and artifact CRC checks [recorded](../../../implementation/visualbook-player/BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md).
 - [ ] Samsung A06 5G acceptance: tap coordinates, copied report, Edit shape jump, silent preview, and playback independence.
 - [ ] Real image preview/export, path-level hit-tests, undo, visual diff, and automated geometry correction still future improvements.
+
+## v0.7 complete-episode series milestone
+
+- [x] Bundle Episode 1 as an Android asset; separate package from v0.6; list E2–E8 as Coming Soon.
+- [x] Add five playable chapter entry points and deterministic `@scene` and `@name` metadata.
+- [x] Make long-form story narration resume across app relaunch with hash-validated cursor and stale TTS invalidation.
+- [x] Keep 430 spoken utterances and existing cast IDs unchanged from original E01.
+- [x] Add distinct lightweight procedural scenes for guava/plaza (bell missing or restored)/library/bridge/river/warehouse/forest/Balete.
+- [ ] Confirm final Android Gradle and knowledge doctor checks; physical SM-A066B test remains separate.
+- [ ] Confirm actual 24-minute TTS session, resumed position and all five chapters visually/audibly on phone.
+- [ ] Next: persistent actor roster, emotion/pose controls, per-speaker voice matching, image assets and visual quality refinement.

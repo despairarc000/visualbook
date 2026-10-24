@@ -4,6 +4,7 @@
 
 ## Canonical live documentation
 
+- [Juan/Pedro Series Player v0.7](design/JUAN_PEDRO_SERIES_PLAYER_V07.md)
 - [Render preview and inspection v0.6](design/RENDER_PREVIEW_INSPECTOR_V06.md)
 - [Speech-driven part animation v0.5](design/AUDIBLE_PART_MOTION_V05.md)
 - [Shape Engine v0.4: reusable parts and transforms](design/SHAPE_RIGS_AND_TRANSFORMS_V04.md)

@@ -36,3 +36,5 @@
 | ADR-022 | Add opt-in sine-wave pivot animation for explicitly named root shape instances, scoped by actual audible utterance start/end, with no visual timer advancing narration | ACCEPTED (PROTOTYPE) | [Audible part motion v0.5](../design/AUDIBLE_PART_MOTION_V05.md); user phone validation pending |
 
 | ADR-023 | Build human-in-loop silent scene preview and deterministic local coordinate reports before autonomous AI image correction; keep preview cursor separate from audible playback | ACCEPTED (PROTOTYPE) | [Render Preview v0.6](../design/RENDER_PREVIEW_INSPECTOR_V06.md) |
+
+| ADR-024 | Embed full Episode 1 and add a source-aligned, nonspoken SeriesDirector metadata layer; preserve v0.6 script, TTS authority and version-bound resume | ACCEPTED (PROTOTYPE) | [v0.7 Series Player](../design/JUAN_PEDRO_SERIES_PLAYER_V07.md); phone and voice test required |
