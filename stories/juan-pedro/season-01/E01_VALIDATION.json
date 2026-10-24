@@ -1,0 +1,18 @@
+{
+  "project": "Juan at Pedro: Mga Kuwento ng Bayan ng Maligaya",
+  "episode": 1,
+  "title": "Ang Kampanang Nawala",
+  "source_file": "E01_Ang_Kampanang_Nawala.story.md",
+  "spoken_words": 3348,
+  "java_breakiterator_utterances": 430,
+  "max_utterances_in_visualbook_prototype": 500,
+  "target_around_minutes": 24,
+  "minutes_excluding_engine_overhead": {
+    "130wpm": 25.8,
+    "140wpm": 23.9,
+    "150wpm": 22.3,
+    "160wpm": 20.9
+  },
+  "source_sha256": "45092487e2b03b4612814d672a65d796d76e655bf6b259289c9bb11d7bdd4a78",
+  "note": "Original continuous fiction; actual offline device duration and cinematic rendering not confirmed."
+}
