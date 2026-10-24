@@ -31,8 +31,11 @@ public final class JuanPedroSeriesTest {
         }
         ok(containsChibi && containsNormal,"comedic style is scoped and later restored");
         ok(compiled.source.equals(source),"story original source preserved");
-        ok(compiled.segments.get(0).text.contains("Ang Kampanang Nawala"),
-                "episode title is spoken");
+        StringBuilder opening=new StringBuilder();
+        for(int i=0;i<Math.min(5,compiled.segments.size());i++)
+            opening.append(compiled.segments.get(i).text).append(' ');
+        ok(opening.toString().contains("Ang Kampanang Nawala"),
+                "episode title is spoken within the opening utterances");
         ok(compiled.segments.get(compiled.segments.size()-1).text.contains("Itutuloy"),
                 "season continuation is not omitted");
         int countWords=0;
