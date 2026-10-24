@@ -169,3 +169,7 @@ The creature's wings slowly moved.
 - Actual visual correctness and 4GB-RAM performance remain phone-test gates.
 
 Separate Android package: `com.visualbook.player.motion.v05`.
+
+## v0.5 artifact
+
+[Build verification and phone test guide](BUILD_EVIDENCE_MOTION_V05_2026-10-24.md): PR #14 merged, 164 regression assertions, Android CI built separate v0.5 APK. No v0.5 phone playback evidence yet.

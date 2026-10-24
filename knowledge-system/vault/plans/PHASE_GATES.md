@@ -193,3 +193,11 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Verify final Android CI, Java tests, knowledge doctor and artifact hash.
 - [ ] User tests actual wing flapping and Pause/Resume/Stop responsiveness on Samsung A06 5G.
 - [ ] Implement AI-friendly preview/feedback and more nuanced animation after evidence.
+
+## v0.5 animated shape rig build result
+
+- [x] PR #14 merged and Android Actions build 40047828597 passed.
+- [x] 79 story-core and 85 vector assertions passed, 52,891-byte APK ZIP CRC and SHA-256 recorded in [build evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_MOTION_V05_2026-10-24.md).
+- [x] Knowledge doctor checks passed.
+- [ ] User validates audible wing movement, pause/resume and stop behavior on Samsung A06 5G.
+- [ ] Build a real render-preview/correction loop before marketing arbitrary shapes as high-quality automatically generated art.

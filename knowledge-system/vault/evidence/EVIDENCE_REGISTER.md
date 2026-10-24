@@ -67,3 +67,5 @@
 - **EV-030:** [Shape Engine v0.4 first verified Android artifact](../../../implementation/visualbook-player/BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md): merged PR #13, final Android compile plus knowledge checks passed, 142 JVM assertions, APK SHA-256 and CRC checked. Real-device visuals and performance unverified.
 
 - **EV-031:** [Speech-bounded part motion v0.5 contract](../design/AUDIBLE_PART_MOTION_V05.md), [PR #14](https://github.com/despairarc000/visualbook/pull/14): source supports named root rig instances, @animate/@still utterance-scoped state and live Canvas rotation. Tests authored; CI/phone evidence still gated.
+
+- **EV-032:** [VisualBook v0.5 motion APK and regression evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_MOTION_V05_2026-10-24.md): merged PR #14; 164 pure Java assertions and Android build success; verified artifact CRC and APK SHA-256. Device animation still unverified.
