@@ -75,3 +75,5 @@
 - **EV-034:** [v0.6 Android preview inspector build, 186 tests and APK SHA-256](../../../implementation/visualbook-player/BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md). PR #15 merged, CI passed; physical tap/clipboard/editor test remains open.
 
 - **EV-035:** [v0.7 series-player code and two-script speech-equivalence tests](../design/JUAN_PEDRO_SERIES_PLAYER_V07.md). Episode 1 built into app, explicit five-chapter navigation, scene presets, SHA-bound resume; latest CI must still confirm final docs SHA and on-device usability.
+
+- **EV-036:** [VisualBook v0.7 Android APK verified build](../../../implementation/visualbook-player/BUILD_EVIDENCE_SERIES_V07_2026-10-25.md): PR #17 merged; 1,516 Java test assertions and final Android/doctor checks passed, Android APK CRC/SHA-256 verified. Phone long-session acceptance remains open.

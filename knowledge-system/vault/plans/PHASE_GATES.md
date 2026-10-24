@@ -229,3 +229,9 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Confirm final Android Gradle and knowledge doctor checks; physical SM-A066B test remains separate.
 - [ ] Confirm actual 24-minute TTS session, resumed position and all five chapters visually/audibly on phone.
 - [ ] Next: persistent actor roster, emotion/pose controls, per-speaker voice matching, image assets and visual quality refinement.
+
+## v0.7 accepted build artifact
+- [x] [PR #17](https://github.com/despairarc000/visualbook/pull/17) merged; Android and Knowledge Doctor passed final SHA.
+- [x] 1,516 total Java assertions; 79,275-byte v0.7 debug APK CRC/SHA-256 verified and [recorded](../../../implementation/visualbook-player/BUILD_EVIDENCE_SERIES_V07_2026-10-25.md).
+- [ ] User phone acceptance: actual 24-minute uninterrupted TTS, persistence and chapter/navigation touch behavior, transitions between scene presets.
+- [ ] Future production: imported image assets, complete persistent cast staging, each-character voice selection, cinematic direction, safe offline TTS guarantees.

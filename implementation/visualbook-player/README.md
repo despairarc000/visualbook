@@ -212,3 +212,6 @@ Feature scope:
 Playable source: \`app/src/main/assets/juan_pedro_e01.story.md\`. Canonical directed author source: \`stories/juan-pedro/season-01/E01_Directed_v07.story.md\`. Original story: \`stories/juan-pedro/season-01/E01_Ang_Kampanang_Nawala.story.md\`.
 
 The proper architecture is generic: \`SeriesDirector\` operates on any authored script with defined metadata. Only Season 1 Episode 1 is currently distributed as bundled content.
+
+## VisualBook v0.7 artifact
+[Build and physical-device acceptance record](BUILD_EVIDENCE_SERIES_V07_2026-10-25.md): PR #17 merged, 1,516 regression assertions and final Android compile/knowledge checks passing. Original E01 script and directed v0.7 asset remain separately versioned.

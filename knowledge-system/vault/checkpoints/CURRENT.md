@@ -195,3 +195,9 @@ This is not automatic AI art correction or generated image comparison. No attemp
 [PR #17](https://github.com/despairarc000/visualbook/pull/17) bundles original Episode 1 in a real Android series player, adds five chapter markers, 11 scene changes, c1–c9 character labels, private SHA-256-bound last-utterance progress, replay-safe chapter seeking and contextual procedural scenes. New generic `SeriesDirector` removes metadata lines before compiling with unmodified StoryCore, preserving **430 spoken utterances and the exact original speaker labels**. Android app ID `com.visualbook.player.series.v07` is installed separately from v0.6. [Full design contract](../design/JUAN_PEDRO_SERIES_PLAYER_V07.md).
 
 Build CI and real-user acceptance gates are separate. **Do not claim anime-quality art, complete named-cast staging, dedicated individual voices or 24-minute device-verified playback.**
+
+## v0.7 VERIFIED CI and merged (2026-10-25)
+
+[PR #17](https://github.com/despairarc000/visualbook/pull/17) merged as `09c734f066accc8ff5e22e56d5c25b31a053da5a`. [Final Android](https://github.com/despairarc000/visualbook/actions/runs/40135738209) and [Knowledge Doctor](https://github.com/despairarc000/visualbook/actions/runs/40135738203) both passed. **1,516 assertions** passed across story/geometry/inspector/E01/SeriesDirector tests. Extracted v0.7 APK is 79,275 bytes, SHA-256 `700ccfd5864379d3a78fe8f54288b4c4bbf442af69d1d50c179dec97174bc523`. Device 24-minute TTS, saved progress and visuals still need real testing.
+
+[Build evidence and phone test](../../../implementation/visualbook-player/BUILD_EVIDENCE_SERIES_V07_2026-10-25.md). Next: collect phone feedback, fix any crashes/voice issues, improve cast persistence and scene direction rather than treating current generic procedural actors as final film-quality artwork.
