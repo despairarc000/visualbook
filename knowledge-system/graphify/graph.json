@@ -387,6 +387,20 @@
       "kind": "design",
       "status": "PROVISIONAL",
       "path": "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md"
+    },
+    {
+      "id": "render-inspector-java",
+      "label": "Portable render inspection and coordinate picking",
+      "kind": "module",
+      "status": "PROVISIONAL",
+      "path": "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/RenderInspector.java"
+    },
+    {
+      "id": "render-preview-v06",
+      "label": "Silent scene preview and AI correction handoff v0.6",
+      "kind": "design",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md"
     }
   ],
   "edges": [
@@ -809,6 +823,21 @@
       "from": "audible-part-motion-v05",
       "to": "story-core-java",
       "type": "documents"
+    },
+    {
+      "from": "render-preview-v06",
+      "to": "render-inspector-java",
+      "type": "documents"
+    },
+    {
+      "from": "render-preview-v06",
+      "to": "android-first-player",
+      "type": "depends_on"
+    },
+    {
+      "from": "render-inspector-java",
+      "to": "vector-geometry-core",
+      "type": "depends_on"
     }
   ]
 }
