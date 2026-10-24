@@ -11,6 +11,7 @@ import android.graphics.Shader;
 import android.os.SystemClock;
 import android.view.View;
 import com.visualbook.core.VectorFigure;
+import com.visualbook.core.RenderInspector;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public final class StoryStageView extends View {
     private String name1 = "C1", name2 = "C2";
     private boolean speaking = false;
     private boolean showCoordinateGrid = false;
+    private RenderInspector.Hit inspectionPoint = null;
     private boolean reducedMotion = false;
 
     public StoryStageView(Context context) { super(context); setLayerType(View.LAYER_TYPE_SOFTWARE, null); }
@@ -68,6 +70,10 @@ public final class StoryStageView extends View {
     public void reduceMotion(boolean reduce) { reducedMotion = reduce; invalidate(); }
     public void setCoordinateGridVisible(boolean visible) {
         showCoordinateGrid=visible;
+        invalidate();
+    }
+    public void setInspectionPoint(RenderInspector.Hit hit) {
+        inspectionPoint=hit;
         invalidate();
     }
     public void setActorLabels(String c1, String c2) {
@@ -108,6 +114,7 @@ public final class StoryStageView extends View {
             canvas.drawText("NARRATOR", w * .06f, h * .10f, p);
             p.setFakeBoldText(false);
         }
+        if(inspectionPoint!=null)drawInspectionPoint(canvas,w,h);
         if (speaking && !reducedMotion)
             postInvalidateDelayed(activeMotions.isEmpty()?80L:48L);
     }
@@ -309,6 +316,24 @@ public final class StoryStageView extends View {
     }
 
 
+
+
+    private void drawInspectionPoint(Canvas canvas,float w,float h) {
+        float x=inspectionPoint.stageX*w/100f;
+        float y=inspectionPoint.stageY*h/100f;
+        float d=Math.max(8f,Math.min(w,h)*.025f);
+        // Two-pass crosshairs are legible on both light and dark artwork.
+        vectorPaint.setStyle(Paint.Style.STROKE);
+        vectorPaint.setStrokeWidth(4f);
+        vectorPaint.setColor(Color.WHITE);
+        canvas.drawLine(x-d,y,x+d,y,vectorPaint);
+        canvas.drawLine(x,y-d,x,y+d,vectorPaint);
+        vectorPaint.setStrokeWidth(1.5f);
+        vectorPaint.setColor(0xFF293858);
+        canvas.drawLine(x-d,y,x+d,y,vectorPaint);
+        canvas.drawLine(x,y-d,x,y+d,vectorPaint);
+        vectorPaint.setStyle(Paint.Style.FILL);
+    }
 
     private void drawCoordinateGrid(Canvas canvas,float w,float h){
         vectorPaint.setStyle(Paint.Style.STROKE);

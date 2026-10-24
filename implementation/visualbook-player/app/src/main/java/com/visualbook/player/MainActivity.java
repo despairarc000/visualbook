@@ -1,6 +1,9 @@
 package com.visualbook.player;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.database.Cursor;
@@ -18,6 +21,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.speech.tts.Voice;
 import android.view.View;
+import android.view.MotionEvent;
 import android.view.WindowInsets;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,6 +36,7 @@ import android.widget.TextView;
 import com.visualbook.core.PlaybackState;
 import com.visualbook.core.StoryCore;
 import com.visualbook.core.VectorFigure;
+import com.visualbook.core.RenderInspector;
 import java.util.Collections;
 
 import java.util.ArrayList;
@@ -105,8 +110,13 @@ public final class MainActivity extends Activity {
     private StoryStageView stage;
     private EditText editor;
     private CheckBox plainText, subtitles;
-    private LinearLayout editorPane, voicePane;
+    private LinearLayout editorPane, voicePane, previewPane;
+    private CheckBox previewGridToggle;
+    private Button previewToggleButton;
     private boolean editorVisible = false, voicesVisible = false;
+    private boolean previewMode = false, gridBeforePreview = false;
+    private int previewIndex = 0;
+    private RenderInspector.Hit previewHit = null;
 
     private static final class VoiceOption {
         final String label, id;
@@ -185,7 +195,7 @@ public final class MainActivity extends Activity {
                 return insets;
             });
         }
-        TextView header = label("VISUALBOOK  •  THE FIRST STORY",17);
+        TextView header = label("VISUALBOOK  •  RENDER PREVIEW",17);
         header.setTypeface(null,android.graphics.Typeface.BOLD);
         header.setPadding(dp(3),dp(4),0,dp(8));
         root.addView(header);
@@ -198,7 +208,23 @@ public final class MainActivity extends Activity {
                 new LinearLayout.LayoutParams(0,dp(45),1));
         toggles.addView(button("Voices", () -> toggleVoices()),
                 new LinearLayout.LayoutParams(0,dp(45),1));
+        previewToggleButton=button("Preview",this::togglePreview);
+        toggles.addView(previewToggleButton,
+                new LinearLayout.LayoutParams(0,dp(45),1));
         root.addView(toggles);
+
+        previewPane=new LinearLayout(this);
+        previewPane.setOrientation(LinearLayout.HORIZONTAL);
+        previewPane.setVisibility(View.GONE);
+        previewPane.addView(button("◀",()->previewStep(-1)),
+                new LinearLayout.LayoutParams(0,dp(46),1));
+        previewPane.addView(button("▶",()->previewStep(1)),
+                new LinearLayout.LayoutParams(0,dp(46),1));
+        previewPane.addView(button("Copy",this::copyInspection),
+                new LinearLayout.LayoutParams(0,dp(46),1));
+        previewPane.addView(button("Edit shape",this::editSelectedShape),
+                new LinearLayout.LayoutParams(0,dp(46),1.5f));
+        root.addView(previewPane);
 
         editorPane = new LinearLayout(this);
         editorPane.setOrientation(LinearLayout.VERTICAL);
@@ -249,9 +275,18 @@ public final class MainActivity extends Activity {
             if(stage!=null)stage.setCoordinateGridVisible(checked);
         });
         voicePane.addView(gridToggle);
+        previewGridToggle=gridToggle;
         root.addView(voicePane);
 
         stage = new StoryStageView(this);
+        stage.setOnTouchListener((v,e)-> {
+            if(!previewMode)return false;
+            if(e.getAction()==MotionEvent.ACTION_UP) {
+                v.performClick();
+                inspectTap(e.getX(),e.getY());
+            }
+            return true;
+        });
         stage.setMinimumHeight(dp(190));
         root.addView(stage,new LinearLayout.LayoutParams(-1,0,1));
         caption = label("Tap Play to begin.",17);
@@ -333,6 +368,120 @@ public final class MainActivity extends Activity {
         },"VisualBook-Text-Import").start();
     }
 
+
+    /**
+     * Silent deterministic preview. Does not call PlaybackState.begin/skip/
+     * audibleDone; Play continues the original audio cursor.
+     */
+    private void togglePreview() {
+        if(previewMode) { exitPreview(); return; }
+        if(story==null || story.segments.isEmpty()) {
+            setStatus("Import or compile a valid story before preview.");
+            return;
+        }
+        pause(); // guards against stale asynchronous TTS callbacks
+        previewMode=true;
+        previewIndex=0;
+        previewHit=null;
+        gridBeforePreview=previewGridToggle.isChecked();
+        previewGridToggle.setChecked(true);
+        stage.setCoordinateGridVisible(true);
+        previewToggleButton.setText("Close preview");
+        previewPane.setVisibility(View.VISIBLE);
+        editorVisible=false;
+        voicesVisible=false;
+        editorPane.setVisibility(View.GONE);
+        voicePane.setVisibility(View.GONE);
+        applyPreview();
+    }
+
+    private void exitPreview() {
+        if(!previewMode)return;
+        previewMode=false;
+        previewHit=null;
+        previewPane.setVisibility(View.GONE);
+        previewToggleButton.setText("Preview");
+        previewGridToggle.setChecked(gridBeforePreview);
+        stage.setCoordinateGridVisible(gridBeforePreview);
+        stage.setInspectionPoint(null);
+        stage.setMotions(Collections.emptyMap());
+        stage.show("n",false);
+    }
+
+    private void previewStep(int delta) {
+        if(!previewMode||story==null)return;
+        previewIndex=Math.max(0,Math.min(story.segments.size()-1,previewIndex+delta));
+        previewHit=null;
+        applyPreview();
+    }
+
+    private void applyPreview() {
+        if(!previewMode||story==null)return;
+        StoryCore.Segment s=story.segments.get(previewIndex);
+        stage.setVisualStyle(s.artStyle);
+        stage.setStoryBackground(story.background);
+        stage.setVectors(story.figures,s.visibleFigures);
+        // Preserve definitions of motion in the report. Static preview never
+        // plays an animation or pretends that speech is audible.
+        stage.setMotions(s.motions);
+        stage.show(s.speaker,false);
+        stage.setInspectionPoint(previewHit);
+        caption.setText("Preview "+(previewIndex+1)+"/"+story.segments.size()+
+                " • "+s.speaker+": "+s.text);
+        setStatus("Silent render preview • tap the stage to inspect local "+
+                "coordinates; Copy produces an AI-friendly report.");
+    }
+
+    private void inspectTap(float x,float y) {
+        if(!previewMode||story==null)return;
+        StoryCore.Segment s=story.segments.get(previewIndex);
+        previewHit=RenderInspector.inspect(story.figures,s.visibleFigures,
+                stage.getWidth(),stage.getHeight(),x,y);
+        stage.setInspectionPoint(previewHit);
+        String point=String.format(Locale.ROOT,"(%.1f, %.1f)",
+                previewHit.stageX,previewHit.stageY);
+        if(previewHit.matched) {
+            String local=String.format(Locale.ROOT,"(%.1f, %.1f)",
+                    previewHit.localX,previewHit.localY);
+            setStatus("Stage "+point+" -> "+previewHit.figureId+
+                    " local "+local+". Copy the report or edit this shape.");
+        } else setStatus("Stage "+point+" -> no figure bounding box. "+
+                "Try tapping a visible custom figure.");
+    }
+
+    private void copyInspection() {
+        if(!previewMode||story==null)return;
+        String report=RenderInspector.report(story,previewIndex,previewHit);
+        ClipboardManager manager=(ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+        if(manager==null){setStatus("Clipboard service unavailable.");return;}
+        manager.setPrimaryClip(ClipData.newPlainText("VisualBook scene inspection",report));
+        setStatus("Copied scene "+(previewIndex+1)+" report to clipboard. "+
+                "Paste it into ChatGPT for precise geometry corrections.");
+    }
+
+    private void editSelectedShape() {
+        if(!previewMode||story==null)return;
+        String id=previewHit!=null && previewHit.matched?previewHit.figureId:null;
+        if(id==null) {
+            List<VectorFigure.Placement> visible=story.segments.get(previewIndex).visibleFigures;
+            if(visible.isEmpty()) {setStatus("No visible custom shape to edit in this frame.");return;}
+            id=visible.get(0).figureId;
+        }
+        String source=editor.getText().toString();
+        int start=source.indexOf("@figure "+id+" ");
+        if(start<0) {setStatus("Could not find the figure declaration.");return;}
+        editorVisible=true;
+        voicesVisible=false;
+        editorPane.setVisibility(View.VISIBLE);
+        voicePane.setVisibility(View.GONE);
+        int end=source.indexOf('\n',start);
+        editor.setSelection(start,end<0?source.length():end);
+        editor.requestFocus();
+        setStatus("Editing @figure "+id+". Change geometry, then Apply script "+
+                "and reopen Preview. Current frame "+(previewIndex+1)+
+                " remains a read-only snapshot.");
+    }
+
     private void toggleEditor() {
         editorVisible=!editorVisible;
         editorPane.setVisibility(editorVisible?View.VISIBLE:View.GONE);
@@ -350,6 +499,7 @@ public final class MainActivity extends Activity {
     }
 
     private void compileSource() {
+        if(previewMode)exitPreview();
         pause(); // invalidate old utterance generation before replacing the compiled story
         try {
             boolean script=!plainText.isChecked();
@@ -434,6 +584,7 @@ public final class MainActivity extends Activity {
     }
 
     private void play() {
+        if(previewMode)exitPreview();
         if(playback==null) {setStatus("Load a valid script first.");return;}
         if(!ttsReady) {setStatus("TTS not ready. Text is available; check installed speech engine.");return;}
         if(playback.running())return;
@@ -528,6 +679,7 @@ public final class MainActivity extends Activity {
     }
 
     private void stop() {
+        if(previewMode)exitPreview();
         activeRequest=null;
         if(playback!=null)playback.reset();
         if(stage!=null) {
@@ -542,6 +694,7 @@ public final class MainActivity extends Activity {
     }
 
     private void skip() {
+        if(previewMode)exitPreview();
         if(playback==null)return;
         activeRequest=null;
         playback.skip();

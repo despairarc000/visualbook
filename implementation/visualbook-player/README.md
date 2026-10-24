@@ -173,3 +173,19 @@ Separate Android package: `com.visualbook.player.motion.v05`.
 ## v0.5 artifact
 
 [Build verification and phone test guide](BUILD_EVIDENCE_MOTION_V05_2026-10-24.md): PR #14 merged, 164 regression assertions, Android CI built separate v0.5 APK. No v0.5 phone playback evidence yet.
+
+
+## v0.6 render preview and correction report — experimental Android slice
+
+v0.6 adds a **Preview** button to the Android player. It pauses audio and displays the exact immutable scene snapshot captured for a chosen spoken segment. Controls:
+
+1. **Preview** opens silent inspection mode at segment 1, automatically enables the 0–100 stage grid (restored to the viewer's previous setting when closed).
+2. **◀ / ▶** step through the scene states without playing or advancing the audio cursor; style, cast selection, scene object visibility and speech text reflect each segment.
+3. **Tap the stage** to record stage coordinates and (when a visible custom figure's *bounding rectangle* is hit) its exact local artboard coordinates. An overlay crosshair marks the tap. This is bounding-box picking, not precise shape-silhouette picking.
+4. **Copy** copies a deterministic human/AI-readable scene diagnostic report to Android's clipboard. It contains segment/source line, narration, style, background, visible geometry and placement, motion definitions, and the last tapped position.
+5. **Edit shape** scrolls and selects the relevant \`@figure\` declaration in the integrated script editor. Apply script, then open Preview again to compare geometry revisions.
+6. **Close preview** restores the earlier grid preference. Audio playback remains separate; choosing Play exits preview and resumes from the actual playback cursor.
+
+There is no dependence on the network or a working TTS voice to inspect story scenes. The pure Java \`RenderInspector\` does not parse mutable Android UI elements, cannot execute untrusted scripts, and uses the same center-and-uniform-fit math as the renderer. This is **a human-assisted preview and AI correction handoff**, not yet an autonomous computer-vision feedback loop: the AI can use copied reports and user screenshots to improve geometry, but the app does not independently interpret its rendered pixels.
+
+The device's class and screen size affect pixel positions, but not the 0–100 stage coordinate space or each \`WxH\` figure-local artboard. The original v0.1–v0.5 apps are unaffected: v0.6 has independent package ID \`com.visualbook.player.inspector.v06\`. Physical rendering and tap-navigation acceptance remain device-test gates.

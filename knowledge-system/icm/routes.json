@@ -46,6 +46,7 @@
         "intermediate representation"
       ],
       "read": [
+        "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
@@ -188,9 +189,16 @@
         "flap",
         "wing motion",
         "part motion",
-        "pivot animation"
+        "pivot animation",
+        "preview",
+        "render inspector",
+        "geometry diagnostics",
+        "edit shape",
+        "coordinate tap",
+        "AI correction loop"
       ],
       "read": [
+        "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
@@ -233,6 +241,7 @@
         "memory"
       ],
       "read": [
+        "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
@@ -259,6 +268,7 @@
         "next"
       ],
       "read": [
+        "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/templates/HANDOFF.md",
         "knowledge-system/vault/decisions/DECISION_REGISTER.md",
         "IMPLEMENTATION_PLAN.md"

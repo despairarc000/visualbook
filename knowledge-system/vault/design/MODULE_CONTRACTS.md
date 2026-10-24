@@ -49,3 +49,7 @@ The [first Android player](../../../implementation/visualbook-player/README.md) 
 ## Procedural motion contract v0.5
 
 [Audible part motion](AUDIBLE_PART_MOTION_V05.md) extends the story-core/renderer contract: `StoryCore.Segment.motions` is immutable declarative **presentation state**, not an audio cue or synthetic narration event. Valid TTS start chooses the stage animation profile; spoken completion remains exclusive advancement authority. `VectorFigure.Motion.offsetAt(monotonicElapsedMs)` computes a bounded oscillation on a root instance's declared pivot. No part of Canvas or a visual timer can cause `PlaybackState.audibleDone`.
+
+## Scene inspector v0.6
+
+[Preview Inspector design](RENDER_PREVIEW_INSPECTOR_V06.md): `RenderInspector.inspect` is a dependency-free read-only mapping from `StoryCore.Segment.visibleFigures` and Android stage tap pixels into stage coordinates plus the selected figure's local artboard. Scene preview uses immutable compiled per-segment style/motions/placements and never invokes `PlaybackState.audibleDone`. Android UI owns mode transitions, clipboard and editor-jump controls. This does **not** change the canonical narrated scene state or run motion during silent inspection.

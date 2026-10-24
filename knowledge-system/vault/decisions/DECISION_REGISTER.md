@@ -34,3 +34,5 @@
 | ADR-021 | Extend coordinate renderer with reusable part-local canvases and pivot transforms; references must be acyclic and statically budgeted | ACCEPTED (PROTOTYPE) | [Shape Engine v0.4](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md); device benchmark pending |
 
 | ADR-022 | Add opt-in sine-wave pivot animation for explicitly named root shape instances, scoped by actual audible utterance start/end, with no visual timer advancing narration | ACCEPTED (PROTOTYPE) | [Audible part motion v0.5](../design/AUDIBLE_PART_MOTION_V05.md); user phone validation pending |
+
+| ADR-023 | Build human-in-loop silent scene preview and deterministic local coordinate reports before autonomous AI image correction; keep preview cursor separate from audible playback | ACCEPTED (PROTOTYPE) | [Render Preview v0.6](../design/RENDER_PREVIEW_INSPECTOR_V06.md) |

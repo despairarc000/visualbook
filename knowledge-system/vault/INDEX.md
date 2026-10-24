@@ -4,6 +4,7 @@
 
 ## Canonical live documentation
 
+- [Render preview and inspection v0.6](design/RENDER_PREVIEW_INSPECTOR_V06.md)
 - [Speech-driven part animation v0.5](design/AUDIBLE_PART_MOTION_V05.md)
 - [Shape Engine v0.4: reusable parts and transforms](design/SHAPE_RIGS_AND_TRANSFORMS_V04.md)
 - [Virtual Canvas Geometry v0.3](design/VIRTUAL_CANVAS_GEOMETRY_V03.md)\n- [Mid-story scoped art styles v0.2](design/SCOPED_ART_STYLES_V02.md)\n- [First Android animated story prototype](../../implementation/visualbook-player/README.md)\n- [Product requirements](requirements/PRODUCT_REQUIREMENTS.md)

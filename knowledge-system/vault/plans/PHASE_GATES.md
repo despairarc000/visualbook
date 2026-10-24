@@ -201,3 +201,13 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] Knowledge doctor checks passed.
 - [ ] User validates audible wing movement, pause/resume and stop behavior on Samsung A06 5G.
 - [ ] Build a real render-preview/correction loop before marketing arbitrary shapes as high-quality automatically generated art.
+
+## Render-preview inspection and correction v0.6
+
+- [x] Implement silent segment scene preview, independent of real audible TTS progress/cursor.
+- [x] Inspector uses exact virtual stage and figure coordinate mapping with safe aspect-ratio-preserving fitting.
+- [x] Copy scene diagnostics for AI revision and jump to selected @figure source.
+- [x] Add portable Java verification for hit/no-hit, hidden figures, report state and invalid view inputs.
+- [ ] Android CI, Knowledge Doctor and final artifact hash validated.
+- [ ] Phone acceptance: preview controls/copy/jump, no phantom audio effects, realistic coordinate results and usable screen layout.
+- [ ] Improve visual-loop autonomy with user-approved screenshots and bounded shape selection/correction.

@@ -69,3 +69,5 @@
 - **EV-031:** [Speech-bounded part motion v0.5 contract](../design/AUDIBLE_PART_MOTION_V05.md), [PR #14](https://github.com/despairarc000/visualbook/pull/14): source supports named root rig instances, @animate/@still utterance-scoped state and live Canvas rotation. Tests authored; CI/phone evidence still gated.
 
 - **EV-032:** [VisualBook v0.5 motion APK and regression evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_MOTION_V05_2026-10-24.md): merged PR #14; 164 pure Java assertions and Android build success; verified artifact CRC and APK SHA-256. Device animation still unverified.
+
+- **EV-033:** [v0.6 render-preview inspector source contract](../design/RENDER_PREVIEW_INSPECTOR_V06.md): immutable scene preview, device→stage→figure coordinate math, preview report and editor-navigation implementation in PR #15. Build and actual device validation pending.
