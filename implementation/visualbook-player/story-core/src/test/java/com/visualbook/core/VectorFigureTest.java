@@ -84,6 +84,98 @@ public final class VectorFigureTest {
             VectorFigure.fitScale(100,100,0,20);
             throw new AssertionError("Invalid viewport accepted");
         } catch(IllegalArgumentException expected){tests++;}
+
+        // v0.4: genuinely reusable local-coordinate parts and recursive DAG composition.
+        VectorFigure.Builder rig = new VectorFigure.Builder("celestial","100x100");
+        rig.add("@part eye 20x20 pivot:10,10");
+        rig.add("circle 10 10 8 fill:#ffcd54");
+        rig.add("@endpart");
+        rig.add("@part horn 25x40 pivot:12,35");
+        rig.add("path M 4 35 Q 7 10 12 2 Q 23 26 20 37 Z fill:#c9b0e7");
+        rig.add("@endpart");
+        rig.add("@part head 50x50 pivot:25,25");
+        rig.add("circle 25 25 23 fill:#aa88dd");
+        rig.add("@use eye at:16,27");
+        rig.add("@use eye at:34,27 mirror:true");
+        rig.add("@use horn at:12,8 rotate:-15 scale:0.65");
+        rig.add("@endpart");
+        rig.add("@use head at:50,45 rotate:10 scale:1.1");
+        rig.add("@use head at:15,30 scale:0.5 mirror:true");
+        VectorFigure nested = rig.build();
+        ok(nested.parts.isEmpty(), "figures may be assembled entirely from reusable groups");
+        ok(nested.groups.size()==3 && nested.elements.size()==2,
+                "three named reusable parts, two root instances");
+        ok(nested.groups.get("head").elements.size()==4,
+                "head includes eye and horn instances plus primitive");
+        ok(nested.groups.get("head").depth==1 && nested.groups.get("head").expandedCost==7,
+                "head has a bounded expanded draw cost");
+        ok(nested.elements.get(0).instance.groupId.equals("head"),
+                "root element refers to composed head");
+        ok(nested.elements.get(1).instance.mirror, "mirror transform is represented as an instance");
+        VectorFigure.Group head=nested.groups.get("head");
+        float[] center=nested.elements.get(0).instance.map(25,25,head);
+        ok(Math.abs(center[0]-50)<.0001 && Math.abs(center[1]-45)<.0001,
+                "pivot remains at requested parent at:x,y under rotation and scale");
+        float[] translated=nested.elements.get(0).instance.map(35,25,head);
+        ok(Math.abs(translated[0]-60.8329)<.02 && Math.abs(translated[1]-46.9101)<.02,
+                "rotate and scale compose around pivot with clockwise screen coordinates");
+        VectorFigure.Instance flipped=nested.elements.get(1).instance;
+        float[] reflected=flipped.map(35,25,head);
+        ok(Math.abs(reflected[0]-10)<.001 && Math.abs(reflected[1]-30)<.001,
+                "mirror reflects local X about the part pivot, not the stage origin");
+        try {
+            rig.add("@part missed 20x20");
+            rig.build();
+            throw new AssertionError("Unclosed part accepted");
+        } catch (VectorFigure.GeometryException expected){tests++;}
+        String[][] invalidParts={
+            {"@endpart"},
+            {"@use missing at:20,30"},
+            {"@part broken 20x20 pivot:Infinity,0"},
+            {"@part broken 20x20 pivot:21,10"},
+            {"@part broken 4x20"},
+            {"@part broken 20x20 pivot:1"},
+            {"@part broken 20x20 pivot:1,2,3"},
+            {"@part broken 20x20 foo:1"},
+            {"@use eye at:NaN,10"},
+            {"@use eye at:11,101"},
+            {"@use eye at:5,5 scale:0"},
+            {"@use eye at:5,5 scale:5"},
+            {"@use eye at:5,5 rotate:400"},
+            {"@use eye at:5,5 mirror:yes"},
+            {"@use eye at:5,5 scale:1 scale:2"},
+            {"@use eye at:5,5 rotate:1 rotate:2"},
+            {"@use eye at:5,5 mirror:true mirror:false"},
+            {"@use eye at:5,5 unknown:foo"},
+            {"@use eye at:5,5 scale:NaN"},
+            {"@use eye at:5,5 rotate:Infinity"},
+            {"@part eye 20x20"}
+        };
+        for(String[] invalid:invalidParts) {
+            try {
+                VectorFigure.Builder b=new VectorFigure.Builder("tester","100x100");
+                b.add("@part eye 20x20");
+                b.add("circle 10 10 4 fill:#FFFFFF");
+                b.add("@endpart");
+                b.add(invalid[0]);
+                throw new AssertionError("Invalid part accepted: "+invalid[0]);
+            } catch (VectorFigure.GeometryException expected){tests++;}
+        }
+        try {
+            VectorFigure.Builder repeat = new VectorFigure.Builder("repeats","100x100");
+            repeat.add("@part bud 20x20");
+            repeat.add("circle 10 10 4 fill:#abc123");
+            repeat.add("@endpart");
+            for(int i=0;i<63;i++)repeat.add("@use bud at:50,50");
+            repeat.build();
+            throw new AssertionError("Expanded scene budget was ignored");
+        } catch(VectorFigure.GeometryException expected){tests++;}
+        try {
+            VectorFigure.Builder recursive=new VectorFigure.Builder("recursive","100x100");
+            recursive.add("@part loop 20x20");
+            recursive.add("@use loop at:10,10");
+            throw new AssertionError("Part self-reference accepted");
+        } catch(VectorFigure.GeometryException expected){tests++;}
         System.out.println("VisualBook vector geometry tests passed: "+tests);
     }
 }
