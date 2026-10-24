@@ -4,10 +4,12 @@ on:
     branches: [implementation/first-animated-story, feature/virtual-canvas-geometry-v03]
     paths:
       - implementation/visualbook-player/**
+      - stories/juan-pedro/**
       - .github/workflows/visualbook-player-build.yml
   pull_request:
     paths:
       - implementation/visualbook-player/**
+      - stories/juan-pedro/**
       - .github/workflows/visualbook-player-build.yml
   workflow_dispatch:
 permissions:
@@ -28,6 +30,7 @@ jobs:
           java -cp /tmp/visualbook-core-tests com.visualbook.core.StoryCoreTest
           java -cp /tmp/visualbook-core-tests com.visualbook.core.VectorFigureTest
           java -cp /tmp/visualbook-core-tests com.visualbook.core.RenderInspectorTest
+          java -cp /tmp/visualbook-core-tests com.visualbook.core.JuanPedroSeriesTest
       - name: Android SDK tools
         uses: android-actions/setup-android@v4
         with:
