@@ -46,6 +46,7 @@
         "intermediate representation"
       ],
       "read": [
+        "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
         "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/StoryCore.java",
@@ -140,6 +141,7 @@
         "fallback"
       ],
       "read": [
+        "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/BUILTIN_CONTENT_PLAN.md",
         "knowledge-system/vault/history/v0.2/builtin_asset_catalog_seed.json",
         "knowledge-system/vault/history/v0.3/contracts/05_GENERIC_CONTENT_SYSTEM.md"
@@ -170,9 +172,18 @@
         "shape canvas",
         "render control",
         "@figure",
-        "coordinates"
+        "coordinates",
+        "pivot",
+        "rigging",
+        "shape parts",
+        "@part",
+        "@use",
+        "rotate",
+        "mirror",
+        "nested group"
       ],
       "read": [
+        "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
         "implementation/visualbook-player/app/src/main/java/com/visualbook/player/StoryStageView.java",
@@ -213,6 +224,7 @@
         "memory"
       ],
       "read": [
+        "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
         "implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/StoryCoreTest.java",

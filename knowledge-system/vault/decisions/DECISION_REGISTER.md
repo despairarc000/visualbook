@@ -30,3 +30,5 @@
 | ADR-019 | Allow authored visual presentation styles to switch mid-story through scoped start/end markers (`@chibi`/`@end`), independent of speaker identity and audible narration cursor | ACCEPTED (PROTOTYPE) | [Scoped style contract](../design/SCOPED_ART_STYLES_V02.md); only normal and chibi implemented |
 
 | ADR-020 | Use independent local vector artboards and normalized stage coordinates, validated data-only figure grammar and uniform meet scaling for AI-authored unusual shapes | ACCEPTED (PROTOTYPE) | [Virtual Canvas Geometry v0.3](../design/VIRTUAL_CANVAS_GEOMETRY_V03.md); phone tests still required |
+
+| ADR-021 | Extend coordinate renderer with reusable part-local canvases and pivot transforms; references must be acyclic and statically budgeted | ACCEPTED (PROTOTYPE) | [Shape Engine v0.4](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md); device benchmark pending |

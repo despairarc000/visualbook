@@ -151,3 +151,11 @@ User requested exact geometric composition ("own point (0,0), 100×100, circle a
 [PR #12](https://github.com/despairarc000/visualbook/pull/12) merged into `main` (`94fab04868e84d4caf01dae7379dcb2112ed71b6`). Final [Android build 40039492709](https://github.com/despairarc000/visualbook/actions/runs/40039492709) and [knowledge doctor 40039492697](https://github.com/despairarc000/visualbook/actions/runs/40039492697) **passed**. Pure JVM tests: StoryCore 61 assertions, vector geometry 43 assertions. Downloaded debug APK from same code (artifact 12538228595), SHA-256 `04a71c789e790801efc926ba19f15b9094c4a359aee328509b479221ad36c757`; package `com.visualbook.player.canvas.v03`. [Full artifact evidence and phone test instructions](../../../implementation/visualbook-player/BUILD_EVIDENCE_VIRTUAL_CANVAS_V03_2026-10-24.md).
 
 **Still OPEN:** user acceptance on SM-A066B for authored figure shapes, normalized placement grid, rendering performance and shape aesthetics. Next: test and iterate; design reusable nested part transforms and pivots before claiming generalized morphable creatures.
+
+## Shape Engine v0.4 — grouped parts and hierarchical transforms (2026-10-24)
+
+User asked to continue after v0.3 precise virtual coordinates. Branch `feature/shape-engine-rig-v04` implements reusable part definitions, independent `WxH` local coordinate frames, pivot-based `@use` instances with rotation/scale/mirror, a safe bounded hierarchy, pure mathematical transform tests, and an Android demo drawing a mystical creature with reusable eyes, horns, wings and a nested head. **This is actual code; device visual result remains unverified.**
+
+[Feature spec](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md) · [Implementation README](../../../implementation/visualbook-player/README.md) · [PR #13](https://github.com/despairarc000/visualbook/pull/13)
+
+**Next:** pass final CI, verify APK/SHA256, then visually test on Samsung A06 5G before expanding into timed animation, independent materials and imported assets.

@@ -61,3 +61,5 @@
 - **EV-027:** [Virtual canvas & figure geometry prototype](../design/VIRTUAL_CANVAS_GEOMETRY_V03.md): exact 100×100 local artboard, stage-relative position, circle/triangle/polygon/curved path commands, bounds validator, plus Android procedural path rendering. Source implemented on feature branch; build/device verification must be separately recorded.
 
 - **EV-028:** [Virtual Canvas Geometry v0.3 Android APK and test evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_VIRTUAL_CANVAS_V03_2026-10-24.md): PR #12 merged, 61 story-core and 43 geometry assertions passed, final Android compile passed, extracted debug APK CRC and SHA-256 verified. Physical figure drawing remains untested.
+
+- **EV-029:** [Reusable vector part, pivot, and bounded hierarchy v0.4 design plus implementation](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md), [PR #13](https://github.com/despairarc000/visualbook/pull/13). Real dependency-free geometry, Canvas recursive render, and transform regression tests authored; CI and device acceptance separately gated.

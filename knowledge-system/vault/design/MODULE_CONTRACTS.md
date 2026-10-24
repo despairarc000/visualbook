@@ -41,3 +41,7 @@ The [first Android player](../../../implementation/visualbook-player/README.md) 
 ## Virtual shape geometry v0.3 — two coordinate domains
 
 [Virtual canvas geometry contract](VIRTUAL_CANVAS_GEOMETRY_V03.md): a self-contained `VectorFigure` defines pure validated primitives in its own unit artboard; a `Placement` chooses a normalized stage center and width. `StoryCore.Segment.visibleFigures` records each active visible object at its audible boundary while imported figure definitions are immutable story resources. Android Canvas transforms from local to stage pixels with a uniform meet scale. Do not conflate *position of eye inside creature* with *position of creature on phone stage* or convert the stage into raw physical screen coordinates. Future part/group transforms should obey a parent→child scene graph.
+
+## Vector rig v0.4 local coordinate hierarchy
+
+[Shape Rigging and Transform Contract](SHAPE_RIGS_AND_TRANSFORMS_V04.md): `VectorFigure` now has immutable root `elements` and a validated registry of named `Group` definitions, each containing vector primitives and/or already-built `Instance` references. `StageRenderer` composes group-local pivot transforms through save/translate/rotate/scale/translate/clip/recursive draw/restore. Text scripting never directly executes code or controls Android `Canvas` methods; parsing and geometry validation remain pure Java. The hierarchy is capped to protect low-memory devices.
