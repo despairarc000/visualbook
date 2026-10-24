@@ -425,6 +425,7 @@ public final class MainActivity extends Activity {
         stage.setInspectionPoint(null);
         stage.setMotions(Collections.emptyMap());
         stage.show("n",false);
+        presentRestingFrame();
     }
 
     private void previewStep(int delta) {
