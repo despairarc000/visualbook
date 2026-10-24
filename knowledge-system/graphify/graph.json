@@ -873,7 +873,7 @@
     {
       "from": "juan-pedro-directed-episode",
       "to": "series-director-java",
-      "type": "uses"
+      "type": "depends_on"
     },
     {
       "from": "series-player-v07",
