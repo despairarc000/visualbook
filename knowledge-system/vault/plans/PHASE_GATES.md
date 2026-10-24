@@ -166,3 +166,13 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] Android app build and final knowledge doctor succeeded; PR #12 merged; APK CRC/SHA-256 recorded.
 - [ ] Verify runtime rendering, figure construction controls and stage-coordinate grid on actual Samsung SM-A066B.
 - [ ] Design reusable nested geometry groups and transforms for creature body-part rigging and controlled direction changes.
+
+## Shape Engine v0.4 — reusable parts and parent-local pivots (2026-10-24)
+
+- [x] Implement `@part` / `@endpart` reusable groups with independent 16..1024 local canvas.
+- [x] Implement `@use` with parent anchor, signed rotation, positive scale and horizontal mirror about pivot.
+- [x] Implement nested DAGs, expansion/depth safety budgets, deterministic draw order and Canvas transform rendering.
+- [x] Add tests for exact pivot mapping, mirrored coordinates, nested part composition, parser failures and budget rejection.
+- [ ] Obtain passing latest Android/JVM CI and record build artifact hash.
+- [ ] Real phone test: compare wing/eye/horn placement, multi-instance rendering, chibi coexistence and FPS.
+- [ ] Define future authoring shorthand, asset-pack handles, transform animation, orientation rig support and corrective preview workflow.

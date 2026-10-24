@@ -373,6 +373,13 @@
       "kind": "design",
       "status": "PROVISIONAL",
       "path": "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md"
+    },
+    {
+      "id": "shape-rigging-v04",
+      "label": "Modular shape parts, parent-local pivot and bounded DAG rigging v0.4",
+      "kind": "design",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md"
     }
   ],
   "edges": [
@@ -765,6 +772,21 @@
       "from": "vector-geometry-contract",
       "to": "android-procedural-stage",
       "type": "documents"
+    },
+    {
+      "from": "shape-rigging-v04",
+      "to": "vector-geometry-core",
+      "type": "documents"
+    },
+    {
+      "from": "shape-rigging-v04",
+      "to": "android-procedural-stage",
+      "type": "documents"
+    },
+    {
+      "from": "vector-geometry-tests",
+      "to": "shape-rigging-v04",
+      "type": "tests"
     }
   ]
 }

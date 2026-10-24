@@ -107,6 +107,35 @@ public final class StoryCoreTest {
         error("@figure x 100x100\ncircle 140 20 6 fill:#ffffff\n@endfigure\n@n Hi");
         error("@figure x 100x100\nunknown 20 20 fill:#ffffff\n@endfigure\n@n Hi");
         error("@figure x 100x100\ntriangle 2,20 5,10 70,70 fill:#ffffff\n@endfigure\n@figure x 100x100\ncircle 10 10 4 fill:#fffccc\n@endfigure\n@n Hi");
+
+        String rigScript="@figure winged 100x100\n" +
+            "@part eye 20x20 pivot:10,10\n" +
+            "circle 10 10 8 fill:#ffee88\n" +
+            "@endpart\n" +
+            "@part head 50x50 pivot:25,25\n" +
+            "circle 25 25 22 fill:#ccaadd\n" +
+            "@use eye at:15,28\n" +
+            "@use eye at:35,28 mirror:true\n" +
+            "@endpart\n" +
+            "@use head at:50,50 rotate:20\n" +
+            "@endfigure\n" +
+            "@show winged at:68,44 width:29\n" +
+            "@n The giant appears!\n" +
+            "@chibi\n@c3 How strange!\n@end\n" +
+            "@hide winged\n" +
+            "@n Then it disappears.";
+        StoryCore.Story rigStoryCompiled=parse(rigScript,true);
+        ok(rigStoryCompiled.figures.get("winged").groups.size()==2,
+                "story markup compiles reusable part definitions");
+        ok(rigStoryCompiled.segments.size()==3 &&
+                rigStoryCompiled.segments.get(0).visibleFigures.size()==1 &&
+                rigStoryCompiled.segments.get(1).visibleFigures.size()==1 &&
+                rigStoryCompiled.segments.get(2).visibleFigures.isEmpty(),
+                "scoped styles and actor turns preserve figure visibility snapshots");
+        ok(rigStoryCompiled.figures.get("winged").elements.get(0).instance.rotation==20f,
+                "authored figure instance rotation survives story compilation");
+        error(rigScript.replace("@endpart\n@use head", "@use head"));
+        error(rigScript.replace("@endpart\n@use head", "@endpart\n@use missing"));
         PlaybackState state = new PlaybackState(cast.segments);
         String first = state.begin();
         ok(state.index() == 0 && !state.isSpeaking(), "queued is not audible");

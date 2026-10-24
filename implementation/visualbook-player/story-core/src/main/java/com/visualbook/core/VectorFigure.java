@@ -3,6 +3,8 @@ package com.visualbook.core;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -16,6 +18,9 @@ public final class VectorFigure {
     public final String id;
     public final int width, height;
     public final List<Part> parts;
+    /** Ordered root geometry plus reusable part instances (separate from legacy parts). */
+    public final List<Element> elements;
+    public final Map<String, Group> groups;
 
     public static final class Part {
         public final String kind;
@@ -39,6 +44,54 @@ public final class VectorFigure {
         public String operation(int i) { return operations[i]; }
     }
 
+
+    /** Every drawable node is either a literal primitive or an instance of a named part. */
+    public static final class Element {
+        public final Part shape;
+        public final Instance instance;
+        private Element(Part shape, Instance instance) {
+            this.shape=shape;
+            this.instance=instance;
+        }
+    }
+
+    /** A reusable shape part with its own independent virtual local artboard and pivot. */
+    public static final class Group {
+        public final String id;
+        public final int width, height;
+        public final float pivotX, pivotY;
+        public final List<Element> elements;
+        public final int expandedCost, depth;
+        private Group(String id,int width,int height,float pivotX,float pivotY,
+                      List<Element> elements,int expandedCost,int depth) {
+            this.id=id;this.width=width;this.height=height;
+            this.pivotX=pivotX;this.pivotY=pivotY;
+            this.elements=Collections.unmodifiableList(new ArrayList<>(elements));
+            this.expandedCost=expandedCost;this.depth=depth;
+        }
+    }
+
+    /** Immutable instance transform: local pivot goes to (atX,atY) in parent coordinates. */
+    public static final class Instance {
+        public final String groupId;
+        public final float atX, atY, rotation, scale;
+        public final boolean mirror;
+        private Instance(String groupId,float atX,float atY,float rotation,float scale,boolean mirror){
+            this.groupId=groupId;this.atX=atX;this.atY=atY;
+            this.rotation=rotation;this.scale=scale;this.mirror=mirror;
+        }
+        /** Same order as Canvas: T(at)*R(rotation)*S(signedScale)*T(-pivot). */
+        public float[] map(float localX,float localY,Group group) {
+            float dx=(localX-group.pivotX)*scale*(mirror?-1f:1f);
+            float dy=(localY-group.pivotY)*scale;
+            double r=Math.toRadians(rotation);
+            return new float[]{
+                atX+(float)(dx*Math.cos(r)-dy*Math.sin(r)),
+                atY+(float)(dx*Math.sin(r)+dy*Math.cos(r))
+            };
+        }
+    }
+
     public static final class Placement {
         public final String figureId, slot;
         // 100x100 logical stage coordinates, independent of a figure's local artboard.
@@ -60,40 +113,160 @@ public final class VectorFigure {
         public GeometryException(String message) { super(message); }
     }
 
+
     public static final class Builder {
+        private static final int MAX_NODES=64;
+        private static final int MAX_GROUPS=12;
+        private static final int MAX_EXPANDED=256;
+        private static final int MAX_DEPTH=4;
         private final String id;
         private final int width, height;
         private final ArrayList<Part> parts = new ArrayList<>();
+        private final ArrayList<Element> root = new ArrayList<>();
+        private final LinkedHashMap<String,Group> groups = new LinkedHashMap<>();
+        private String pendingId;
+        private int pendingWidth,pendingHeight;
+        private float pendingPivotX,pendingPivotY;
+        private ArrayList<Element> pendingElements;
+        private int pendingCost,pendingDepth;
+        private int rootCost=0,rootDepth=0,totalNodes=0;
+
         public Builder(String id, String size) throws GeometryException {
             if (id == null || !ID.matcher(id).matches())
                 throw new GeometryException("Figure id must be lowercase letters, digits, _ or -");
+            int[] dims=dimensions(size);
+            width=dims[0];height=dims[1];this.id=id;
+        }
+        private static int[] dimensions(String size) throws GeometryException {
             String[] dims = size == null ? new String[0] : size.split("x", -1);
             if (dims.length != 2) throw new GeometryException("Artboard needs e.g. 100x100");
-            try {
-                width = Integer.parseInt(dims[0]);
-                height = Integer.parseInt(dims[1]);
-            } catch (NumberFormatException ex) {
+            int w,h;
+            try {w=Integer.parseInt(dims[0]);h=Integer.parseInt(dims[1]);}
+            catch (NumberFormatException ex) {
                 throw new GeometryException("Artboard requires integer width and height");
             }
-            if (width < 16 || height < 16 || width > 1024 || height > 1024)
+            if (w < 16 || h < 16 || w > 1024 || h > 1024)
                 throw new GeometryException("Artboard dimensions must be 16..1024");
-            this.id = id;
+            return new int[]{w,h};
+        }
+        private static float signedFloat(String text,float bound,String field)
+                throws GeometryException {
+            float x;
+            try{x=Float.parseFloat(text);}
+            catch(NumberFormatException e){throw new GeometryException("Invalid "+field);}
+            if(!Float.isFinite(x) || x<-bound || x>bound)
+                throw new GeometryException("Invalid "+field+": "+text);
+            return x;
+        }
+        private static float[] xy(String text,int w,int h,String field) throws GeometryException {
+            String[] pairs=text.split(",",-1);
+            if(pairs.length!=2)throw new GeometryException(field+" needs x,y");
+            return new float[]{coordinate(pairs[0],w),coordinate(pairs[1],h)};
         }
         public Builder add(String command) throws GeometryException {
-            if (parts.size() >= MAX_PARTS)
-                throw new GeometryException("Figure contains more than 64 elements");
-            parts.add(parsePart(command, width, height));
+            if(command==null || command.length()>1000)
+                throw new GeometryException("Geometry command too long");
+            String t=command.trim();
+            if(t.startsWith("@part ")) {startPart(t);return this;}
+            if("@endpart".equals(t)){endPart();return this;}
+            if(t.startsWith("@use ")) {usePart(t);return this;}
+            if(t.startsWith("@") || t.startsWith("use "))
+                throw new GeometryException("Unknown figure command: "+t);
+            if(totalNodes>=MAX_NODES)throw new GeometryException("Figure exceeds 64 total nodes");
+            int localWidth=pendingId==null?width:pendingWidth;
+            int localHeight=pendingId==null?height:pendingHeight;
+            Part p=parsePart(t,localWidth,localHeight);
+            totalNodes++;
+            if(pendingId==null) {
+                if(rootCost+1>MAX_EXPANDED)throw new GeometryException("Figure expansion exceeds 256 nodes");
+                parts.add(p);root.add(new Element(p,null));rootCost++;
+            } else {
+                if(pendingCost+1>MAX_EXPANDED)
+                    throw new GeometryException("Part expansion exceeds 256 nodes");
+                pendingElements.add(new Element(p,null));pendingCost++;
+            }
             return this;
         }
+        private void startPart(String t) throws GeometryException {
+            if(pendingId!=null)throw new GeometryException("Close @endpart before another @part");
+            String[] tokens=t.split("\\s+");
+            if(tokens.length<3||tokens.length>4)
+                throw new GeometryException("@part id WxH [pivot:x,y]");
+            if(!ID.matcher(tokens[1]).matches() || groups.containsKey(tokens[1]) ||
+               tokens[1].equals(id))
+                throw new GeometryException("Invalid or duplicate part id");
+            if(groups.size()>=MAX_GROUPS)throw new GeometryException("More than 12 parts");
+            int[] dims=dimensions(tokens[2]);
+            float px=dims[0]/2f,py=dims[1]/2f;
+            if(tokens.length==4){
+                if(!tokens[3].startsWith("pivot:"))throw new GeometryException("Expected pivot:x,y");
+                float[] xy=xy(tokens[3].substring(6),dims[0],dims[1],"pivot");
+                px=xy[0];py=xy[1];
+            }
+            pendingId=tokens[1];pendingWidth=dims[0];pendingHeight=dims[1];
+            pendingPivotX=px;pendingPivotY=py;
+            pendingCost=0;pendingDepth=0;pendingElements=new ArrayList<>();
+        }
+        private void endPart() throws GeometryException {
+            if(pendingId==null)throw new GeometryException("Unmatched @endpart");
+            if(pendingElements.isEmpty())throw new GeometryException("Empty part: "+pendingId);
+            groups.put(pendingId,new Group(pendingId,pendingWidth,pendingHeight,
+                    pendingPivotX,pendingPivotY,pendingElements,pendingCost,pendingDepth));
+            pendingId=null;pendingElements=null;
+        }
+        private void usePart(String t) throws GeometryException {
+            String[] tokens=t.split("\\s+");
+            if(tokens.length<3||tokens.length>6)
+                throw new GeometryException("@use part at:x,y [rotate:d] [scale:n] [mirror:true|false]");
+            Group g=groups.get(tokens[1]);
+            if(g==null)throw new GeometryException("Unknown or unfinished part: "+tokens[1]);
+            if(!tokens[2].startsWith("at:"))throw new GeometryException("@use needs at:x,y");
+            int localW=pendingId==null?width:pendingWidth;
+            int localH=pendingId==null?height:pendingHeight;
+            float[] at=xy(tokens[2].substring(3),localW,localH,"at");
+            float rotate=0f,scale=1f;boolean mirror=false;
+            boolean gotRotate=false,gotScale=false,gotMirror=false;
+            for(int i=3;i<tokens.length;i++) {
+                String opt=tokens[i];
+                if(opt.startsWith("rotate:")&&!gotRotate) {
+                    rotate=signedFloat(opt.substring(7),360f,"rotation");gotRotate=true;
+                } else if(opt.startsWith("scale:")&&!gotScale) {
+                    scale=positive(opt.substring(6),4f,"scale");
+                    if(scale<.1f)throw new GeometryException("Scale must be between 0.1 and 4");
+                    gotScale=true;
+                } else if(opt.startsWith("mirror:")&&!gotMirror) {
+                    String v=opt.substring(7);
+                    if(!v.equals("true")&&!v.equals("false"))
+                        throw new GeometryException("mirror must be true or false");
+                    mirror="true".equals(v);gotMirror=true;
+                } else throw new GeometryException("Unexpected or duplicate instance option: "+opt);
+            }
+            if(totalNodes>=MAX_NODES)throw new GeometryException("Figure exceeds 64 total nodes");
+            int currentDepth=g.depth+1;
+            int newCost=g.expandedCost+1;
+            int existing=pendingId==null?rootCost:pendingCost;
+            if(currentDepth>MAX_DEPTH)throw new GeometryException("Maximum 4 nested part levels");
+            if(existing+newCost>MAX_EXPANDED)
+                throw new GeometryException("Expanded figure would exceed 256 nodes");
+            Instance instance=new Instance(g.id,at[0],at[1],rotate,scale,mirror);
+            Element e=new Element(null,instance);
+            totalNodes++;
+            if(pendingId==null){root.add(e);rootCost+=newCost;rootDepth=Math.max(rootDepth,currentDepth);}
+            else {pendingElements.add(e);pendingCost+=newCost;pendingDepth=Math.max(pendingDepth,currentDepth);}
+        }
         public VectorFigure build() throws GeometryException {
-            if (parts.isEmpty()) throw new GeometryException("Empty figure");
-            return new VectorFigure(id,width,height,parts);
+            if(pendingId!=null)throw new GeometryException("Missing @endpart for "+pendingId);
+            if(root.isEmpty())throw new GeometryException("Empty figure");
+            return new VectorFigure(id,width,height,parts,root,groups);
         }
     }
 
-    private VectorFigure(String id,int width,int height,List<Part> parts) {
+    private VectorFigure(String id,int width,int height,List<Part> parts,List<Element> elements,
+                         Map<String,Group> groups) {
         this.id=id; this.width=width; this.height=height;
         this.parts=Collections.unmodifiableList(new ArrayList<>(parts));
+        this.elements=Collections.unmodifiableList(new ArrayList<>(elements));
+        this.groups=Collections.unmodifiableMap(new LinkedHashMap<>(groups));
     }
 
     public static boolean validId(String id) {

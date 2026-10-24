@@ -340,8 +340,35 @@ public final class StoryStageView extends View {
             canvas.translate(centerX-drawWidth*.5f,centerY-drawHeight*.5f);
             canvas.scale(scale,scale);
             canvas.clipRect(0,0,fig.width,fig.height);
-            for(VectorFigure.Part part:fig.parts)drawPart(canvas,part);
+            drawElements(canvas,fig.elements,fig.groups);
             canvas.restore();
+        }
+    }
+
+
+    /**
+     * Hierarchical transforms are composed by Canvas, not manually applied to
+     * each vector point. A group's pivot maps exactly to the requested parent
+     * at:x,y anchor, whether it is mirrored, rotated or scaled.
+     */
+    private void drawElements(Canvas c,List<VectorFigure.Element> elements,
+                              Map<String,VectorFigure.Group> groups) {
+        for(VectorFigure.Element e:elements) {
+            if(e.shape!=null) {
+                drawPart(c,e.shape);
+            } else if(e.instance!=null) {
+                VectorFigure.Instance instance=e.instance;
+                VectorFigure.Group group=groups.get(instance.groupId);
+                if(group==null)continue;
+                c.save();
+                c.translate(instance.atX,instance.atY);
+                c.rotate(instance.rotation);
+                c.scale(instance.mirror?-instance.scale:instance.scale,instance.scale);
+                c.translate(-group.pivotX,-group.pivotY);
+                c.clipRect(0,0,group.width,group.height);
+                drawElements(c,group.elements,groups);
+                c.restore();
+            }
         }
     }
 

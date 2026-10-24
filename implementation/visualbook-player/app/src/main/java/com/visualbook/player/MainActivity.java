@@ -48,11 +48,30 @@ public final class MainActivity extends Activity {
     private static final String DEMO =
             "@bg classroom\n" +
             "@figure spirit 100x100\n" +
-            "triangle 11,84 49,8 88,84 fill:#8465B9 stroke:#5A357B width:2\n" +
-            "circle 77 56 11 fill:#F6D16B stroke:#714A95 width:2\n" +
-            "path M 15 64 C 20 14 59 26 74 18 stroke:#F7E2B3 width:3\n" +
+            "@part eye 20x20 pivot:10,10\n" +
+            "circle 10 10 8 fill:#F6D16B stroke:#714A95 width:2\n" +
+            "circle 11 10 3 fill:#503575\n" +
+            "@endpart\n" +
+            "@part horn 25x40 pivot:12,35\n" +
+            "path M 4 35 Q 7 10 12 2 Q 23 26 20 37 Z fill:#E8CCF5 stroke:#7D539C width:2\n" +
+            "@endpart\n" +
+            "@part wing 45x55 pivot:8,45\n" +
+            "path M 8 45 Q 0 20 8 5 Q 25 11 42 8 L 35 21 L 43 29 Q 20 29 8 45 Z fill:#8D77CF stroke:#56438F width:2\n" +
+            "@endpart\n" +
+            "@part head 50x50 pivot:25,25\n" +
+            "circle 25 25 23 fill:#B7A3E4 stroke:#7354A9 width:2\n" +
+            "@use eye at:16,28 scale:0.75\n" +
+            "@use eye at:34,28 scale:0.75\n" +
+            "@use horn at:10,8 rotate:-15 scale:0.65\n" +
+            "@use horn at:40,8 rotate:15 scale:0.65 mirror:true\n" +
+            "@endpart\n" +
+            "path M 38 74 Q 18 92 12 61 stroke:#654993 width:4\n" +
+            "@use wing at:26,44 rotate:-24 scale:1.05 mirror:true\n" +
+            "@use wing at:74,44 rotate:24 scale:1.05\n" +
+            "circle 50 65 21 fill:#775AB1 stroke:#4C377C width:2\n" +
+            "@use head at:50,35 scale:1\n" +
             "@endfigure\n" +
-            "@show spirit center\n" +
+            "@show spirit at:50,35 width:45\n" +
             "@n\nIsang araw, nagkita sina Juan at Pedro sa paaralan. Isang mahiwagang nilalang ang lumitaw.\n\n" +
             "@hide spirit\n" +
             "@c1m\nPedro, may assignment ka ba?\n\n" +
