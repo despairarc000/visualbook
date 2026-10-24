@@ -73,3 +73,5 @@
 - **EV-033:** [v0.6 render-preview inspector source contract](../design/RENDER_PREVIEW_INSPECTOR_V06.md): immutable scene preview, device→stage→figure coordinate math, preview report and editor-navigation implementation in PR #15. Build and actual device validation pending.
 
 - **EV-034:** [v0.6 Android preview inspector build, 186 tests and APK SHA-256](../../../implementation/visualbook-player/BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md). PR #15 merged, CI passed; physical tap/clipboard/editor test remains open.
+
+- **EV-035:** [v0.7 series-player code and two-script speech-equivalence tests](../design/JUAN_PEDRO_SERIES_PLAYER_V07.md). Episode 1 built into app, explicit five-chapter navigation, scene presets, SHA-bound resume; latest CI must still confirm final docs SHA and on-device usability.

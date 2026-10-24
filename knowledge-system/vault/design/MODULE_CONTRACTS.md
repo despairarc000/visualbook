@@ -53,3 +53,7 @@ The [first Android player](../../../implementation/visualbook-player/README.md) 
 ## Scene inspector v0.6
 
 [Preview Inspector design](RENDER_PREVIEW_INSPECTOR_V06.md): `RenderInspector.inspect` is a dependency-free read-only mapping from `StoryCore.Segment.visibleFigures` and Android stage tap pixels into stage coordinates plus the selected figure's local artboard. Scene preview uses immutable compiled per-segment style/motions/placements and never invokes `PlaybackState.audibleDone`. Android UI owns mode transitions, clipboard and editor-jump controls. This does **not** change the canonical narrated scene state or run motion during silent inspection.
+
+## SeriesDirector v0.7 metadata adapter
+
+[Series player contract](JUAN_PEDRO_SERIES_PLAYER_V07.md): `SeriesDirector.compile` is the new generic, bounded, Android-independent metadata layer for silent `@chapter`, `@scene`, `@name`; it blanks metadata lines before the unmodified StoryCore, retaining source line references and audio-authoritative segments. The directed story holds per-segment scene/chapter state and cast names. `PlaybackState.seek(index)` is always a user-directed invalidating operation, never called as fake successful audio completion. `MainActivity` binds bundled asset, chapter picker and SharedPreferences to that model.

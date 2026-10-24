@@ -193,3 +193,22 @@ The device's class and screen size affect pixel positions, but not the 0–100 s
 ## v0.6 verified build
 
 [Render-preview APK evidence](BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md): PR #15 merged, 186 regression assertions passed, Android assembly succeeded, standalone APK extracted and checksummed. User should validate preview/clipboard/editor touch UI before claiming it works on device.
+
+
+## VisualBook v0.7 — first series player (experimental)
+
+Version v0.7 installs separately as \`com.visualbook.player.series.v07\`. It **bundles a separate v0.7-directed edition** of Juan at Pedro Season 1 Episode 1 and loads that story automatically on first launch. The original Episode 1 v0.6-compatible \`.story.md\` remains unchanged.
+
+Feature scope:
+- One actual playable story, E01 *Ang Kampanang Nawala* (original Filipino continuity, 3,348 spoken words; about 24 minutes at ~140 wpm *before* device-specific pause/synthesis overhead). **Episodes 2–8 are listed as coming soon and are not fake-playable**.
+- New **Series** library picker and **Chapters** menu for five real scene-chapter divisions. Explicit chapter seek invalidates old TTS generations without creating an audible completion.
+- Bundled \`@scene\`, \`@chapter\` and \`@name\` metadata are compiled by dependency-free \`SeriesDirector\`. Directives are stripped to blank lines preserving source-line positions before the stable StoryCore parser runs. No silent cues trigger fake playback events.
+- Named story actors c1..c9, with deterministic shirt palettes. Current stage shows Juan and Pedro and the actively speaking supporting character; **it is not yet a fully persistent multi-actor staging system**.
+- Lightweight distinct location backdrops (guava tree, plaza with *missing* or *restored* bell, library, smithy, bridge, warehouse, river, forest, Balete). Procedural and deterministic, not hand-painted art or automatic background image generation. Scenes change at the next actual audible utterance.
+- Android local SharedPreferences stores the **bundled Episode 1's** story SHA-256 fingerprint and next-utterance index. Resume rejects stale source hashes/out-of-range positions. Successfully completed TTS utterances save progress; Pause/Stop/manual Skip/Chapter Jump also save deliberate cursor changes. **No original imported TXT content or progress is silently persisted.**
+- Reader controls from v0.6 (Play, Pause, Stop, Next, Edit, Import, Voices, Preview, scene inspector) remain; note that Stop intentionally resets the checkpoint to the start.
+- Android can replay a paused *sentence* but does **not** seek into the middle of an utterance. No offline Filipino TTS engine is packaged; voice availability still depends on the phone. 24-minute playback length, device FPS and voice correctness must be tested on hardware.
+
+Playable source: \`app/src/main/assets/juan_pedro_e01.story.md\`. Canonical directed author source: \`stories/juan-pedro/season-01/E01_Directed_v07.story.md\`. Original story: \`stories/juan-pedro/season-01/E01_Ang_Kampanang_Nawala.story.md\`.
+
+The proper architecture is generic: \`SeriesDirector\` operates on any authored script with defined metadata. Only Season 1 Episode 1 is currently distributed as bundled content.

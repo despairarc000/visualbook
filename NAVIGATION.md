@@ -6,6 +6,7 @@
 
 | Goal | Read these in order |
 |---|---|
+| Build/test bundled series episode player | [v0.7 Series Player](knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md) → [SeriesDirector.java](implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/SeriesDirector.java) → [E01 Directed Script](stories/juan-pedro/season-01/E01_Directed_v07.story.md) |
 | Read or develop the continuous Juan/Pedro series | [Series Bible](stories/juan-pedro/SERIES_BIBLE.md) → [Episode 1 script](stories/juan-pedro/season-01/E01_Ang_Kampanang_Nawala.story.md) → [Folklore Research](stories/juan-pedro/FOLKLORE_RESEARCH.md) |
 | Understand project | [Idea plan](IDEA_PLAN.md) → [Requirements](knowledge-system/vault/requirements/PRODUCT_REQUIREMENTS.md) → [Current checkpoint](knowledge-system/vault/checkpoints/CURRENT.md) |
 | Plan next implementation step | [Implementation plan](IMPLEMENTATION_PLAN.md) → [Decision register](knowledge-system/vault/decisions/DECISION_REGISTER.md) → [Phase gates](knowledge-system/vault/plans/PHASE_GATES.md) |

@@ -43,9 +43,17 @@
         "anthology",
         "canonical IR",
         "v0.4",
-        "intermediate representation"
+        "intermediate representation",
+        "juan pedro",
+        "series",
+        "@chapter",
+        "@scene",
+        "chapter seek",
+        "resume progress",
+        "episode library"
       ],
       "read": [
+        "knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md",
         "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
@@ -76,6 +84,7 @@
         "playback"
       ],
       "read": [
+        "knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/PlaybackState.java",
         "knowledge-system/vault/design/CANONICAL_IR_V04.md",
@@ -198,6 +207,7 @@
         "AI correction loop"
       ],
       "read": [
+        "knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md",
         "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
@@ -241,6 +251,7 @@
         "memory"
       ],
       "read": [
+        "knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md",
         "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
@@ -268,6 +279,7 @@
         "next"
       ],
       "read": [
+        "knowledge-system/vault/design/JUAN_PEDRO_SERIES_PLAYER_V07.md",
         "knowledge-system/vault/design/RENDER_PREVIEW_INSPECTOR_V06.md",
         "knowledge-system/vault/templates/HANDOFF.md",
         "knowledge-system/vault/decisions/DECISION_REGISTER.md",

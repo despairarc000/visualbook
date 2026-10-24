@@ -1,6 +1,8 @@
 package com.visualbook.player;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -37,6 +39,7 @@ import com.visualbook.core.PlaybackState;
 import com.visualbook.core.StoryCore;
 import com.visualbook.core.VectorFigure;
 import com.visualbook.core.RenderInspector;
+import com.visualbook.core.SeriesDirector;
 import java.util.Collections;
 
 import java.util.ArrayList;
@@ -90,6 +93,13 @@ public final class MainActivity extends Activity {
             "@end\n" +
             "@c2\nJoke lang! Nasa bag ko.\n";
     private static final int PICK_TEXT = 33;
+    private static final String EPISODE_ASSET="juan_pedro_e01.story.md";
+    private static final String EPISODE_TITLE="Juan at Pedro • S1E1: Ang Kampanang Nawala";
+    private static final String PROGRESS="visualbook_series_v07";
+    private String bundledSource;
+    private boolean episodeMode=false;
+    private SeriesDirector.DirectedStory directed;
+    private TextView episodeStatus;
     private static final int MAX_TEXT_BYTES = 200_000;
     private static final String[] IDS = {"n", "c1", "c2"};
     private final Handler ui = new Handler(Looper.getMainLooper());
@@ -135,8 +145,7 @@ public final class MainActivity extends Activity {
         audioThread.start();
         audio = new Handler(audioThread.getLooper());
         buildUI();
-        editor.setText(DEMO);
-        compileSource();
+        loadBundledEpisode();
         setStatus("Initializing installed text-to-speech engine…");
         tts = new TextToSpeech(getApplicationContext(), result -> {
             if (destroyed) return;
@@ -195,23 +204,33 @@ public final class MainActivity extends Activity {
                 return insets;
             });
         }
-        TextView header = label("VISUALBOOK  •  RENDER PREVIEW",17);
+        TextView header = label("VISUALBOOK  •  SERIES PLAYER",17);
         header.setTypeface(null,android.graphics.Typeface.BOLD);
         header.setPadding(dp(3),dp(4),0,dp(8));
         root.addView(header);
 
         LinearLayout toggles = new LinearLayout(this);
         toggles.setOrientation(LinearLayout.HORIZONTAL);
-        toggles.addView(button("Edit", () -> toggleEditor()),
+        toggles.addView(button("Edit", this::toggleEditor),
                 new LinearLayout.LayoutParams(0,dp(45),1));
-        toggles.addView(button("Import TXT", this::importText),
+        toggles.addView(button("Import",this::importText),
                 new LinearLayout.LayoutParams(0,dp(45),1));
-        toggles.addView(button("Voices", () -> toggleVoices()),
-                new LinearLayout.LayoutParams(0,dp(45),1));
-        previewToggleButton=button("Preview",this::togglePreview);
-        toggles.addView(previewToggleButton,
+        toggles.addView(button("Voices",this::toggleVoices),
                 new LinearLayout.LayoutParams(0,dp(45),1));
         root.addView(toggles);
+        LinearLayout serialControls=new LinearLayout(this);
+        serialControls.setOrientation(LinearLayout.HORIZONTAL);
+        serialControls.addView(button("Series",this::openSeries),
+                new LinearLayout.LayoutParams(0,dp(43),1));
+        serialControls.addView(button("Chapters",this::openChapters),
+                new LinearLayout.LayoutParams(0,dp(43),1));
+        previewToggleButton=button("Preview",this::togglePreview);
+        serialControls.addView(previewToggleButton,
+                new LinearLayout.LayoutParams(0,dp(43),1));
+        root.addView(serialControls);
+        episodeStatus=label("S1E1 • First episode",12);
+        episodeStatus.setPadding(dp(4),dp(2),dp(4),dp(4));
+        root.addView(episodeStatus);
 
         previewPane=new LinearLayout(this);
         previewPane.setOrientation(LinearLayout.HORIZONTAL);
@@ -406,6 +425,7 @@ public final class MainActivity extends Activity {
         stage.setInspectionPoint(null);
         stage.setMotions(Collections.emptyMap());
         stage.show("n",false);
+        presentRestingFrame();
     }
 
     private void previewStep(int delta) {
@@ -419,7 +439,7 @@ public final class MainActivity extends Activity {
         if(!previewMode||story==null)return;
         StoryCore.Segment s=story.segments.get(previewIndex);
         stage.setVisualStyle(s.artStyle);
-        stage.setStoryBackground(story.background);
+        stage.setStoryBackground(directed.segmentScenes.get(previewIndex).scene);
         stage.setVectors(story.figures,s.visibleFigures);
         // Preserve definitions of motion in the report. Static preview never
         // plays an animation or pretends that speech is audible.
@@ -427,7 +447,7 @@ public final class MainActivity extends Activity {
         stage.show(s.speaker,false);
         stage.setInspectionPoint(previewHit);
         caption.setText("Preview "+(previewIndex+1)+"/"+story.segments.size()+
-                " • "+s.speaker+": "+s.text);
+                " • "+stage.speakerName(s.speaker)+": "+s.text);
         setStatus("Silent render preview • tap the stage to inspect local "+
                 "coordinates; Copy produces an AI-friendly report.");
     }
@@ -482,6 +502,102 @@ public final class MainActivity extends Activity {
                 " remains a read-only snapshot.");
     }
 
+
+    private void loadBundledEpisode(){
+        try(InputStream stream=getAssets().open(EPISODE_ASSET)){
+            ByteArrayOutputStream buf=new ByteArrayOutputStream();
+            byte[] chunk=new byte[4096];int n;
+            while((n=stream.read(chunk))!=-1) {
+                if(buf.size()+n>MAX_TEXT_BYTES)throw new IllegalArgumentException("Bundled story too large");
+                buf.write(chunk,0,n);
+            }
+            bundledSource=new String(buf.toByteArray(),StandardCharsets.UTF_8);
+            editor.setText(bundledSource);
+            plainText.setChecked(false);
+            compileSource();
+            if(story==null)throw new IllegalStateException("Bundled story compile failed");
+        } catch(Exception e){
+            bundledSource=null;episodeMode=false;
+            editor.setText(DEMO);
+            plainText.setChecked(false);
+            compileSource();
+            setStatus("Could not open bundled episode: "+e.getMessage());
+        }
+    }
+    private SharedPreferences episodePrefs(){
+        return getSharedPreferences(PROGRESS,Context.MODE_PRIVATE);
+    }
+    private int restoreProgress(){
+        if(directed==null)return 0;
+        SharedPreferences store=episodePrefs();
+        return SeriesDirector.restoreIndex(store.getString("source",null),
+                directed.sourceId,store.getInt("index",0),story.segments.size());
+    }
+    private void saveProgress(){
+        if(!episodeMode||directed==null||playback==null)return;
+        episodePrefs().edit().putString("source",directed.sourceId)
+                .putInt("index",playback.index()).apply();
+    }
+    private void presentRestingFrame(){
+        if(story==null||directed==null||playback==null)return;
+        int i=playback.index();
+        if(i>=playback.total()){
+            stage.show("n",false);
+            episodeStatus.setText("Episode completed • Play to restart");
+            return;
+        }
+        StoryCore.Segment seg=story.segments.get(i);
+        stage.setStoryBackground(directed.segmentScenes.get(i).scene);
+        stage.setVisualStyle(seg.artStyle);
+        stage.setVectors(story.figures,seg.visibleFigures);
+        stage.setMotions(seg.motions);
+        stage.show(seg.speaker,false);
+        episodeStatus.setText(SeriesDirector.chapterAt(directed,i).title+
+                "  •  "+(i+1)+"/"+playback.total());
+    }
+    private void openSeries(){
+        final String[] entries={
+            "Episode 1 • Ang Kampanang Nawala  (Playable)",
+            "Episode 2 • Ang mga Bakas sa Ilalim ng Tulay  (Coming soon)",
+            "Episode 3 • Ang Tindero ng Tatlong Selyo  (Coming soon)",
+            "Episode 4 • Ang Bukal sa Ilalim ng Balete  (Coming soon)",
+            "Episode 5 • Pitong Tunog, Isang Kasinungalingan  (Coming soon)",
+            "Episode 6 • Ang Bahay na Walang Pangalan  (Coming soon)",
+            "Episode 7 • Ang Tao sa Likod ng Pirma  (Coming soon)",
+            "Episode 8 • Ang Kuwentong Hindi Nila Naagaw  (Coming soon)"
+        };
+        new AlertDialog.Builder(this).setTitle("Juan at Pedro • Season 1")
+                .setItems(entries,(dialog,which)->{
+                    if(which==0){
+                        if(bundledSource==null){setStatus("Episode 1 asset missing");return;}
+                        if(!episodeMode){
+                            editor.setText(bundledSource);plainText.setChecked(false);
+                            compileSource();
+                        }
+                        setStatus(EPISODE_TITLE+" • Play resumes saved position.");
+                    } else {
+                        setStatus("Episode "+(which+1)+" not yet produced. Episode 1 is available.");
+                    }
+                }).setNegativeButton("Close",null).show();
+    }
+    private void openChapters(){
+        if(directed==null||playback==null)return;
+        List<SeriesDirector.Chapter> list=directed.chapters;
+        String[] labels=new String[list.size()];
+        for(int i=0;i<list.size();i++)
+            labels[i]=(i+1)+". "+list.get(i).title;
+        new AlertDialog.Builder(this).setTitle("Jump to chapter (manual seek)")
+                .setItems(labels,(dialog,which)->{
+                    pause();
+                    playback.seek(list.get(which).segmentIndex);
+                    saveProgress();
+                    presentRestingFrame();
+                    caption.setText(list.get(which).title+" • Tap Play.");
+                    setStatus("Manually moved to chapter "+(which+1)+
+                            "; audio starts on Play, no fake completion.");
+                }).setNegativeButton("Cancel",null).show();
+    }
+
     private void toggleEditor() {
         editorVisible=!editorVisible;
         editorPane.setVisibility(editorVisible?View.VISIBLE:View.GONE);
@@ -503,24 +619,30 @@ public final class MainActivity extends Activity {
         pause(); // invalidate old utterance generation before replacing the compiled story
         try {
             boolean script=!plainText.isChecked();
-            StoryCore.Story result=StoryCore.compile(editor.getText().toString(),script);
+            String raw=editor.getText().toString();
+            episodeMode=bundledSource!=null && bundledSource.equals(raw);
+            directed=SeriesDirector.compile(raw,script);
+            StoryCore.Story result=directed.story;
             story=result;
             playback=new PlaybackState(result.segments);
-            stage.setStoryBackground(result.background);
+            stage.setStoryBackground(directed.segmentScenes.get(0).scene);
             stage.setVisualStyle("normal");
             stage.setVectors(result.figures, Collections.emptyList());
             stage.setMotions(Collections.emptyMap());
-            // The demo explicitly mentions Juan/Pedro; other scripts remain generic.
-            stage.setActorLabels(DEMO.equals(editor.getText().toString()) ? "Juan" : "C1",
-                    DEMO.equals(editor.getText().toString()) ? "Pedro" : "C2");
-            stage.show("n",false);
-            caption.setText("Story ready • " + result.segments.size() + " speech segments.");
-            setStatus("Compiled • " + result.cast.size() + " implicit speakers • " +
-                    result.segments.size() + " narration segments.");
+            stage.setCastNames(directed.names);
+            if(DEMO.equals(raw))stage.setActorLabels("Juan","Pedro");
+            int position=episodeMode?restoreProgress():0;
+            if(position>0 && position<playback.total())playback.seek(position);
+            presentRestingFrame();
+            caption.setText((episodeMode?EPISODE_TITLE:"Story ready")+
+                    " • "+result.segments.size()+" speech segments.");
+            setStatus("Compiled • " + result.cast.size() + " speakers • " +
+                    result.segments.size() + " narration segments."+
+                    (position>0?" Resumed at "+(position+1)+".":""));
             editorVisible=false;
             editorPane.setVisibility(View.GONE);
         } catch (StoryCore.ScriptError problem) {
-            story=null; playback=null;
+            story=null; directed=null; playback=null;
             stage.show("n",false);
             caption.setText("Edit the story to correct the script.");
             setStatus(problem.getMessage());
@@ -588,7 +710,7 @@ public final class MainActivity extends Activity {
         if(playback==null) {setStatus("Load a valid script first.");return;}
         if(!ttsReady) {setStatus("TTS not ready. Text is available; check installed speech engine.");return;}
         if(playback.running())return;
-        if(playback.isFinished()) playback.reset();
+        if(playback.isFinished()) {playback.reset();saveProgress();}
         dispatchCurrent();
     }
 
@@ -599,6 +721,7 @@ public final class MainActivity extends Activity {
             activeRequest=null;
             stage.show("n",false);
             if(story!=null)stage.setVectors(story.figures,Collections.emptyList());
+            saveProgress();
             caption.setText("The end • Tapos na ang kuwento.");
             setStatus("Finished all narrated speech segments.");
             return;
@@ -634,17 +757,20 @@ public final class MainActivity extends Activity {
                 StoryCore.Segment s=playback.current();
                 if(s==null)return;
                 stage.setVisualStyle(s.artStyle);
+                stage.setStoryBackground(directed.segmentScenes.get(playback.index()).scene);
                 stage.setVectors(story.figures,s.visibleFigures);
                 stage.setMotions(s.motions);
                 stage.show(s.speaker,true);
-                caption.setText(("n".equals(s.speaker)?"Narrator":s.speaker.toUpperCase()) +
-                        ": " + s.text);
+                caption.setText(stage.speakerName(s.speaker) + ": " + s.text);
+                episodeStatus.setText(SeriesDirector.chapterAt(directed,playback.index()).title+
+                        "  •  "+(playback.index()+1)+"/"+playback.total());
                 setStatus("Speaking " + (playback.index()+1) + "/" + playback.total());
             });
         }
         @Override public void onDone(String id) {
             ui.post(() -> {
                 if(destroyed||playback==null||!playback.audibleDone(id))return;
+                saveProgress();
                 stage.show("n",false);
                 activeRequest=null;
                 dispatchCurrent();
@@ -672,6 +798,7 @@ public final class MainActivity extends Activity {
     private void pause() {
         activeRequest=null;
         if(playback!=null)playback.pause();
+        saveProgress();
         if(stage!=null)stage.show("n",false);
         final TextToSpeech engine = tts;
         if(engine!=null && audio!=null)audio.post(engine::stop);
@@ -682,6 +809,7 @@ public final class MainActivity extends Activity {
         if(previewMode)exitPreview();
         activeRequest=null;
         if(playback!=null)playback.reset();
+        saveProgress();
         if(stage!=null) {
             stage.setVisualStyle("normal");
             if(story!=null)stage.setVectors(story.figures,Collections.emptyList());
@@ -698,10 +826,13 @@ public final class MainActivity extends Activity {
         if(playback==null)return;
         activeRequest=null;
         playback.skip();
+        saveProgress();
         // Explicit manual cursor move can display the next section's style.
         StoryCore.Segment nextSegment = playback.current();
         stage.setMotions(nextSegment==null?Collections.emptyMap():nextSegment.motions);
         stage.setVisualStyle(nextSegment==null ? "normal" : nextSegment.artStyle);
+        if(directed!=null&&nextSegment!=null)
+            stage.setStoryBackground(directed.segmentScenes.get(playback.index()).scene);
         if(story!=null)stage.setVectors(story.figures,
                 nextSegment==null?Collections.emptyList():nextSegment.visibleFigures);
         stage.show("n",false);
@@ -709,6 +840,12 @@ public final class MainActivity extends Activity {
         if(engine!=null)audio.post(engine::stop);
         caption.setText(playback.isFinished()?"Tapos na.":"Skipped by listener • tap Play.");
         setStatus("Manual text-only skip; no audio completion was fabricated.");
+    }
+
+    @Override protected void onPause(){
+        if(playback!=null && playback.running())pause();
+        else saveProgress();
+        super.onPause();
     }
 
     @Override protected void onDestroy() {
