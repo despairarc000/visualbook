@@ -62,7 +62,7 @@ public final class SeriesDirector {
     }
     private static boolean isScene(String n){
         switch(n) {
-            case "neutral": case "classroom": case "guava": case "plaza":
+            case "neutral": case "classroom": case "guava": case "plaza": case "plaza_restored":
             case "library": case "smithy": case "bridge": case "warehouse":
             case "river": case "forest": case "balete": return true;
             default:return false;
