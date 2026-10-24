@@ -107,3 +107,30 @@ This places the *center* of the figure at stage (77,56), reserving 27% of the st
 ## Virtual Canvas v0.3 verified build
 
 [Build and SHA-256 record](BUILD_EVIDENCE_VIRTUAL_CANVAS_V03_2026-10-24.md): 61 StoryCore and 43 geometry assertions passed; Android Gradle and knowledge CI succeeded; PR #12 merged. User phone acceptance remains open.
+
+## v0.4: Reusable vector parts and pivots (experimental)
+
+This build adds **named shape parts** that have their own virtual artboards, independent pivots, and multiple instances. Put `@part id WxH pivot:x,y` inside an `@figure`; draw local primitives, close with `@endpart`; instantiate anywhere in the parent with `@use id at:x,y [rotate:degrees] [scale:factor] [mirror:true|false]`. You can nest instances of **previously completed** parts inside later parts, making hierarchical geometry without arbitrary executable code. The built-in creature demo uses reusable eyes, horns, wings and a composed head with symmetrical transforms.
+
+```text
+@figure being 100x100
+@part eye 20x20 pivot:10,10
+circle 10 10 8 fill:#FFCD54
+@endpart
+@part face 50x50 pivot:25,25
+circle 25 25 23 fill:#A788D4
+@use eye at:16,27
+@use eye at:34,27 mirror:true
+@endpart
+@use face at:50,45 rotate:10 scale:1.1
+@endfigure
+@show being at:50,40 width:40
+@n
+A new creature appeared.
+```
+
+Each part's own (0,0) is its top-left; `pivot:x,y` selects the point that lands on the parent `at:x,y` coordinate. The transform is `T(at) * R(degrees) * S(scale*mirrorX, scale) * T(-pivot)` in Android's screen coordinates; positive degrees rotate clockwise. Child objects draw in source order, retaining old `@figure` commands and existing `@chibi` scopes. Previous referenced groups must be closed first, so cyclic references cannot form. Max 12 named groups, 64 geometry/instance nodes, maximum expanded draw cost 256, maximum hierarchy depth 4; scale 0.1–4 and rotation -360° to 360°. Invalid commands fail the entire script with a line-numbered error, not silently.
+
+**Not supported yet:** animated pivots over time, skeletal deformation/IK, arbitrary skew/mesh warps, auto-generated art from unrestricted natural language, imported PNG/SVG, or per-figure texture/material style changes. Those require separate asset-control contracts. A figure's geometric construction is pure, deterministic and portable across screen resolutions.
+
+Package `com.visualbook.player.rig.v04`, separately installed from the v0.1/v0.2/v0.3 research builds.

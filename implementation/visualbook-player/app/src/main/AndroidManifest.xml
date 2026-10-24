@@ -6,7 +6,7 @@
         </intent>
     </queries>
     <application
-        android:label="VisualBook Canvas v0.3"
+        android:label="VisualBook Shape Rig v0.4"
         android:allowBackup="false"
         android:usesCleartextTraffic="false"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
