@@ -183,3 +183,13 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [x] [142 Java assertions, APK CRC and hash](../../../implementation/visualbook-player/BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md) recorded.
 - [ ] User confirms wing/head/eye rig visibility and transform controls on Samsung Galaxy A06 5G.
 - [ ] Measure/inspect actual stage frame quality on low-memory phone before expanding animated multi-part rigs.
+
+## Speech-driven procedural part motion v0.5
+
+- [x] Add optional named root instance handles to reusable shape parts.
+- [x] Compile bounded @animate/@still instructions into immutable per-utterance motion state.
+- [x] Animate Canvas rotation around declared part pivots while TTS onStart→onDone marks audible speech; preserve older code and app IDs.
+- [x] Add regression checks for waveform-free sine envelope, bad target/period/amplitude, and plain TXT.
+- [ ] Verify final Android CI, Java tests, knowledge doctor and artifact hash.
+- [ ] User tests actual wing flapping and Pause/Resume/Stop responsiveness on Samsung A06 5G.
+- [ ] Implement AI-friendly preview/feedback and more nuanced animation after evidence.

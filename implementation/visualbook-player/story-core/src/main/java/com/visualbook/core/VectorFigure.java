@@ -21,6 +21,24 @@ public final class VectorFigure {
     /** Ordered root geometry plus reusable part instances (separate from legacy parts). */
     public final List<Element> elements;
     public final Map<String, Group> groups;
+    /** Stable root instance handles for controlled part motion. */
+    public final Map<String,Instance> namedRoots;
+    public Instance rootInstance(String name){return namedRoots.get(name);}
+    public static final class Motion {
+        public final String figureId,instanceId;
+        public final float swingDegrees;
+        public final int periodMs;
+        public Motion(String figureId,String instanceId,float swingDegrees,int periodMs){
+            this.figureId=figureId;this.instanceId=instanceId;
+            this.swingDegrees=swingDegrees;this.periodMs=periodMs;
+        }
+        public String key(){return figureId+"/"+instanceId;}
+        public float offsetAt(long elapsedMs){
+            if(elapsedMs<=0)return 0f;
+            return (float)(swingDegrees*Math.sin(2.0*Math.PI*
+                  (elapsedMs%periodMs)/(double)periodMs));
+        }
+    }
 
     public static final class Part {
         public final String kind;
@@ -73,11 +91,11 @@ public final class VectorFigure {
 
     /** Immutable instance transform: local pivot goes to (atX,atY) in parent coordinates. */
     public static final class Instance {
-        public final String groupId;
+        public final String groupId, id;
         public final float atX, atY, rotation, scale;
         public final boolean mirror;
-        private Instance(String groupId,float atX,float atY,float rotation,float scale,boolean mirror){
-            this.groupId=groupId;this.atX=atX;this.atY=atY;
+        private Instance(String groupId,String id,float atX,float atY,float rotation,float scale,boolean mirror){
+            this.groupId=groupId;this.id=id;this.atX=atX;this.atY=atY;
             this.rotation=rotation;this.scale=scale;this.mirror=mirror;
         }
         /** Same order as Canvas: T(at)*R(rotation)*S(signedScale)*T(-pivot). */
@@ -124,6 +142,7 @@ public final class VectorFigure {
         private final ArrayList<Part> parts = new ArrayList<>();
         private final ArrayList<Element> root = new ArrayList<>();
         private final LinkedHashMap<String,Group> groups = new LinkedHashMap<>();
+        private final LinkedHashMap<String,Instance> namedRoots = new LinkedHashMap<>();
         private String pendingId;
         private int pendingWidth,pendingHeight;
         private float pendingPivotX,pendingPivotY;
@@ -216,7 +235,7 @@ public final class VectorFigure {
         }
         private void usePart(String t) throws GeometryException {
             String[] tokens=t.split("\\s+");
-            if(tokens.length<3||tokens.length>6)
+            if(tokens.length<3||tokens.length>7)
                 throw new GeometryException("@use part at:x,y [rotate:d] [scale:n] [mirror:true|false]");
             Group g=groups.get(tokens[1]);
             if(g==null)throw new GeometryException("Unknown or unfinished part: "+tokens[1]);
@@ -225,10 +244,17 @@ public final class VectorFigure {
             int localH=pendingId==null?height:pendingHeight;
             float[] at=xy(tokens[2].substring(3),localW,localH,"at");
             float rotate=0f,scale=1f;boolean mirror=false;
-            boolean gotRotate=false,gotScale=false,gotMirror=false;
+            boolean gotRotate=false,gotScale=false,gotMirror=false,gotId=false;
+            String instanceId=null;
             for(int i=3;i<tokens.length;i++) {
                 String opt=tokens[i];
-                if(opt.startsWith("rotate:")&&!gotRotate) {
+                if(opt.startsWith("id:")&&!gotId) {
+                    if(pendingId!=null)throw new GeometryException("Named instances must be at figure root in v0.5");
+                    instanceId=opt.substring(3);
+                    if(!ID.matcher(instanceId).matches()||namedRoots.containsKey(instanceId))
+                        throw new GeometryException("Invalid/duplicate instance id");
+                    gotId=true;
+                } else if(opt.startsWith("rotate:")&&!gotRotate) {
                     rotate=signedFloat(opt.substring(7),360f,"rotation");gotRotate=true;
                 } else if(opt.startsWith("scale:")&&!gotScale) {
                     scale=positive(opt.substring(6),4f,"scale");
@@ -248,25 +274,29 @@ public final class VectorFigure {
             if(currentDepth>MAX_DEPTH)throw new GeometryException("Maximum 4 nested part levels");
             if(existing+newCost>MAX_EXPANDED)
                 throw new GeometryException("Expanded figure would exceed 256 nodes");
-            Instance instance=new Instance(g.id,at[0],at[1],rotate,scale,mirror);
+            Instance instance=new Instance(g.id,instanceId,at[0],at[1],rotate,scale,mirror);
             Element e=new Element(null,instance);
             totalNodes++;
-            if(pendingId==null){root.add(e);rootCost+=newCost;rootDepth=Math.max(rootDepth,currentDepth);}
+            if(pendingId==null){
+                root.add(e);rootCost+=newCost;rootDepth=Math.max(rootDepth,currentDepth);
+                if(instanceId!=null)namedRoots.put(instanceId,instance);
+            }
             else {pendingElements.add(e);pendingCost+=newCost;pendingDepth=Math.max(pendingDepth,currentDepth);}
         }
         public VectorFigure build() throws GeometryException {
             if(pendingId!=null)throw new GeometryException("Missing @endpart for "+pendingId);
             if(root.isEmpty())throw new GeometryException("Empty figure");
-            return new VectorFigure(id,width,height,parts,root,groups);
+            return new VectorFigure(id,width,height,parts,root,groups,namedRoots);
         }
     }
 
     private VectorFigure(String id,int width,int height,List<Part> parts,List<Element> elements,
-                         Map<String,Group> groups) {
+                         Map<String,Group> groups,Map<String,Instance> namedRoots) {
         this.id=id; this.width=width; this.height=height;
         this.parts=Collections.unmodifiableList(new ArrayList<>(parts));
         this.elements=Collections.unmodifiableList(new ArrayList<>(elements));
         this.groups=Collections.unmodifiableMap(new LinkedHashMap<>(groups));
+        this.namedRoots=Collections.unmodifiableMap(new LinkedHashMap<>(namedRoots));
     }
 
     public static boolean validId(String id) {

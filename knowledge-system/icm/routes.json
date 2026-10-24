@@ -46,6 +46,7 @@
         "intermediate representation"
       ],
       "read": [
+        "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
@@ -74,6 +75,7 @@
         "playback"
       ],
       "read": [
+        "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/PlaybackState.java",
         "knowledge-system/vault/design/CANONICAL_IR_V04.md",
         "knowledge-system/vault/design/NARRATION_AND_PLAYBACK.md",
@@ -180,9 +182,16 @@
         "@use",
         "rotate",
         "mirror",
-        "nested group"
+        "nested group",
+        "@animate",
+        "@still",
+        "flap",
+        "wing motion",
+        "part motion",
+        "pivot animation"
       ],
       "read": [
+        "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",
@@ -224,6 +233,7 @@
         "memory"
       ],
       "read": [
+        "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md",
         "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md",
         "knowledge-system/vault/design/VIRTUAL_CANVAS_GEOMETRY_V03.md",
         "knowledge-system/vault/design/SCOPED_ART_STYLES_V02.md",

@@ -176,6 +176,45 @@ public final class VectorFigureTest {
             recursive.add("@use loop at:10,10");
             throw new AssertionError("Part self-reference accepted");
         } catch(VectorFigure.GeometryException expected){tests++;}
+        VectorFigure.Builder animated=new VectorFigure.Builder("dragon","100x100");
+        animated.add("@part wing 30x30 pivot:5,25");
+        animated.add("circle 12 13 7 fill:#AABBCC");
+        animated.add("@endpart");
+        animated.add("@use wing at:20,40 id:leftwing rotate:15 scale:1.2 mirror:true");
+        animated.add("@use wing at:80,40 id:rightwing rotate:-15");
+        VectorFigure built=animated.build();
+        ok(built.namedRoots.size()==2 && built.rootInstance("leftwing")!=null,
+                "explicit root IDs resolve into unique handles");
+        ok("leftwing".equals(built.elements.get(0).instance.id),
+                "authored instance ID is preserved");
+        ok(built.rootInstance("rightwing").rotation==-15f,
+                "instance base rotation remains fixed for motion offsets");
+        VectorFigure.Motion sweep=new VectorFigure.Motion("dragon","leftwing",20f,1000);
+        ok(sweep.key().equals("dragon/leftwing"),"motion keys disambiguate figures");
+        ok(Math.abs(sweep.offsetAt(250)-20f)<.001,
+                "quarter-period reaches the positive amplitude");
+        ok(Math.abs(sweep.offsetAt(750)+20f)<.001,
+                "three-quarter period reaches negative amplitude");
+        ok(Math.abs(sweep.offsetAt(1000))<.001 && sweep.offsetAt(0)==0f,
+                "cycle wraps exactly and starts at the authored rest angle");
+        try {
+            VectorFigure.Builder dup=new VectorFigure.Builder("bad","100x100");
+            dup.add("@part wing 30x30");
+            dup.add("circle 10 10 5 fill:#abcdef");
+            dup.add("@endpart");
+            dup.add("@use wing at:20,40 id:wing1");
+            dup.add("@use wing at:30,40 id:wing1");
+            throw new AssertionError("Repeated instance ID accepted");
+        } catch(VectorFigure.GeometryException expected){tests++;}
+        try {
+            VectorFigure.Builder nestedId=new VectorFigure.Builder("bad","100x100");
+            nestedId.add("@part wing 30x30");
+            nestedId.add("circle 10 10 5 fill:#abcdef");
+            nestedId.add("@endpart");
+            nestedId.add("@part head 40x40");
+            nestedId.add("@use wing at:20,20 id:nested");
+            throw new AssertionError("Nested instance identifier accepted");
+        } catch(VectorFigure.GeometryException expected){tests++;}
         System.out.println("VisualBook vector geometry tests passed: "+tests);
     }
 }

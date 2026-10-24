@@ -380,6 +380,13 @@
       "kind": "design",
       "status": "PROVISIONAL",
       "path": "knowledge-system/vault/design/SHAPE_RIGS_AND_TRANSFORMS_V04.md"
+    },
+    {
+      "id": "audible-part-motion-v05",
+      "label": "Voice-bounded optional pivot motion on named root instances",
+      "kind": "design",
+      "status": "PROVISIONAL",
+      "path": "knowledge-system/vault/design/AUDIBLE_PART_MOTION_V05.md"
     }
   ],
   "edges": [
@@ -787,6 +794,21 @@
       "from": "vector-geometry-tests",
       "to": "shape-rigging-v04",
       "type": "tests"
+    },
+    {
+      "from": "audible-part-motion-v05",
+      "to": "shape-rigging-v04",
+      "type": "depends_on"
+    },
+    {
+      "from": "audible-part-motion-v05",
+      "to": "android-procedural-stage",
+      "type": "documents"
+    },
+    {
+      "from": "audible-part-motion-v05",
+      "to": "story-core-java",
+      "type": "documents"
     }
   ]
 }

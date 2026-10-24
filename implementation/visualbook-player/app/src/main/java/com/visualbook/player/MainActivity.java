@@ -66,13 +66,17 @@ public final class MainActivity extends Activity {
             "@use horn at:40,8 rotate:15 scale:0.65 mirror:true\n" +
             "@endpart\n" +
             "path M 38 74 Q 18 92 12 61 stroke:#654993 width:4\n" +
-            "@use wing at:26,44 rotate:-24 scale:1.05 mirror:true\n" +
-            "@use wing at:74,44 rotate:24 scale:1.05\n" +
+            "@use wing at:26,44 id:leftwing rotate:-24 scale:1.05 mirror:true\n" +
+            "@use wing at:74,44 id:rightwing rotate:24 scale:1.05\n" +
             "circle 50 65 21 fill:#775AB1 stroke:#4C377C width:2\n" +
             "@use head at:50,35 scale:1\n" +
             "@endfigure\n" +
             "@show spirit at:50,35 width:45\n" +
+            "@animate spirit leftwing swing:24 period:850\n" +
+            "@animate spirit rightwing swing:24 period:850\n" +
             "@n\nIsang araw, nagkita sina Juan at Pedro sa paaralan. Isang mahiwagang nilalang ang lumitaw.\n\n" +
+            "@still spirit leftwing\n" +
+            "@still spirit rightwing\n" +
             "@hide spirit\n" +
             "@c1m\nPedro, may assignment ka ba?\n\n" +
             "@chibi\n" +
@@ -355,6 +359,7 @@ public final class MainActivity extends Activity {
             stage.setStoryBackground(result.background);
             stage.setVisualStyle("normal");
             stage.setVectors(result.figures, Collections.emptyList());
+            stage.setMotions(Collections.emptyMap());
             // The demo explicitly mentions Juan/Pedro; other scripts remain generic.
             stage.setActorLabels(DEMO.equals(editor.getText().toString()) ? "Juan" : "C1",
                     DEMO.equals(editor.getText().toString()) ? "Pedro" : "C2");
@@ -479,6 +484,7 @@ public final class MainActivity extends Activity {
                 if(s==null)return;
                 stage.setVisualStyle(s.artStyle);
                 stage.setVectors(story.figures,s.visibleFigures);
+                stage.setMotions(s.motions);
                 stage.show(s.speaker,true);
                 caption.setText(("n".equals(s.speaker)?"Narrator":s.speaker.toUpperCase()) +
                         ": " + s.text);
@@ -541,6 +547,7 @@ public final class MainActivity extends Activity {
         playback.skip();
         // Explicit manual cursor move can display the next section's style.
         StoryCore.Segment nextSegment = playback.current();
+        stage.setMotions(nextSegment==null?Collections.emptyMap():nextSegment.motions);
         stage.setVisualStyle(nextSegment==null ? "normal" : nextSegment.artStyle);
         if(story!=null)stage.setVectors(story.figures,
                 nextSegment==null?Collections.emptyList():nextSegment.visibleFigures);

@@ -21,12 +21,15 @@ public final class StoryCore {
     public static final class Segment {
         public final String id, speaker, text, artStyle;
         public final List<VectorFigure.Placement> visibleFigures;
+        public final Map<String,VectorFigure.Motion> motions;
         public final int line;
         public Segment(String id, String speaker, String text, String artStyle,
-                       List<VectorFigure.Placement> visibleFigures, int line) {
+                       List<VectorFigure.Placement> visibleFigures,
+                       Map<String,VectorFigure.Motion> motions,int line) {
             this.id = id; this.speaker = speaker; this.text = text;
             this.artStyle = artStyle; this.line = line;
             this.visibleFigures = Collections.unmodifiableList(new ArrayList<>(visibleFigures));
+            this.motions = Collections.unmodifiableMap(new LinkedHashMap<>(motions));
         }
     }
 
@@ -73,6 +76,7 @@ public final class StoryCore {
         Map<String,String> sexHints = new LinkedHashMap<>();
         Map<String,VectorFigure> figures = new LinkedHashMap<>();
         LinkedHashMap<String,VectorFigure.Placement> shown = new LinkedHashMap<>();
+        LinkedHashMap<String,VectorFigure.Motion> motions = new LinkedHashMap<>();
         VectorFigure.Builder figureBuilder = null;
         int figureBeginLine = 0, figureLines = 0;
         String figureId = null;
@@ -106,7 +110,7 @@ public final class StoryCore {
             }
             if (script && t.startsWith("@")) {
                 if (t.startsWith("@figure ")) {
-                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
                     String[] args=t.split("\\s+");
                     if (args.length!=3)throw new ScriptError(lineNum,
                             "@figure requires id and WxH artboard, e.g. @figure spirit 100x100");
@@ -121,7 +125,7 @@ public final class StoryCore {
                     continue;
                 }
                 if (t.startsWith("@show ") || t.startsWith("@hide ")) {
-                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
                     String[] args=t.split("\\s+");
                     if ("@show".equals(args[0])) {
                         if(args.length<2||args.length>4)
@@ -160,9 +164,49 @@ public final class StoryCore {
                     }
                     continue;
                 }
+                if(t.startsWith("@animate ") || t.startsWith("@still ")) {
+                    flush(block,speaker,style,blockLine,output,
+                            new ArrayList<>(shown.values()),motions);
+                    String[] args=t.split("\\s+");
+                    if("@animate".equals(args[0])) {
+                        if(args.length!=5 ||
+                                !args[3].startsWith("swing:") ||
+                                !args[4].startsWith("period:"))
+                            throw new ScriptError(lineNum,
+                                    "Use @animate figure instance swing:degrees period:milliseconds");
+                        VectorFigure f=figures.get(args[1]);
+                        if(f==null || f.rootInstance(args[2])==null)
+                            throw new ScriptError(lineNum,
+                                    "Unknown figure or named root instance in @animate");
+                        float swing;
+                        int period;
+                        try {
+                            swing=Float.parseFloat(args[3].substring(6));
+                            period=Integer.parseInt(args[4].substring(7));
+                        } catch(NumberFormatException ex){
+                            throw new ScriptError(lineNum,"Invalid motion swing or period");
+                        }
+                        if(!Float.isFinite(swing)||swing<=0||swing>75||
+                                period<250||period>3000)
+                            throw new ScriptError(lineNum,
+                                    "Motion swing must be 0..75 degrees and period 250..3000ms");
+                        VectorFigure.Motion motion=new VectorFigure.Motion(args[1],args[2],swing,period);
+                        if(!motions.containsKey(motion.key()) && motions.size()>=8)
+                            throw new ScriptError(lineNum,"No more than 8 active motions");
+                        motions.put(motion.key(),motion);
+                    } else {
+                        if(args.length!=3)
+                            throw new ScriptError(lineNum,"Use @still figure instance");
+                        VectorFigure f=figures.get(args[1]);
+                        if(f==null || f.rootInstance(args[2])==null)
+                            throw new ScriptError(lineNum,"Unknown figure or named instance in @still");
+                        motions.remove(args[1]+"/"+args[2]);
+                    }
+                    continue;
+                }
                 Matcher match = SPEAKER.matcher(t);
                 if (match.matches()) {
-                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
                     speaker = match.group(1);
                     cast.add(speaker);
                     String hint = match.group(2);
@@ -182,7 +226,7 @@ public final class StoryCore {
                 }
                 Matcher directive = DIRECTIVE.matcher(t);
                 if (directive.matches() && "bg".equals(directive.group(1))) {
-                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                    flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
                     String name = directive.group(2) == null ? "" : directive.group(2).trim();
                     if (!"classroom".equals(name) && !"neutral".equals(name))
                         throw new ScriptError(lineNum, "Only @bg classroom or @bg neutral in this prototype");
@@ -211,7 +255,7 @@ public final class StoryCore {
                         }
                         if (styleStack.size() >= 8) throw new ScriptError(lineNum,
                                 "At most 8 nested style blocks");
-                        flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                        flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
                         styleStack.add(style);
                         styleOpenLines.add(lineNum);
                         style = next;
@@ -222,7 +266,7 @@ public final class StoryCore {
                                 "@end takes no arguments");
                         if (styleStack.isEmpty()) throw new ScriptError(lineNum,
                                 "Unmatched @end without a style opening tag");
-                        flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                        flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
                         style = styleStack.remove(styleStack.size()-1);
                         styleOpenLines.remove(styleOpenLines.size()-1);
                         continue;
@@ -231,7 +275,7 @@ public final class StoryCore {
                 throw new ScriptError(lineNum, "Unknown directive or malformed speaker marker: " + t);
             }
             if (t.isEmpty()) {
-                flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+                flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
             } else {
                 if (block.length() == 0) blockLine = lineNum;
                 if (block.length() > 0) block.append(' ');
@@ -240,7 +284,7 @@ public final class StoryCore {
         }
         if (figureBuilder!=null)
             throw new ScriptError(figureBeginLine,"Missing @endfigure");
-        flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()));
+        flush(block, speaker, style, blockLine, output, new ArrayList<>(shown.values()), motions);
         if (!styleStack.isEmpty()) throw new ScriptError(
                 styleOpenLines.get(styleOpenLines.size()-1),
                 "Missing @end for this art-style block");
@@ -251,7 +295,8 @@ public final class StoryCore {
 
     private static void flush(StringBuilder block, String speaker, String artStyle,
                               int line, List<Segment> out,
-                              List<VectorFigure.Placement> visibleFigures) {
+                              List<VectorFigure.Placement> visibleFigures,
+                              Map<String,VectorFigure.Motion> motions) {
         String spoken = block.toString().trim();
         block.setLength(0);
         if (spoken.isEmpty()) return;
@@ -262,7 +307,7 @@ public final class StoryCore {
         int end;
         while ((end = boundary.next()) != BreakIterator.DONE) {
             String sentence = spoken.substring(start, end).trim();
-            if (!sentence.isEmpty()) out.add(new Segment("u" + (out.size() + 1), speaker, sentence, artStyle, visibleFigures, line));
+            if (!sentence.isEmpty()) out.add(new Segment("u" + (out.size() + 1), speaker, sentence, artStyle, visibleFigures, motions, line));
             start = end;
         }
     }
