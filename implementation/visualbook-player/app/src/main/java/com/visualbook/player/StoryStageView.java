@@ -27,6 +27,8 @@ public final class StoryStageView extends View {
     private final Map<VectorFigure.Part, Path> pathCache = new IdentityHashMap<>();
     private Map<String,VectorFigure> vectorDefinitions=Collections.emptyMap();
     private List<VectorFigure.Placement> visibleVectors=Collections.emptyList();
+    private Map<String,VectorFigure.Motion> activeMotions=Collections.emptyMap();
+    private long motionStartMs=0L;
     private String background = "classroom", active = "n", visualStyle = "normal";
     private String name1 = "C1", name2 = "C2";
     private boolean speaking = false;
@@ -44,12 +46,17 @@ public final class StoryStageView extends View {
         visibleVectors = visible==null ? Collections.emptyList() : visible;
         invalidate();
     }
+    public void setMotions(Map<String,VectorFigure.Motion> next) {
+        activeMotions=next==null?Collections.emptyMap():next;
+        invalidate();
+    }
     public void setStoryBackground(String id) {
         background = "neutral".equals(id) ? "neutral" : "classroom";
         invalidate();
     }
     public void show(String speaker, boolean isSpeaking) {
         active = speaker == null ? "n" : speaker;
+        if(isSpeaking&&!speaking)motionStartMs=SystemClock.uptimeMillis();
         speaking = isSpeaking;
         invalidate();
     }
@@ -101,7 +108,8 @@ public final class StoryStageView extends View {
             canvas.drawText("NARRATOR", w * .06f, h * .10f, p);
             p.setFakeBoldText(false);
         }
-        if (speaking && !reducedMotion) postInvalidateDelayed(80L);
+        if (speaking && !reducedMotion)
+            postInvalidateDelayed(activeMotions.isEmpty()?80L:48L);
     }
 
     private void classroom(Canvas c, float w, float h) {
@@ -340,7 +348,9 @@ public final class StoryStageView extends View {
             canvas.translate(centerX-drawWidth*.5f,centerY-drawHeight*.5f);
             canvas.scale(scale,scale);
             canvas.clipRect(0,0,fig.width,fig.height);
-            drawElements(canvas,fig.elements,fig.groups);
+            long age=(speaking&&!reducedMotion)?
+                    Math.max(0L,SystemClock.uptimeMillis()-motionStartMs):0L;
+            drawElements(canvas,fig.elements,fig.groups,fig.id,age);
             canvas.restore();
         }
     }
@@ -352,7 +362,8 @@ public final class StoryStageView extends View {
      * at:x,y anchor, whether it is mirrored, rotated or scaled.
      */
     private void drawElements(Canvas c,List<VectorFigure.Element> elements,
-                              Map<String,VectorFigure.Group> groups) {
+                              Map<String,VectorFigure.Group> groups,
+                              String figureId,long audibleElapsedMs) {
         for(VectorFigure.Element e:elements) {
             if(e.shape!=null) {
                 drawPart(c,e.shape);
@@ -362,11 +373,15 @@ public final class StoryStageView extends View {
                 if(group==null)continue;
                 c.save();
                 c.translate(instance.atX,instance.atY);
-                c.rotate(instance.rotation);
+                VectorFigure.Motion motion=instance.id==null?null:
+                        activeMotions.get(figureId+"/"+instance.id);
+                float animated=(speaking && !reducedMotion && motion!=null)?
+                        motion.offsetAt(audibleElapsedMs):0f;
+                c.rotate(instance.rotation+animated);
                 c.scale(instance.mirror?-instance.scale:instance.scale,instance.scale);
                 c.translate(-group.pivotX,-group.pivotY);
                 c.clipRect(0,0,group.width,group.height);
-                drawElements(c,group.elements,groups);
+                drawElements(c,group.elements,groups,figureId,audibleElapsedMs);
                 c.restore();
             }
         }

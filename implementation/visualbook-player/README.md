@@ -138,3 +138,34 @@ Package `com.visualbook.player.rig.v04`, separately installed from the v0.1/v0.2
 ## Shape Engine v0.4 verified build
 
 [Android source, tests and APK evidence](BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md): PR #13 merged, Android build succeeded, 66 core and 76 geometry assertions passed; separate v0.4 app with a modular mythical-creature demonstration. Physical device check still required.
+
+## v0.5: Audio-bounded optional part motion
+
+Shape Engine v0.5 adds an explicit **instance ID** on a root `@use` and story-level declarations for gentle procedural oscillation:
+
+```text
+@figure spirit 100x100
+@part wing 40x50 pivot:5,45
+path M 5 45 Q 5 15 32 8 L 38 30 Z fill:#8873CB
+@endpart
+@use wing at:26,44 id:leftwing rotate:-24
+@use wing at:74,44 id:rightwing rotate:24 mirror:true
+@endfigure
+@show spirit center
+@animate spirit leftwing swing:22 period:850
+@animate spirit rightwing swing:22 period:850
+@n
+The creature's wings slowly moved.
+@still spirit leftwing
+@still spirit rightwing
+@hide spirit
+```
+
+- Named IDs are optional, unique **at figure root** (nested instance targeting is deferred).
+- `@animate figure instance swing:degrees period:milliseconds` applies to the following narration sentences and persists until `@still figure instance`.
+- Only a bounded sine-wave rotation around authored pivot is implemented (0–75° amplitude, 250–3000ms cycle); at most eight active motions.
+- Motion begins on Android `UtteranceProgressListener.onStart` and **stops on completion/pause/error**. It cannot advance spoken text or fake completion. On pause and Play replay, the period restarts from the current sentence's audible start; Stop returns to the original geometry. The viewer's reduced-motion flag disables this effect.
+- Animations are procedural frame updates while audible speech plays; no keyframes, IK, animation during silence, audio waveform mouth-sync, named nested subpart overrides or rich motion curves yet.
+- Actual visual correctness and 4GB-RAM performance remain phone-test gates.
+
+Separate Android package: `com.visualbook.player.motion.v05`.
