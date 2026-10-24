@@ -32,3 +32,5 @@
 | ADR-020 | Use independent local vector artboards and normalized stage coordinates, validated data-only figure grammar and uniform meet scaling for AI-authored unusual shapes | ACCEPTED (PROTOTYPE) | [Virtual Canvas Geometry v0.3](../design/VIRTUAL_CANVAS_GEOMETRY_V03.md); phone tests still required |
 
 | ADR-021 | Extend coordinate renderer with reusable part-local canvases and pivot transforms; references must be acyclic and statically budgeted | ACCEPTED (PROTOTYPE) | [Shape Engine v0.4](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md); device benchmark pending |
+
+| ADR-022 | Add opt-in sine-wave pivot animation for explicitly named root shape instances, scoped by actual audible utterance start/end, with no visual timer advancing narration | ACCEPTED (PROTOTYPE) | [Audible part motion v0.5](../design/AUDIBLE_PART_MOTION_V05.md); user phone validation pending |

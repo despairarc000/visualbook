@@ -165,3 +165,9 @@ User asked to continue after v0.3 precise virtual coordinates. Branch `feature/s
 [PR #13](https://github.com/despairarc000/visualbook/pull/13) merged into `main` as `8d79381eca3120bcc36c9f51e024559260cf0395`. Feature adds actual `@part` local artboards, `@use` group transforms around pivot, nested acyclic part references and a composed mythical-creature Android Canvas demo. Final [CI Android build](https://github.com/despairarc000/visualbook/actions/runs/40044410923) and [knowledge checks](https://github.com/despairarc000/visualbook/actions/runs/40044410950) passed. Total **142 pure Java assertions** passed (StoryCore 66 / vector rig 76). APK SHA-256: `f305e3770a9bd3d4f7d45a7e6853a7770cb56c407c3683eb1ab372192842e9c3`, size 50639 bytes, app ID `com.visualbook.player.rig.v04`.
 
 [Full build record](../../../implementation/visualbook-player/BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md). **Phone test still pending.** Next priority: real user evaluates readability, scene clipping and wing/horn proportions, then decide whether to add programmatic timed animation cues or imported assets and preview/correction tooling.
+
+## Animated part motion v0.5 (2026-10-24)
+
+User confirmed installing v0.4 works (not yet a comprehensive pivot-by-pivot visual acceptance). New [PR #14](https://github.com/despairarc000/visualbook/pull/14) extends the working shape rig with optional named `@use ... id:leftwing` root handles, script `@animate figure instance swing:N period:MS` and `@still` controls, immutable per-utterance animation state, and a separate Android test APK. Renderer applies bounded sine-wave rotation around each authored pivot **only during an audible TTS segment**. Does not alter narrated timeline or execute imported code. [Spec and test gates](../design/AUDIBLE_PART_MOTION_V05.md).
+
+**Pending:** CI build, artifact evidence, real A06 5G wing-motion timing/visibility, and preview/correction pipeline. Don't infer v0.5 phone success from v0.4 success.

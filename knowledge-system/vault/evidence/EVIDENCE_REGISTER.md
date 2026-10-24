@@ -65,3 +65,5 @@
 - **EV-029:** [Reusable vector part, pivot, and bounded hierarchy v0.4 design plus implementation](../design/SHAPE_RIGS_AND_TRANSFORMS_V04.md), [PR #13](https://github.com/despairarc000/visualbook/pull/13). Real dependency-free geometry, Canvas recursive render, and transform regression tests authored; CI and device acceptance separately gated.
 
 - **EV-030:** [Shape Engine v0.4 first verified Android artifact](../../../implementation/visualbook-player/BUILD_EVIDENCE_SHAPE_RIG_V04_2026-10-24.md): merged PR #13, final Android compile plus knowledge checks passed, 142 JVM assertions, APK SHA-256 and CRC checked. Real-device visuals and performance unverified.
+
+- **EV-031:** [Speech-bounded part motion v0.5 contract](../design/AUDIBLE_PART_MOTION_V05.md), [PR #14](https://github.com/despairarc000/visualbook/pull/14): source supports named root rig instances, @animate/@still utterance-scoped state and live Canvas rotation. Tests authored; CI/phone evidence still gated.

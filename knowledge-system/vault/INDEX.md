@@ -4,6 +4,7 @@
 
 ## Canonical live documentation
 
+- [Speech-driven part animation v0.5](design/AUDIBLE_PART_MOTION_V05.md)
 - [Shape Engine v0.4: reusable parts and transforms](design/SHAPE_RIGS_AND_TRANSFORMS_V04.md)
 - [Virtual Canvas Geometry v0.3](design/VIRTUAL_CANVAS_GEOMETRY_V03.md)\n- [Mid-story scoped art styles v0.2](design/SCOPED_ART_STYLES_V02.md)\n- [First Android animated story prototype](../../implementation/visualbook-player/README.md)\n- [Product requirements](requirements/PRODUCT_REQUIREMENTS.md)
 - [Canonical story IR v0.4 research](design/CANONICAL_IR_V04.md)\n- [Story authoring/compiler architecture](design/SCRIPT_AND_COMPILER.md)

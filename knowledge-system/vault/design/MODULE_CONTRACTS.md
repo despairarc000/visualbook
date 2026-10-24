@@ -45,3 +45,7 @@ The [first Android player](../../../implementation/visualbook-player/README.md) 
 ## Vector rig v0.4 local coordinate hierarchy
 
 [Shape Rigging and Transform Contract](SHAPE_RIGS_AND_TRANSFORMS_V04.md): `VectorFigure` now has immutable root `elements` and a validated registry of named `Group` definitions, each containing vector primitives and/or already-built `Instance` references. `StageRenderer` composes group-local pivot transforms through save/translate/rotate/scale/translate/clip/recursive draw/restore. Text scripting never directly executes code or controls Android `Canvas` methods; parsing and geometry validation remain pure Java. The hierarchy is capped to protect low-memory devices.
+
+## Procedural motion contract v0.5
+
+[Audible part motion](AUDIBLE_PART_MOTION_V05.md) extends the story-core/renderer contract: `StoryCore.Segment.motions` is immutable declarative **presentation state**, not an audio cue or synthetic narration event. Valid TTS start chooses the stage animation profile; spoken completion remains exclusive advancement authority. `VectorFigure.Motion.offsetAt(monotonicElapsedMs)` computes a bounded oscillation on a root instance's declared pivot. No part of Canvas or a visual timer can cause `PlaybackState.audibleDone`.
