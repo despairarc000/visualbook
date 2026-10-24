@@ -71,3 +71,5 @@
 - **EV-032:** [VisualBook v0.5 motion APK and regression evidence](../../../implementation/visualbook-player/BUILD_EVIDENCE_MOTION_V05_2026-10-24.md): merged PR #14; 164 pure Java assertions and Android build success; verified artifact CRC and APK SHA-256. Device animation still unverified.
 
 - **EV-033:** [v0.6 render-preview inspector source contract](../design/RENDER_PREVIEW_INSPECTOR_V06.md): immutable scene preview, device→stage→figure coordinate math, preview report and editor-navigation implementation in PR #15. Build and actual device validation pending.
+
+- **EV-034:** [v0.6 Android preview inspector build, 186 tests and APK SHA-256](../../../implementation/visualbook-player/BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md). PR #15 merged, CI passed; physical tap/clipboard/editor test remains open.

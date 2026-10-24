@@ -211,3 +211,10 @@ Never mark an Android feature complete from a Python-only simulation or document
 - [ ] Android CI, Knowledge Doctor and final artifact hash validated.
 - [ ] Phone acceptance: preview controls/copy/jump, no phantom audio effects, realistic coordinate results and usable screen layout.
 - [ ] Improve visual-loop autonomy with user-approved screenshots and bounded shape selection/correction.
+
+## v0.6 render preview Android verified build
+
+- [x] PR #15 merged; [Android CI](https://github.com/despairarc000/visualbook/actions/runs/40049542638) and knowledge doctor success; **186 pure Java assertions**.
+- [x] APK SHA-256 and artifact CRC checks [recorded](../../../implementation/visualbook-player/BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md).
+- [ ] Samsung A06 5G acceptance: tap coordinates, copied report, Edit shape jump, silent preview, and playback independence.
+- [ ] Real image preview/export, path-level hit-tests, undo, visual diff, and automated geometry correction still future improvements.

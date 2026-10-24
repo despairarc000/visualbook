@@ -189,3 +189,7 @@ v0.6 adds a **Preview** button to the Android player. It pauses audio and displa
 There is no dependence on the network or a working TTS voice to inspect story scenes. The pure Java \`RenderInspector\` does not parse mutable Android UI elements, cannot execute untrusted scripts, and uses the same center-and-uniform-fit math as the renderer. This is **a human-assisted preview and AI correction handoff**, not yet an autonomous computer-vision feedback loop: the AI can use copied reports and user screenshots to improve geometry, but the app does not independently interpret its rendered pixels.
 
 The device's class and screen size affect pixel positions, but not the 0–100 stage coordinate space or each \`WxH\` figure-local artboard. The original v0.1–v0.5 apps are unaffected: v0.6 has independent package ID \`com.visualbook.player.inspector.v06\`. Physical rendering and tap-navigation acceptance remain device-test gates.
+
+## v0.6 verified build
+
+[Render-preview APK evidence](BUILD_EVIDENCE_PREVIEW_V06_2026-10-24.md): PR #15 merged, 186 regression assertions passed, Android assembly succeeded, standalone APK extracted and checksummed. User should validate preview/clipboard/editor touch UI before claiming it works on device.
