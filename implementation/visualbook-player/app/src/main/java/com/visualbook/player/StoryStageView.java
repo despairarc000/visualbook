@@ -15,6 +15,7 @@ import com.visualbook.core.RenderInspector;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.IdentityHashMap;
 
 /**
@@ -32,6 +33,7 @@ public final class StoryStageView extends View {
     private long motionStartMs=0L;
     private String background = "classroom", active = "n", visualStyle = "normal";
     private String name1 = "C1", name2 = "C2";
+    private final Map<String,String> castNames = new LinkedHashMap<>();
     private boolean speaking = false;
     private boolean showCoordinateGrid = false;
     private RenderInspector.Hit inspectionPoint = null;
@@ -53,8 +55,18 @@ public final class StoryStageView extends View {
         invalidate();
     }
     public void setStoryBackground(String id) {
-        background = "neutral".equals(id) ? "neutral" : "classroom";
+        background = id==null ? "neutral" : id;
         invalidate();
+    }
+    public void setCastNames(Map<String,String> names) {
+        castNames.clear();
+        if(names!=null)castNames.putAll(names);
+        name1=castNames.getOrDefault("c1","C1");
+        name2=castNames.getOrDefault("c2","C2");
+        invalidate();
+    }
+    public String speakerName(String id) {
+        return "n".equals(id)?"Narrator":castNames.getOrDefault(id,id.toUpperCase());
     }
     public void show(String speaker, boolean isSpeaking) {
         active = speaker == null ? "n" : speaker;
@@ -91,7 +103,7 @@ public final class StoryStageView extends View {
                 Shader.TileMode.CLAMP));
         canvas.drawRect(0, 0, w, h, p); p.setShader(null);
         if ("classroom".equals(background)) classroom(canvas, w, h);
-        else neutral(canvas, w, h);
+        else drawSeriesScene(canvas, w, h);
         if ("chibi".equals(visualStyle)) chibiAccent(canvas, w, h);
         if(showCoordinateGrid)drawCoordinateGrid(canvas,w,h);
         drawCustomFigures(canvas, w, h);
@@ -105,7 +117,8 @@ public final class StoryStageView extends View {
                 Color.rgb(154, 103, 117), Color.rgb(195, 144, 110));
         if (!"n".equals(active) && !"c1".equals(active) && !"c2".equals(active)) {
             drawActor(canvas, w * .50f, foot - size * .18f, size * .80f,
-                    active, active.toUpperCase(), Color.rgb(90, 120, 105), Color.rgb(210, 170, 135));
+                    active, speakerName(active),
+                    guestShirt(active), guestSkin(active));
         }
         if ("n".equals(active) && speaking) {
             p.setColor(Color.rgb(89, 102, 129));
@@ -117,6 +130,162 @@ public final class StoryStageView extends View {
         if(inspectionPoint!=null)drawInspectionPoint(canvas,w,h);
         if (speaking && !reducedMotion)
             postInvalidateDelayed(activeMotions.isEmpty()?80L:48L);
+    }
+
+
+    private int guestShirt(String id) {
+        switch(id) {
+            case "c3": return 0xFF7D659C; // Maria
+            case "c4": return 0xFF8B6046; // library elder
+            case "c5": return 0xFF447C86; // mayor
+            case "c6": return 0xFF8C5950; // craftsperson
+            case "c7": return 0xFF4B526B; // landowner
+            case "c8": return 0xFFE0A457; // young courier
+            case "c9": return 0xFF596B64; // hidden assistant
+            default: return 0xFF678879;
+        }
+    }
+    private int guestSkin(String id){
+        switch(id){
+            case "c3":case "c8": return 0xFFE9BC94;
+            case "c4":case "c5": return 0xFFCD9274;
+            default:return 0xFFD2A887;
+        }
+    }
+
+    /**
+     * Procedural v0.7 story environments. Explicit script scene cues choose
+     * coherent location compositions; this is not hand-painted animation.
+     */
+    private void drawSeriesScene(Canvas c,float w,float h) {
+        switch(background){
+            case "guava": drawOutdoors(c,w,h,0xFFDDEECF,0xFFA0B985);
+                          drawTree(c,w*.77f,h*.73f,w*.19f,true);break;
+            case "plaza": case "plaza_restored":
+                          drawOutdoors(c,w,h,0xFFCFECF4,0xFFBCC9AA);
+                          drawTower(c,w,h,"plaza_restored".equals(background));break;
+            case "library": drawLibrary(c,w,h);break;
+            case "smithy": drawSmithy(c,w,h);break;
+            case "bridge":drawOutdoors(c,w,h,0xFFCFEBDF,0xFFA3BAA0);
+                          drawRiver(c,w,h);drawBridge(c,w,h);break;
+            case "warehouse":drawOutdoors(c,w,h,0xFFF3DFC0,0xFFCAB69C);
+                             drawWarehouse(c,w,h);break;
+            case "river":drawOutdoors(c,w,h,0xFFE6E7C4,0xFFA4B6A6);
+                         drawRiver(c,w,h);break;
+            case "forest":case "balete":
+                          drawOutdoors(c,w,h,0xFFC1DBB6,0xFF6D8C64);
+                          drawTree(c,w*.15f,h*.70f,w*.17f,false);
+                          drawTree(c,w*.78f,h*.78f,w*.23f,false);
+                          if("balete".equals(background)){
+                              p.setColor(0xFF91C9D6);
+                              c.drawOval(new RectF(w*.29f,h*.72f,w*.77f,h*.85f),p);
+                          } break;
+            default:neutral(c,w,h);return;
+        }
+        drawSceneTitle(c,w,h,background);
+    }
+    private void drawSceneTitle(Canvas c,float w,float h,String title){
+        String readable=title.replace('_',' ').toUpperCase(java.util.Locale.ROOT);
+        p.setTextSize(Math.max(12f,Math.min(w,h)*.035f));
+        p.setFakeBoldText(true);
+        float width=p.measureText(readable);
+        rounded(c,w*.035f,h*.035f,w*.035f+width+16f,h*.035f+30f,
+                8f,0xBA273E48);
+        p.setColor(Color.WHITE);
+        c.drawText(readable,w*.035f+8f,h*.035f+21f,p);
+        p.setFakeBoldText(false);
+    }
+    private void drawOutdoors(Canvas c,float w,float h,int sky,int hill) {
+        rect(c,0,0,w,h*.70f,sky);
+        p.setColor(0xFFFFE6A0);
+        c.drawCircle(w*.84f,h*.16f,Math.min(w,h)*.095f,p);
+        p.setColor(hill);
+        c.drawOval(new RectF(-w*.35f,h*.40f,w*.64f,h*.92f),p);
+        c.drawOval(new RectF(w*.30f,h*.47f,w*1.20f,h*.94f),p);
+        rect(c,0,h*.78f,w,h,0xFF9C956E);
+        p.setColor(0x33FFFFFF);
+        for(int i=0;i<8;i++)
+            c.drawOval(new RectF(w*i/8f,h*.89f,w*(i+.35f)/8f,h*.90f),p);
+    }
+    private void drawTree(Canvas c,float x,float y,float r,boolean fruit){
+        rounded(c,x-r*.15f,y-r*2.5f,x+r*.16f,y+r*.30f,r*.12f,0xFF745340);
+        p.setColor(0xFF577E4C);
+        c.drawCircle(x-r*.56f,y-r*2.37f,r*.72f,p);
+        c.drawCircle(x+r*.44f,y-r*2.52f,r*.80f,p);
+        c.drawCircle(x,y-r*3.08f,r*.76f,p);
+        if(fruit){
+            p.setColor(0xFFEAC75A);
+            c.drawCircle(x-r*.42f,y-r*2.36f,r*.11f,p);
+            c.drawCircle(x+r*.50f,y-r*2.76f,r*.12f,p);
+            c.drawCircle(x+r*.12f,y-r*2.30f,r*.1f,p);
+        }
+    }
+    private void drawTower(Canvas c,float w,float h,boolean bell){
+        rect(c,w*.39f,h*.20f,w*.62f,h*.79f,0xFFE8D6B6);
+        rect(c,w*.36f,h*.19f,w*.65f,h*.23f,0xFF967869);
+        rect(c,w*.37f,h*.12f,w*.63f,h*.19f,0xFF8F654E);
+        rounded(c,w*.44f,h*.31f,w*.57f,h*.57f,w*.014f,0xFF493F39);
+        if(bell){
+            p.setColor(0xFFCAA347);
+            c.drawOval(new RectF(w*.465f,h*.40f,w*.545f,h*.51f),p);
+            rect(c,w*.45f,h*.50f,w*.56f,h*.53f,0xFFF0C269);
+        }else{
+            p.setColor(0xFFD0B19C);
+            p.setStrokeWidth(3f);
+            c.drawLine(w*.50f,h*.32f,w*.50f,h*.38f,p);
+        }
+        rounded(c,w*.43f,h*.62f,w*.58f,h*.79f,w*.026f,0xFF745240);
+    }
+    private void drawLibrary(Canvas c,float w,float h){
+        rect(c,0,0,w,h*.78f,0xFFE6D7BB);
+        rect(c,0,h*.78f,w,h,0xFFA47D5D);
+        for(int shelf=0;shelf<3;shelf++){
+            float y=h*(.22f+shelf*.18f);
+            rect(c,w*.12f,y,w*.88f,y+7f,0xFF765640);
+            for(int i=0;i<16;i++){
+                float x=w*(.14f+i*.045f);
+                rect(c,x,y-h*.12f,x+w*.029f,y,
+                        ((i+shelf)%3==0)?0xFF4A7583:
+                        ((i+shelf)%3==1)?0xFFAD7854:0xFF8C9B67);
+            }
+        }
+        rounded(c,w*.33f,h*.69f,w*.69f,h*.83f,8f,0xFF85674B);
+    }
+    private void drawSmithy(Canvas c,float w,float h) {
+        rect(c,0,0,w,h*.78f,0xFFB8AFA5);rect(c,0,h*.78f,w,h,0xFF81756E);
+        rounded(c,w*.62f,h*.40f,w*.84f,h*.78f,8f,0xFF4D4848);
+        p.setColor(0xFFF4A73B);
+        c.drawOval(new RectF(w*.66f,h*.55f,w*.80f,h*.78f),p);
+        p.setColor(0xFFE7D387);
+        c.drawCircle(w*.72f,h*.67f,h*.055f,p);
+        rect(c,w*.25f,h*.66f,w*.53f,h*.73f,0xFF484F52);
+        rect(c,w*.35f,h*.73f,w*.43f,h*.82f,0xFF484F52);
+    }
+    private void drawRiver(Canvas c,float w,float h){
+        p.setColor(0xFF79B4C4);
+        c.drawOval(new RectF(-w*.1f,h*.58f,w*1.2f,h*.94f),p);
+        p.setColor(0x55FFFFFF);
+        for(int i=0;i<5;i++)
+            c.drawOval(new RectF(w*(.03f+i*.21f),h*.69f,
+                    w*(.14f+i*.21f),h*.72f),p);
+    }
+    private void drawBridge(Canvas c,float w,float h){
+        rect(c,w*.15f,h*.54f,w*.86f,h*.60f,0xFF997451);
+        for(int i=0;i<5;i++){
+            float x=w*(.19f+i*.15f);
+            rect(c,x,h*.51f,x+w*.025f,h*.74f,0xFF7B604E);
+        }
+        rect(c,w*.15f,h*.48f,w*.86f,h*.51f,0xFF856B5A);
+    }
+    private void drawWarehouse(Canvas c,float w,float h){
+        rect(c,w*.11f,h*.34f,w*.88f,h*.79f,0xFFB38961);
+        p.setColor(0xFF755748);
+        Path roof=new Path();
+        roof.moveTo(w*.07f,h*.36f);roof.lineTo(w*.48f,h*.17f);
+        roof.lineTo(w*.91f,h*.36f);roof.close();c.drawPath(roof,p);
+        rect(c,w*.38f,h*.51f,w*.62f,h*.79f,0xFF6D503C);
+        rect(c,w*.10f,h*.70f,w*.30f,h*.82f,0xFFB99562);
+        rect(c,w*.72f,h*.66f,w*.91f,h*.82f,0xFFAB8755);
     }
 
     private void classroom(Canvas c, float w, float h) {
