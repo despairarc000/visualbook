@@ -164,9 +164,9 @@ public final class VectorFigureTest {
         try {
             VectorFigure.Builder repeat = new VectorFigure.Builder("repeats","100x100");
             repeat.add("@part bud 20x20");
-            repeat.add("circle 10 10 4 fill:#abc123");
+            for(int i=0;i<5;i++)repeat.add("circle 10 10 4 fill:#abc123");
             repeat.add("@endpart");
-            for(int i=0;i<63;i++)repeat.add("@use bud at:50,50");
+            for(int i=0;i<50;i++)repeat.add("@use bud at:50,50");
             repeat.build();
             throw new AssertionError("Expanded scene budget was ignored");
         } catch(VectorFigure.GeometryException expected){tests++;}
