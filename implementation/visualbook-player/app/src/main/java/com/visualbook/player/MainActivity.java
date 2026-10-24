@@ -195,7 +195,7 @@ public final class MainActivity extends Activity {
                 return insets;
             });
         }
-        TextView header = label("VISUALBOOK  •  THE FIRST STORY",17);
+        TextView header = label("VISUALBOOK  •  RENDER PREVIEW",17);
         header.setTypeface(null,android.graphics.Typeface.BOLD);
         header.setPadding(dp(3),dp(4),0,dp(8));
         root.addView(header);

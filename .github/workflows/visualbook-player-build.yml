@@ -27,6 +27,7 @@ jobs:
           javac -d /tmp/visualbook-core-tests implementation/visualbook-player/story-core/src/main/java/com/visualbook/core/*.java implementation/visualbook-player/story-core/src/test/java/com/visualbook/core/*.java
           java -cp /tmp/visualbook-core-tests com.visualbook.core.StoryCoreTest
           java -cp /tmp/visualbook-core-tests com.visualbook.core.VectorFigureTest
+          java -cp /tmp/visualbook-core-tests com.visualbook.core.RenderInspectorTest
       - name: Android SDK tools
         uses: android-actions/setup-android@v4
         with:
