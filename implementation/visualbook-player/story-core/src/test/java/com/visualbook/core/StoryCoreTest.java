@@ -136,6 +136,44 @@ public final class StoryCoreTest {
                 "authored figure instance rotation survives story compilation");
         error(rigScript.replace("@endpart\n@use head", "@use head"));
         error(rigScript.replace("@endpart\n@use head", "@endpart\n@use missing"));
+        String motionScript="@figure moth 100x100\n" +
+            "@part wing 30x30 pivot:5,25\n" +
+            "circle 15 15 10 fill:#abcdef\n" +
+            "@endpart\n" +
+            "@use wing at:25,45 id:leftwing rotate:0\n" +
+            "@endfigure\n" +
+            "@show moth center\n" +
+            "@animate moth leftwing swing:20 period:800\n" +
+            "@n First sentence. Second sentence!\n" +
+            "@still moth leftwing\n" +
+            "@c3 Third sentence.";
+        StoryCore.Story animatedStory=parse(motionScript,true);
+        ok(animatedStory.segments.size()==3, "motion commands produce no fake spoken lines");
+        ok(animatedStory.segments.get(0).motions.size()==1 &&
+           animatedStory.segments.get(1).motions.size()==1,
+           "motion persists over sentence segmentation and speaker transitions");
+        ok(animatedStory.segments.get(2).motions.isEmpty(),
+           "@still disables only following speech segments");
+        ok(animatedStory.segments.get(0).motions.get("moth/leftwing").periodMs==800,
+           "motion amplitude and cycle survive compilation");
+        ok(parse(motionScript,false).figures.isEmpty(),
+           "plain text never runs scripted animation");
+        error(motionScript.replace("@animate moth leftwing swing:20 period:800",
+              "@animate moth missing swing:20 period:800"));
+        error(motionScript.replace("@animate moth leftwing swing:20 period:800",
+              "@animate moth leftwing swing:90 period:800"));
+        error(motionScript.replace("@animate moth leftwing swing:20 period:800",
+              "@animate moth leftwing swing:NaN period:800"));
+        error(motionScript.replace("@animate moth leftwing swing:20 period:800",
+              "@animate moth leftwing swing:20 period:50"));
+        error(motionScript.replace("@animate moth leftwing swing:20 period:800",
+              "@animate moth leftwing swing:20 period:Infinity"));
+        error(motionScript.replace("@animate moth leftwing swing:20 period:800",
+              "@animate moth leftwing swing:20 period:800 extra"));
+        error(motionScript.replace("@still moth leftwing",
+              "@still moth otherwing"));
+        error(motionScript.replace("@use wing at:25,45 id:leftwing rotate:0",
+              "@use wing at:25,45 rotate:0"));
         PlaybackState state = new PlaybackState(cast.segments);
         String first = state.begin();
         ok(state.index() == 0 && !state.isSpeaking(), "queued is not audible");
