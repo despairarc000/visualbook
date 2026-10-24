@@ -47,6 +47,13 @@ public final class PlaybackState {
     }
     public synchronized void pause() { invalidate(); }
     public synchronized void reset() { invalidate(); index = 0; }
+    /** Explicit listener seek (chapters/resume). Invalidate stale TTS generation. */
+    public synchronized void seek(int targetIndex) {
+        if(targetIndex<0 || targetIndex>segments.size())
+            throw new IllegalArgumentException("Seek outside narration");
+        invalidate();
+        index=targetIndex;
+    }
     /** User-specified text-only fallback; never invoked automatically after TTS error. */
     public synchronized void skip() {
         invalidate();
